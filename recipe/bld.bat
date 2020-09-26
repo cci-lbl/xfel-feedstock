@@ -19,6 +19,8 @@ del /S /Q .\build\*cbflib*
 del /S /Q .\build\lib\cbflib*
 rmdir /S /Q .\modules\dxtbx
 rmdir /S /Q .\modules\cbflib
+rmdir /S /Q .\build\annlib
+rmdir /S /Q .\modules\annlib
 call .\build\bin\libtbx.python %RECIPE_DIR%\clean_env.py
 
 REM remove extra source files (C, C++, Fortran, CUDA)

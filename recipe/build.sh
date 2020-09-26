@@ -24,6 +24,8 @@ rm -fr ./build/*cbflib*
 rm -fr ./build/lib/cbflib*
 rm -fr ./modules/dxtbx
 rm -fr ./modules/cbflib
+rm -fr ./build/annlib
+rm -fr ./modules/annlib
 ./build/bin/libtbx.python ${RECIPE_DIR}/clean_env.py
 
 # remove extra source files (C, C++, Fortran, CUDA)
