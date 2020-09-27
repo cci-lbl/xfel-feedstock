@@ -22,8 +22,11 @@ cd ..
 # remove dxtbx and cbflib
 rm -fr ./build/*cbflib*
 rm -fr ./build/lib/cbflib*
+rm -fr ./build/lib/*dxtbx*
 rm -fr ./modules/dxtbx
 rm -fr ./modules/cbflib
+rm -fr ./build/annlib
+rm -fr ./modules/annlib
 ./build/bin/libtbx.python ${RECIPE_DIR}/clean_env.py
 
 # remove extra source files (C, C++, Fortran, CUDA)
@@ -55,7 +58,7 @@ echo Copying build
 EXTRA_CCTBX_DIR=${PREFIX}/share/cctbx
 mkdir -p ${EXTRA_CCTBX_DIR}
 CCTBX_CONDA_BUILD=./modules/cctbx_project/libtbx/auto_build/conda_build
-./build/bin/libtbx.python ${CCTBX_CONDA_BUILD}/install_build.py
+./build/bin/libtbx.python ${CCTBX_CONDA_BUILD}/install_build.py --preserve-egg-dir
 
 # copy libtbx_env and update dispatchers
 echo Copying libtbx_env

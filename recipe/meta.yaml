@@ -11,12 +11,14 @@ source:
     - crys3d.patch
     - cbf.patch
     - dxtbx.patch
+    - install_build.patch
     - libtbx.patch
     - pytest.patch
     - rstbx.patch
 
 build:
-  number: 0
+  number: 1
+  preserve_egg_dir: True
 
 requirements:
   build:
