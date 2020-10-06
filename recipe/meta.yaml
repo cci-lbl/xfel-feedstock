@@ -8,6 +8,7 @@ source:
   url: https://github.com/cctbx/cctbx_project/releases/download/v{{ version }}/cctbx-{{ version }}.tar.gz
   sha256: 809a3af5fe1cef274a370f479eecf820a89351ce92a64abcdc61caa5b13be098
   patches:
+    - annlib.patch
     - cbf.patch
     - crys3d.patch
     - dxtbx.patch
