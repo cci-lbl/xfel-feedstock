@@ -13,6 +13,7 @@ source:
     - cbf.patch
     - crys3d.patch
     - dxtbx.patch
+    - libtbx.patch
     - pytest.patch
 
 build:

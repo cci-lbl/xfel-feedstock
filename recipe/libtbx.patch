@@ -1,0 +1,16 @@
+diff --git a/modules/cctbx_project/libtbx/env_config.py b/modules/cctbx_project/libtbx/env_config.py
+index 4b76876be5..baa83de2d6 100644
+--- a/modules/cctbx_project/libtbx/env_config.py
++++ b/modules/cctbx_project/libtbx/env_config.py
+@@ -971,6 +971,11 @@ Wait for the command to finish, then try again.""" % vars())
+         enable_cxx11=command_line.options.enable_cxx11,
+         skip_phenix_dispatchers=command_line.options.skip_phenix_dispatchers)
+       self.build_options.get_flags_from_environment()
++      # if an installed environment exists, override with build_options
++      # from installed environment
++      installed_env = get_installed_env()
++      if installed_env is not None:
++        self.build_options = installed_env.build_options
+       if (self.build_options.use_conda):
+         get_conda_prefix()
+       if (command_line.options.command_version_suffix is not None):
