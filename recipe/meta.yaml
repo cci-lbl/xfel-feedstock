@@ -1,4 +1,4 @@
-{% set version = "2020.8" %}
+{% set version = "2020.9" %}
 
 package:
   name: cctbx-base
@@ -6,19 +6,19 @@ package:
 
 source:
   url: https://github.com/cctbx/cctbx_project/releases/download/v{{ version }}/cctbx-{{ version }}.tar.gz
-  sha256: 38b41bb5e3b968e499a35c30de81147abb946c8de2728e90676f24843348b033
+  sha256: 809a3af5fe1cef274a370f479eecf820a89351ce92a64abcdc61caa5b13be098
   patches:
-    - crys3d.patch
+    - annlib.patch
+    - annlib_adaptbx.patch
     - cbf.patch
+    - crys3d.patch
     - dxtbx.patch
-    - install_build.patch
     - libtbx.patch
     - pytest.patch
-    - rstbx.patch
 
 build:
-  number: 1
-  preserve_egg_dir: True
+  number: 0
+  preserve_egg_dir: true
 
 requirements:
   build:
@@ -102,7 +102,7 @@ about:
     - ./licenses/mit.txt
     - ./licenses/wxWindows_3.1.txt
 
-  summary: 'The Computational Crystallography Toolbox'
+  summary: The Computational Crystallography Toolbox
   description: |
     The Computational Crystallography Toolbox (cctbx) is being developed
     as the open source component of the Phenix system. The goal of the

@@ -5,9 +5,13 @@ Home: https://github.com/cctbx/cctbx_project
 
 Package license: BSD-3-Clause-LBNL AND BSD-3-Clause AND BSL-1.0 AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MIT AND LGPL-2.0-or-later WITH WxWindows-exception-3.1
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/cctbx-base-feedstock/blob/master/LICENSE.txt)
 
 Summary: The Computational Crystallography Toolbox
+
+Development: https://github.com/cctbx/cctbx_project
+
+Documentation: https://cctbx.github.io/
 
 The Computational Crystallography Toolbox (cctbx) is being developed
 as the open source component of the Phenix system. The goal of the

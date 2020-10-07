@@ -1,1 +1,3 @@
+azure:
+  store_build_artifacts: true
 conda_forge_output_validation: true
