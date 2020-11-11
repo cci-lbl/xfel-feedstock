@@ -1,8 +1,8 @@
 diff --git a/modules/dxtbx/SConscript b/modules/dxtbx/SConscript
-index fa2f072..41d584e 100644
+index 68ea9b3..41d584e 100644
 --- a/modules/dxtbx/SConscript
 +++ b/modules/dxtbx/SConscript
-@@ -88,88 +88,3 @@ else:
+@@ -88,83 +88,3 @@ else:
      )
      if os.path.exists(psdm_hdf5_path):
          env_etc.dxtbx_hdf5_lib_paths.append(psdm_hdf5_path)
@@ -20,7 +20,7 @@ index fa2f072..41d584e 100644
 -
 -    env.Append(
 -        LIBS=env_etc.libm + ["cctbx", "scitbx_boost_python"] + env_etc.dxtbx_libs,
--        LIBPATH=env_etc.dxtbx_lib_paths,
+-        LIBPATH=env_etc.dxtbx_lib_paths + env_etc.dxtbx_hdf5_lib_paths,
 -    )
 -
 -    if env_etc.clang_version:
@@ -31,7 +31,6 @@ index fa2f072..41d584e 100644
 -        target="#lib/dxtbx_ext",
 -        source=["boost_python/to_ewald_sphere_helpers.cc", "boost_python/ext.cpp"],
 -        LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs,
--        LIBPATH=env_etc.dxtbx_lib_paths,
 -    )
 -
 -    nexus = env.SharedLibrary(
@@ -41,7 +40,6 @@ index fa2f072..41d584e 100644
 -        + env_etc.libm
 -        + env_etc.dxtbx_libs
 -        + env_etc.dxtbx_hdf5_libs,
--        LIBPATH=env_etc.dxtbx_lib_paths + env_etc.dxtbx_hdf5_lib_paths,
 -    )
 -
 -    imageset = env.SharedLibrary(
@@ -51,7 +49,6 @@ index fa2f072..41d584e 100644
 -        + env_etc.libm
 -        + env_etc.dxtbx_libs
 -        + env_etc.dxtbx_hdf5_libs,
--        LIBPATH=env_etc.dxtbx_lib_paths + env_etc.dxtbx_hdf5_lib_paths,
 -    )
 -
 -    image = env.SharedLibrary(
@@ -64,7 +61,6 @@ index fa2f072..41d584e 100644
 -        + env_etc.libm
 -        + env_etc.dxtbx_libs
 -        + env_etc.dxtbx_hdf5_libs,
--        LIBPATH=env_etc.dxtbx_lib_paths + env_etc.dxtbx_hdf5_lib_paths,
 -    )
 -
 -    model = env.SharedLibrary(
@@ -87,7 +83,6 @@ index fa2f072..41d584e 100644
 -            "model/boost_python/model_ext.cc",
 -        ],
 -        LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs + env["LIBS"],
--        LIBPATH=env_etc.dxtbx_lib_paths,
 -    )
 -
 -    env.SConscript("masking/SConscript", exports={"env": env})
