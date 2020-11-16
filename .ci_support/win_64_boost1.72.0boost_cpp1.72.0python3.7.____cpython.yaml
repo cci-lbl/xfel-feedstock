@@ -31,3 +31,5 @@ target_platform:
 zip_keys:
 - - boost
   - boost_cpp
+- - numpy
+  - python
