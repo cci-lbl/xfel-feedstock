@@ -1,5 +1,6 @@
 REM copy bootstrap.py
 copy modules\cctbx_project\libtbx\auto_build\bootstrap.py .
+if %errorlevel% neq 0 exit /b %errorlevel%
 
 REM remove extra source code
 rmdir /S /Q .\modules\boost
@@ -8,10 +9,14 @@ rmdir /S /Q .\modules\scons
 
 REM build
 %PYTHON% bootstrap.py build --builder=cctbx --use-conda %PREFIX% --nproc %CPU_COUNT% --config-flags="--enable_cxx11" --config-flags="--no_bin_python" --config-flags="--skip_phenix_dispatchers"
+if %errorlevel% neq 0 exit /b %errorlevel%
 cd build
 call .\bin\libtbx.configure cma_es crys3d fable rstbx spotinder
+if %errorlevel% neq 0 exit /b %errorlevel%
 call .\bin\libtbx.scons -j %CPU_COUNT%
+if %errorlevel% neq 0 exit /b %errorlevel%
 call .\bin\libtbx.scons -j %CPU_COUNT%
+if %errorlevel% neq 0 exit /b %errorlevel%
 cd ..
 
 REM remove dxtbx and cbflib
@@ -22,6 +27,7 @@ rmdir /S /Q .\modules\cbflib
 rmdir /S /Q .\build\annlib
 rmdir /S /Q .\modules\annlib
 call .\build\bin\libtbx.python %RECIPE_DIR%\clean_env.py
+if %errorlevel% neq 0 exit /b %errorlevel%
 
 REM remove extra source files (C, C++, Fortran, CUDA)
 cd build
@@ -46,11 +52,14 @@ SET EXTRA_CCTBX_DIR=%LIBRARY_PREFIX%\share\cctbx
 mkdir  %EXTRA_CCTBX_DIR%
 SET CCTBX_CONDA_BUILD=.\modules\cctbx_project\libtbx\auto_build\conda_build
 call .\build\bin\libtbx.python %CCTBX_CONDA_BUILD%\install_build.py --prefix %LIBRARY_PREFIX% --sp-dir %SP_DIR% --ext-dir %PREFIX%\lib --preserve-egg-dir
+if %errorlevel% neq 0 exit /b %errorlevel%
 
 REM copy libtbx_env and update dispatchers
 echo Copying libtbx_env
 call .\build\bin\libtbx.python %CCTBX_CONDA_BUILD%\update_libtbx_env.py
+if %errorlevel% neq 0 exit /b %errorlevel%
 %PYTHON% %CCTBX_CONDA_BUILD%\update_libtbx_env.py
+if %errorlevel% neq 0 exit /b %errorlevel%
 
 REM remove extra copies of dispatchers
 attrib +H %LIBRARY_BIN%\libtbx.show_build_path.bat

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # link bootstrap.py
 ln -s modules/cctbx_project/libtbx/auto_build/bootstrap.py
