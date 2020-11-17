@@ -7,7 +7,7 @@ boost_cpp:
 c_compiler:
 - clang
 c_compiler_version:
-- '10'
+- '11'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -15,7 +15,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '10'
+- '11'
 libsvm:
 - '3.21'
 macos_machine:
@@ -34,6 +34,8 @@ pin_run_as_build:
     max_pin: x.x
 python:
 - 3.7.* *_cpython
+python_impl:
+- cpython
 target_platform:
 - osx-64
 zip_keys:
@@ -43,3 +45,4 @@ zip_keys:
   - cxx_compiler_version
 - - numpy
   - python
+  - python_impl

@@ -13,7 +13,7 @@ source:
     - dxtbx.patch
 
 build:
-  number: 0
+  number: 1
   preserve_egg_dir: true
 
 requirements:
@@ -66,6 +66,9 @@ outputs:
         - gltbx.glu
       commands:
         - libtbx.show_commands
+        - pip check
+      requires:
+        - pip
 
   - name: cctbx
     build:
@@ -82,6 +85,9 @@ outputs:
         - gltbx.glu
       commands:
         - libtbx.show_commands
+        - pip check
+      requires:
+        - pip
 
 about:
   home: https://github.com/cctbx/cctbx_project
