@@ -77,7 +77,7 @@ outputs:
         - {{ pin_subpackage('cctbx-base', max_pin="x.x.x") }}
         - ipython
         - pyside2  # [not osx and not aarch64 and not ppc64le and python_impl == "cpython"]
-        - wxpython  # [not osx and not aarch64 and not ppc64le and python_impl == "cpython" and py<39]
+        - wxpython  # [not osx and not aarch64 and not ppc64le and python_impl == "cpython" and not py==39]
     test:
       imports:
         - scitbx.array_family.flex
