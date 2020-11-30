@@ -1,0 +1,48 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '10.9'
+boost:
+- 1.72.0
+boost_cpp:
+- 1.72.0
+c_compiler:
+- clang
+c_compiler_version:
+- '11'
+channel_sources:
+- conda-forge,defaults
+channel_targets:
+- conda-forge main
+cxx_compiler:
+- clangxx
+cxx_compiler_version:
+- '11'
+libsvm:
+- '3.21'
+macos_machine:
+- x86_64-apple-darwin13.4.0
+numpy:
+- '1.19'
+pin_run_as_build:
+  boost:
+    max_pin: x.x.x
+  boost-cpp:
+    max_pin: x.x.x
+  libsvm:
+    max_pin: x.x
+  python:
+    min_pin: x.x
+    max_pin: x.x
+python:
+- 3.9.* *_cpython
+python_impl:
+- cpython
+target_platform:
+- osx-64
+zip_keys:
+- - boost
+  - boost_cpp
+- - c_compiler_version
+  - cxx_compiler_version
+- - numpy
+  - python
+  - python_impl
