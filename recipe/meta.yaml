@@ -59,6 +59,7 @@ outputs:
         - python
         - python.app  # [osx]
         - reportlab
+        - requests
         - six
     test:
       imports:
