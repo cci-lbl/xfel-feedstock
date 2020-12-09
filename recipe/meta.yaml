@@ -1,4 +1,4 @@
-{% set version = "2020.10" %}
+{% set version = "2020.11" %}
 
 package:
   name: cctbx-base
@@ -6,14 +6,15 @@ package:
 
 source:
   url: https://github.com/cctbx/cctbx_project/releases/download/v{{ version }}/cctbx-{{ version }}.tar.gz
-  sha256: d229ed759a63aed02e3a32582ce7980cd5cc815c5a9f094d2902f0533bcd68d5
+  sha256: 8913aaaffa666ba09c95985c345418ed8a4f7e26560d3d0642c0354b97e547ca
   patches:
     - cbf.patch
+    - compiler.patch
     - crys3d.patch
     - dxtbx.patch
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win and py==39]
   preserve_egg_dir: true
 
@@ -59,6 +60,7 @@ outputs:
         - python
         - python.app  # [osx]
         - reportlab
+        - requests
         - six
     test:
       imports:
