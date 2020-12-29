@@ -9,7 +9,6 @@ source:
   sha256: 87f24bf5535314b109258a2d42b3b6c4e944fe5a13dbd5ea38c4309c7c243c42
   patches:
     - cbf.patch
-    - compiler.patch
     - crys3d.patch
     - dxtbx.patch
 
