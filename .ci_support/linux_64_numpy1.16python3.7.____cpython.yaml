@@ -1,7 +1,7 @@
 boost:
-- 1.72.0
+- 1.74.0
 boost_cpp:
-- 1.72.0
+- 1.74.0
 c_compiler:
 - gcc
 c_compiler_version:
@@ -39,10 +39,10 @@ python_impl:
 target_platform:
 - linux-64
 zip_keys:
-- - boost
-  - boost_cpp
 - - c_compiler_version
   - cxx_compiler_version
-- - numpy
-  - python
+- - cdt_name
+  - docker_image
+- - python
+  - numpy
   - python_impl

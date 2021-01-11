@@ -1,9 +1,9 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
 boost:
-- 1.72.0
+- 1.74.0
 boost_cpp:
-- 1.72.0
+- 1.74.0
 c_compiler:
 - clang
 c_compiler_version:
@@ -39,10 +39,8 @@ python_impl:
 target_platform:
 - osx-64
 zip_keys:
-- - boost
-  - boost_cpp
 - - c_compiler_version
   - cxx_compiler_version
-- - numpy
-  - python
+- - python
+  - numpy
   - python_impl
