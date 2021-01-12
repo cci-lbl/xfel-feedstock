@@ -1,0 +1,13 @@
+diff --git a/modules/cctbx_project/libtbx/auto_build/bootstrap.py b/modules/cctbx_project/libtbx/auto_build/bootstrap.py
+index fd20008e93..dd1044fcd8 100644
+--- a/modules/cctbx_project/libtbx/auto_build/bootstrap.py
++++ b/modules/cctbx_project/libtbx/auto_build/bootstrap.py
+@@ -1815,7 +1815,7 @@ environment exists in or is defined by {conda_env}.
+       # conda python prefers no environment customizations
+       # the get_environment function in ShellCommand updates the environment
+       env = {
+-        'PYTHONPATH': None,
++        # 'PYTHONPATH': None,
+         'LD_LIBRARY_PATH': None,
+         'DYLD_LIBRARY_PATH': None
+       }

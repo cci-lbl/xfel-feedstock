@@ -26,7 +26,7 @@ if [[ "$CC" == *"arm64"* ]]; then
   #   "$PREFIX/lib/libpython${PY_VER}.dylib" $PREFIX/python.app/Contents/MacOS/python
 
   # update PYTHONPATH
-  export PYTHONPATH=${PYTHONPATH}:${SP_DIR}
+  # export PYTHONPATH=${PYTHONPATH}:${SP_DIR}
 fi
 
 # link bootstrap.py
