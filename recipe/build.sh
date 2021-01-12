@@ -22,8 +22,8 @@ if [[ "$CC" == *"arm64"* ]]; then
   rm $PREFIX/python.app/Contents/MacOS/python
   # cp $BUILD_PREFIX/venv/cross/bin/python $PREFIX/python.app/Contents/MacOS/python
   cp $PREFIX/bin/python $PREFIX/python.app/Contents/MacOS/python
-  ${INSTALL_NAME_TOOL:-install_name_tool} -change "@loader_path/../lib/libpython${PY_VER}.dylib" \
-    "$PREFIX/lib/libpython${PY_VER}.dylib" $PREFIX/python.app/Contents/MacOS/python
+  # ${INSTALL_NAME_TOOL:-install_name_tool} -change "@loader_path/../lib/libpython${PY_VER}.dylib" \
+  #   "$PREFIX/lib/libpython${PY_VER}.dylib" $PREFIX/python.app/Contents/MacOS/python
 fi
 
 # link bootstrap.py
