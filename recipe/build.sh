@@ -17,12 +17,13 @@ if [[ "$CC" == *"arm64"* ]]; then
           --without-pip $BUILD_PREFIX/venv \
           --sysconfigdata-file $PREFIX/lib/python$PY_VER/${_CONDA_PYTHON_SYSCONFIGDATA_NAME_BACKUP}.py
 
-      rm $PREFIX/python.app/Contents/MacOS/python
-      cp $BUILD_PREFIX/venv/cross/bin/python $PREFIX/python.app/Contents/MacOS/python
-      ${INSTALL_NAME_TOOL:-install_name_tool} -change "@loader_path/../lib/libpython${PY_VER}.dylib" \
-        "$PREFIX/lib/libpython${PY_VER}.dylib" $PREFIX/python.app/Contents/MacOS/python
     fi
   fi
+
+  rm $PREFIX/python.app/Contents/MacOS/python
+  cp $BUILD_PREFIX/venv/cross/bin/python $PREFIX/python.app/Contents/MacOS/python
+  ${INSTALL_NAME_TOOL:-install_name_tool} -change "@loader_path/../lib/libpython${PY_VER}.dylib" \
+    "$PREFIX/lib/libpython${PY_VER}.dylib" $PREFIX/python.app/Contents/MacOS/python
 fi
 
 # link bootstrap.py
