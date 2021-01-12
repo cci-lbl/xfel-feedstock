@@ -1,9 +1,15 @@
 #!/bin/bash
+set -e
+
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/ccp4io/libccp4/build-aux
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/cbflib/libtool
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/cbflib
-set -e
+
+# copy python to python.app python on osx-arm64 to avoid Bad CPU type error
+if [[ "$CC" == *"arm64"* ]]; then
+  cp $BUILD_PREFIX/venv/cross/bin/python $PREFIX/python.app/Contents/MacOS/python
+fi
 
 # link bootstrap.py
 ln -s modules/cctbx_project/libtbx/auto_build/bootstrap.py
