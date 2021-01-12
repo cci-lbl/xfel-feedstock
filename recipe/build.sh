@@ -25,8 +25,8 @@ if [[ "$CC" == *"arm64"* ]]; then
   # ${INSTALL_NAME_TOOL:-install_name_tool} -change "@loader_path/../lib/libpython${PY_VER}.dylib" \
   #   "$PREFIX/lib/libpython${PY_VER}.dylib" $PREFIX/python.app/Contents/MacOS/python
 
-  # install six and future
-  $PREFIX/python.app/Contents/MacOS/python -m pip install six future
+  # update PYTHONPATH
+  export PYTHONPATH=${PYTHONPATH}:${SP_DIR}
 fi
 
 # link bootstrap.py
