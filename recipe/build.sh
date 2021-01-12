@@ -9,7 +9,7 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/cbflib
 # update python.app python on osx-arm64 to avoid Bad CPU type error
 if [[ "$CC" == *"arm64"* ]]; then
   rm $PREFIX/python.app/Contents/MacOS/python
-  ln -s $PREFIX/bin/python $PREFIX/python.app/Contents/MacOS/python
+  cp $PREFIX/bin/python $PREFIX/python.app/Contents/MacOS/python
   ${INSTALL_NAME_TOOL:-install_name_tool} -change "@loader_path/../lib/libpython${PY_VER}.dylib" \
     "$PREFIX/lib/libpython${PY_VER}.dylib" $PREFIX/python.app/Contents/MacOS/python
 fi
