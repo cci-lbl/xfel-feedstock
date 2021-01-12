@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -xe
 
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/ccp4io/libccp4/build-aux
@@ -8,8 +8,11 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/cbflib
 
 # update python.app python on osx-arm64 to avoid Bad CPU type error
 if [[ "$CC" == *"arm64"* ]]; then
-  _CONDA_PYTHON_SYSCONFIGDATA_NAME_BACKUP=${_CONDA_PYTHON_SYSCONFIGDATA_NAME}
-  unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
+  echo ${_CONDA_PYTHON_SYSCONFIGDATA_NAME_BACKUP}
+  echo ${PYTHONPATH}
+  ls $BUILD_PREFIX/venv/lib/python$PY_VER/site-packages
+  # _CONDA_PYTHON_SYSCONFIGDATA_NAME_BACKUP=${_CONDA_PYTHON_SYSCONFIGDATA_NAME}
+  # unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
   $BUILD_PREFIX/bin/python -m crossenv $PREFIX/bin/python \
       --sysroot $CONDA_BUILD_SYSROOT \
       --without-pip $BUILD_PREFIX/venv \
