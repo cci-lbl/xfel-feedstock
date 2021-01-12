@@ -7,7 +7,15 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/cbflib/libtool
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/cbflib
 
 # copy python to python.app python on osx-arm64 to avoid Bad CPU type error
-if [[ "$CC" == *"arm64"* ]]; then
+if [[ "${CONDA_BUILD:-0}" == "1" && "${CONDA_BUILD_STATE}" != "TEST" ]]; then
+  _CONDA_PYTHON_SYSCONFIGDATA_NAME_BACKUP=${_CONDA_PYTHON_SYSCONFIGDATA_NAME}
+  unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
+  if [[ ! -d $BUILD_PREFIX/venv ]]; then
+    $BUILD_PREFIX/bin/python -m crossenv $PREFIX/bin/python \
+        --sysroot $CONDA_BUILD_SYSROOT \
+        --without-pip $BUILD_PREFIX/venv \
+        --sysconfigdata-file $PREFIX/lib/python$PY_VER/${_CONDA_PYTHON_SYSCONFIGDATA_NAME_BACKUP}.py
+
   cp $BUILD_PREFIX/venv/cross/bin/python $PREFIX/python.app/Contents/MacOS/python
 fi
 
