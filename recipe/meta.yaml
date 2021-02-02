@@ -1,4 +1,4 @@
-{% set version = "2020.12" %}
+{% set version = "2021.1" %}
 
 package:
   name: cctbx-base
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/cctbx/cctbx_project/releases/download/v{{ version }}/cctbx-{{ version }}.tar.gz
-  sha256: 87f24bf5535314b109258a2d42b3b6c4e944fe5a13dbd5ea38c4309c7c243c42
+  sha256: 008f50258816f6324ce60f695bfd5cb9ca557ad120e8a8a6e86aa6619a0e7aa7
   patches:
     - cbf.patch
     - crys3d.patch
