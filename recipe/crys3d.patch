@@ -1,7 +1,7 @@
 diff --git a/modules/cctbx_project/crys3d/hklview/jsview_3d.py b/modules/cctbx_project/crys3d/hklview/jsview_3d.py
 index aa50c7d681..1767b6cc20 100644
---- a/crys3d/hklview/jsview_3d.py
-+++ b/crys3d/hklview/jsview_3d.py
+--- a/modules/cctbx_project/crys3d/hklview/jsview_3d.py
++++ b/modules/cctbx_project/crys3d/hklview/jsview_3d.py
 @@ -285,9 +285,9 @@ class hklview_3d:
  </body></html>
 
