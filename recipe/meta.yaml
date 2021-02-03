@@ -85,6 +85,8 @@ outputs:
         - {{ pin_subpackage('cctbx-base', max_pin="x.x.x") }}
         - ipython
         - pyside2  # [not osx and not aarch64 and not ppc64le and python_impl == "cpython"]
+        - pyzmq
+        - websockets
         - wxpython  # [not osx and not aarch64 and not ppc64le and python_impl == "cpython" and py<39]
     test:
       imports:
