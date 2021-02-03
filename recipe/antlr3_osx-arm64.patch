@@ -1,0 +1,2350 @@
+diff --git a/modules/cctbx_project/ucif/antlr3/COPYING b/modules/cctbx_project/ucif/antlr3/COPYING
+new file mode 100644
+index 0000000000..f62f896685
+--- /dev/null
++++ b/modules/cctbx_project/ucif/antlr3/COPYING
+@@ -0,0 +1,29 @@
++// [The "BSD licence"]
++// Copyright (c) 2005-2009 Jim Idle, Temporal Wave LLC
++// http://www.temporal-wave.com
++// http://www.linkedin.com/in/jimidle
++//
++// All rights reserved.
++//
++// Redistribution and use in source and binary forms, with or without
++// modification, are permitted provided that the following conditions
++// are met:
++// 1. Redistributions of source code must retain the above copyright
++//    notice, this list of conditions and the following disclaimer.
++// 2. Redistributions in binary form must reproduce the above copyright
++//    notice, this list of conditions and the following disclaimer in the
++//    documentation and/or other materials provided with the distribution.
++// 3. The name of the author may not be used to endorse or promote products
++//    derived from this software without specific prior written permission.
++//
++// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
++// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
++// OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
++// IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
++// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
++// NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
++// THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++
+diff --git a/modules/cctbx_project/ucif/antlr3/NOTES b/modules/cctbx_project/ucif/antlr3/NOTES
+index bd9e600f79..f1337afef6 100644
+--- a/modules/cctbx_project/ucif/antlr3/NOTES
++++ b/modules/cctbx_project/ucif/antlr3/NOTES
+@@ -1,2 +1,4 @@
+-tar zxvf antlr_python_runtime-3.1.2.tar.gz antlr_python_runtime-3.1.2/antlr3 --strip-components 2
+-tar zxvf libantlr3c-3.2.tar.gz libantlr3c-3.2 --strip-components 1
++This is v3.5.2 of antlr3 from https://github.com/antlr/antlr3
++
++The include and src directories are copies of runtime/C/include and
++runtime/C/src, respectively.
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3.h b/modules/cctbx_project/ucif/antlr3/include/antlr3.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3baserecognizer.h b/modules/cctbx_project/ucif/antlr3/include/antlr3baserecognizer.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3basetree.h b/modules/cctbx_project/ucif/antlr3/include/antlr3basetree.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3basetreeadaptor.h b/modules/cctbx_project/ucif/antlr3/include/antlr3basetreeadaptor.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3bitset.h b/modules/cctbx_project/ucif/antlr3/include/antlr3bitset.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3collections.h b/modules/cctbx_project/ucif/antlr3/include/antlr3collections.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3commontoken.h b/modules/cctbx_project/ucif/antlr3/include/antlr3commontoken.h
+old mode 100755
+new mode 100644
+index 26dd59ecab..a04de115f9
+--- a/modules/cctbx_project/ucif/antlr3/include/antlr3commontoken.h
++++ b/modules/cctbx_project/ucif/antlr3/include/antlr3commontoken.h
+@@ -126,6 +126,11 @@ typedef struct ANTLR3_COMMON_TOKEN_struct
+      */
+     ANTLR3_UINT32   line;
+
++    /** The offset into the input stream that the line in which this
++     *  token resides starts.
++     */
++    void            * lineStart;
++
+     /** The character position in the line that this token was derived from
+      */
+     ANTLR3_INT32    charPosition;
+@@ -182,6 +187,33 @@ typedef struct ANTLR3_COMMON_TOKEN_struct
+         }
+                 tokText;
+
++    /**  Because it is a bit more of a hassle to override an ANTLR3_COMMON_TOKEN
++     *   as the standard structure for a token, a number of user programmable
++     *   elements are allowed in a token. This is one of them.
++     */
++    ANTLR3_UINT32   user1;
++
++    /**  Because it is a bit more of a hassle to override an ANTLR3_COMMON_TOKEN
++     *   as the standard structure for a token, a number of user programmable
++     *   elements are allowed in a token. This is one of them.
++     */
++    ANTLR3_UINT32   user2;
++
++    /**  Because it is a bit more of a hassle to override an ANTLR3_COMMON_TOKEN
++     *   as the standard structure for a token, a number of user programmable
++     *   elements are allowed in a token. This is one of them.
++     */
++    ANTLR3_UINT32   user3;
++
++    /** Pointer to a custom element that the ANTLR3 programmer may define and install
++     */
++    void    * custom;
++
++    /** Pointer to a function that knows how to free the custom structure when the
++     *  token is destroyed.
++     */
++    void    (*freeCustom)(void * custom);
++
+     /* ==============================
+      * API
+      */
+@@ -209,10 +241,49 @@ typedef struct ANTLR3_COMMON_TOKEN_struct
+      */
+     void            (*setText8)(struct ANTLR3_COMMON_TOKEN_struct * token, pANTLR3_UINT8 text);
+
++    /** Pointer to a function that returns the token type of this token
++     */
++    ANTLR3_UINT32   (*getType)(struct ANTLR3_COMMON_TOKEN_struct * token);
++
+     /** Pointer to a function that sets the type of this token
+      */
+     void            (*setType)(struct ANTLR3_COMMON_TOKEN_struct * token, ANTLR3_UINT32 ttype);
+
++    /** Pointer to a function that gets the 'line' number where this token resides
++     */
++    ANTLR3_UINT32   (*getLine)(struct ANTLR3_COMMON_TOKEN_struct * token);
++
++    /** Pointer to a function that sets the 'line' number where this token reside
++     */
++    void            (*setLine)(struct ANTLR3_COMMON_TOKEN_struct * token, ANTLR3_UINT32 line);
++
++    /** Pointer to a function that gets the offset in the line where this token exists
++     */
++    ANTLR3_INT32    (*getCharPositionInLine)    (struct ANTLR3_COMMON_TOKEN_struct * token);
++
++    /** Pointer to a function that sets the offset in the line where this token exists
++     */
++    void            (*setCharPositionInLine)    (struct ANTLR3_COMMON_TOKEN_struct * token, ANTLR3_INT32 pos);
++
++    /** Pointer to a function that gets the channel that this token was placed in (parsers
++     *  can 'tune' to these channels.
++     */
++    ANTLR3_UINT32   (*getChannel)       (struct ANTLR3_COMMON_TOKEN_struct * token);
++
++    /** Pointer to a function that sets the channel that this token should belong to
++     */
++    void            (*setChannel)       (struct ANTLR3_COMMON_TOKEN_struct * token, ANTLR3_UINT32 channel);
++
++    /** Pointer to a function that returns an index 0...n-1 of the token in the token
++     *  input stream.
++     */
++    ANTLR3_MARKER   (*getTokenIndex)    (struct ANTLR3_COMMON_TOKEN_struct * token);
++
++    /** Pointer to a function that can set the token index of this token in the token
++     *  input stream.
++     */
++    void                        (*setTokenIndex)        (struct ANTLR3_COMMON_TOKEN_struct * token, ANTLR3_MARKER);
++
+     /** Pointer to a function that gets the start index in the input stream for this token.
+      */
+     ANTLR3_MARKER   (*getStartIndex)    (struct ANTLR3_COMMON_TOKEN_struct * token);
+@@ -221,9 +292,20 @@ typedef struct ANTLR3_COMMON_TOKEN_struct
+      */
+     void                        (*setStartIndex)        (struct ANTLR3_COMMON_TOKEN_struct * token, ANTLR3_MARKER index);
+
++    /** Pointer to a function that gets the stop index in the input stream for this token.
++     */
++    ANTLR3_MARKER   (*getStopIndex)     (struct ANTLR3_COMMON_TOKEN_struct * token);
++
+     /** Pointer to a function that sets the stop index in the input stream for this token.
+      */
+     void                        (*setStopIndex) (struct ANTLR3_COMMON_TOKEN_struct * token, ANTLR3_MARKER index);
++
++    /** Pointer to a function that returns this token as a text representation that can be
++     *  printed with embedded control codes such as \n replaced with the printable sequence "\\n"
++     *  This also yields a string structure that can be used more easily than the pointer to
++     *  the input stream in certain situations.
++     */
++    pANTLR3_STRING  (*toString)         (struct ANTLR3_COMMON_TOKEN_struct * token);
+ }
+     ANTLR3_COMMON_TOKEN;
+
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3commontree.h b/modules/cctbx_project/ucif/antlr3/include/antlr3commontree.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3commontreeadaptor.h b/modules/cctbx_project/ucif/antlr3/include/antlr3commontreeadaptor.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3commontreenodestream.h b/modules/cctbx_project/ucif/antlr3/include/antlr3commontreenodestream.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3convertutf.h b/modules/cctbx_project/ucif/antlr3/include/antlr3convertutf.h
+old mode 100755
+new mode 100644
+index 6802447aa4..2b6f6f844a
+--- a/modules/cctbx_project/ucif/antlr3/include/antlr3convertutf.h
++++ b/modules/cctbx_project/ucif/antlr3/include/antlr3convertutf.h
+@@ -137,9 +137,6 @@ typedef enum {
+ /* This is for C++ and does no harm in C */
+ #ifdef __cplusplus
+ extern "C" {
+-#else
+-#  define false               ANTLR3_FALSE
+-#  define true                ANTLR3_TRUE
+ #endif
+
+ ConversionResult ConvertUTF8toUTF16 (
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3cyclicdfa.h b/modules/cctbx_project/ucif/antlr3/include/antlr3cyclicdfa.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3debugeventlistener.h b/modules/cctbx_project/ucif/antlr3/include/antlr3debugeventlistener.h
+old mode 100755
+new mode 100644
+index e3b3d67ef6..d24215fc05
+--- a/modules/cctbx_project/ucif/antlr3/include/antlr3debugeventlistener.h
++++ b/modules/cctbx_project/ucif/antlr3/include/antlr3debugeventlistener.h
+@@ -73,7 +73,7 @@ typedef struct ANTLR3_DEBUG_EVENT_LISTENER_struct
+         /** The version of the debugging protocol supported by the providing
+          *  instance of the debug event listener.
+          */
+-        int                                     PROTOCOL_VERSION;
++        int                                     protocol_version;
+
+         /// The name of the grammar file that we are debugging
+         ///
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3defs.h b/modules/cctbx_project/ucif/antlr3/include/antlr3defs.h
+old mode 100755
+new mode 100644
+index d3da9d0111..94ed459d03
+--- a/modules/cctbx_project/ucif/antlr3/include/antlr3defs.h
++++ b/modules/cctbx_project/ucif/antlr3/include/antlr3defs.h
+@@ -111,6 +111,10 @@
+ # define        ANTLR3_WIN64
+ # define        ANTLR3_USE_64BIT
+
++#elif __LP64__
++
++# define ANTLR3_USE_64BIT
++
+ #else
+
+ #ifdef  _WIN32
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3encodings.h b/modules/cctbx_project/ucif/antlr3/include/antlr3encodings.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3errors.h b/modules/cctbx_project/ucif/antlr3/include/antlr3errors.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3exception.h b/modules/cctbx_project/ucif/antlr3/include/antlr3exception.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3filestream.h b/modules/cctbx_project/ucif/antlr3/include/antlr3filestream.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3input.h b/modules/cctbx_project/ucif/antlr3/include/antlr3input.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3interfaces.h b/modules/cctbx_project/ucif/antlr3/include/antlr3interfaces.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3intstream.h b/modules/cctbx_project/ucif/antlr3/include/antlr3intstream.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3lexer.h b/modules/cctbx_project/ucif/antlr3/include/antlr3lexer.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3memory.h b/modules/cctbx_project/ucif/antlr3/include/antlr3memory.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3parser.h b/modules/cctbx_project/ucif/antlr3/include/antlr3parser.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3parsetree.h b/modules/cctbx_project/ucif/antlr3/include/antlr3parsetree.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3recognizersharedstate.h b/modules/cctbx_project/ucif/antlr3/include/antlr3recognizersharedstate.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3rewritestreams.h b/modules/cctbx_project/ucif/antlr3/include/antlr3rewritestreams.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3string.h b/modules/cctbx_project/ucif/antlr3/include/antlr3string.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3tokenstream.h b/modules/cctbx_project/ucif/antlr3/include/antlr3tokenstream.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/include/antlr3treeparser.h b/modules/cctbx_project/ucif/antlr3/include/antlr3treeparser.h
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3baserecognizer.c b/modules/cctbx_project/ucif/antlr3/src/antlr3baserecognizer.c
+old mode 100755
+new mode 100644
+index 510acac568..38171adae6
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3baserecognizer.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3baserecognizer.c
+@@ -345,8 +345,8 @@ antlr3RecognitionExceptionNew(pANTLR3_BASE_RECOGNIZER recognizer)
+         case    ANTLR3_TOKENSTREAM:
+
+                 ex->token               = cts->tstream->_LT                                             (cts->tstream, 1);          /* Current input token                          */
+-                ex->line                = ((pANTLR3_COMMON_TOKEN)(ex->token))->line;
+-                ex->charPositionInLine  = ((pANTLR3_COMMON_TOKEN)(ex->token))->charPosition;
++                ex->line                = ((pANTLR3_COMMON_TOKEN)(ex->token))->getLine                  ((pANTLR3_COMMON_TOKEN)(ex->token));
++                ex->charPositionInLine  = ((pANTLR3_COMMON_TOKEN)(ex->token))->getCharPositionInLine    ((pANTLR3_COMMON_TOKEN)(ex->token));
+                 ex->index               = cts->tstream->istream->index                                  (cts->tstream->istream);
+                 if      (((pANTLR3_COMMON_TOKEN)(ex->token))->type == ANTLR3_TOKEN_EOF)
+                 {
+@@ -362,8 +362,8 @@ antlr3RecognitionExceptionNew(pANTLR3_BASE_RECOGNIZER recognizer)
+         case    ANTLR3_COMMONTREENODE:
+
+                 ex->token               = tns->_LT                                                  (tns, 1);       /* Current input tree node                      */
+-                ex->line                = ((pANTLR3_BASE_TREE)(ex->token))->getLine                 (ex->token);
+-                ex->charPositionInLine  = ((pANTLR3_BASE_TREE)(ex->token))->getCharPositionInLine   (ex->token);
++                ex->line                = ((pANTLR3_BASE_TREE)(ex->token))->getLine                 ((pANTLR3_BASE_TREE)(ex->token));
++                ex->charPositionInLine  = ((pANTLR3_BASE_TREE)(ex->token))->getCharPositionInLine   ((pANTLR3_BASE_TREE)(ex->token));
+                 ex->index               = tns->istream->index                                       (tns->istream);
+
+                 // Are you ready for this? Deep breath now...
+@@ -586,7 +586,7 @@ mismatchIsMissingToken(pANTLR3_BASE_RECOGNIZER recognizer, pANTLR3_INT_STREAM is
+                 // EOR can follow, but if we are not the start symbol, we
+                 // need to remove it.
+                 //
+-                if      (recognizer->state->following->vector->count >= 0)
++                //if    (recognizer->state->following->vector->count >= 0) ml: always true
+                 {
+                         followClone->remove(followClone, ANTLR3_EOR_TOKEN_TYPE);
+                 }
+@@ -1063,7 +1063,7 @@ displayRecognitionError     (pANTLR3_BASE_RECOGNIZER recognizer, pANTLR3_UINT8 *
+                 tparser     = NULL;
+                 is                      = parser->tstream->istream;
+                 theToken    = (pANTLR3_COMMON_TOKEN)(recognizer->state->exception->token);
+-                ttext       = theToken->getText(theToken);
++                ttext       = theToken->toString(theToken);
+
+                 ANTLR3_FPRINTF(stderr, ", at offset %d", recognizer->state->exception->charPositionInLine);
+                 if  (theToken != NULL)
+@@ -1266,7 +1266,7 @@ displayRecognitionError     (pANTLR3_BASE_RECOGNIZER recognizer, pANTLR3_UINT8 *
+                         }
+                         else
+                         {
+-                                ANTLR3_FPRINTF(stderr, "Actually we didn't seem to be expecting anything here, or at least\n");
++                                ANTLR3_FPRINTF(stderr, "Actually dude, we didn't seem to be expecting anything here, or at least\n");
+                                 ANTLR3_FPRINTF(stderr, "I could not work out what I was expecting, like so many of us these days!\n");
+                         }
+                 }
+@@ -1589,7 +1589,7 @@ recoverFromMismatchedSet            (pANTLR3_BASE_RECOGNIZER recognizer, pANTLR3
+         {
+                 // We can fake the missing token and proceed
+                 //
+-                matchedSymbol = recognizer->getMissingSymbol(recognizer, is, recognizer->state->exception, ANTLR3_TOKEN_INVALID, follow);
++                matchedSymbol = (pANTLR3_COMMON_TOKEN)recognizer->getMissingSymbol(recognizer, is, recognizer->state->exception, ANTLR3_TOKEN_INVALID, follow);
+                 recognizer->state->exception->type      = ANTLR3_MISSING_TOKEN_EXCEPTION;
+                 recognizer->state->exception->token     = matchedSymbol;
+
+@@ -2142,6 +2142,13 @@ reset(pANTLR3_BASE_RECOGNIZER recognizer)
+                 }
+         }
+
++  // ml: 2013-11-05, added reset of old exceptions.
++  pANTLR3_EXCEPTION thisE = recognizer->state->exception;
++  if    (thisE != NULL)
++  {
++    thisE->freeEx(thisE);
++    recognizer->state->exception = NULL;
++  }
+
+     // Install a new following set
+     //
+@@ -2180,7 +2187,7 @@ getMissingSymbol                        (pANTLR3_BASE_RECOGNIZER recognizer, pAN
+         // If we are at EOF, we use the token before EOF
+         //
+         current = ts->_LT(ts, 1);
+-        if      (current->type == ANTLR3_TOKEN_EOF)
++        if      (current->getType(current) == ANTLR3_TOKEN_EOF)
+         {
+                 current = ts->_LT(ts, -1);
+         }
+@@ -2196,13 +2203,19 @@ getMissingSymbol                        (pANTLR3_BASE_RECOGNIZER recognizer, pAN
+                 recognizer->state->tokFactory = antlr3TokenFactoryNew(current->input);
+         }
+         token   = recognizer->state->tokFactory->newToken(recognizer->state->tokFactory);
++        if (token == NULL) { return NULL; }
+
+         // Set some of the token properties based on the current token
+         //
+-        token->line                                           = current->line;
+-        token->charPosition                   = current->charPosition;
+-        token->channel                                = ANTLR3_TOKEN_DEFAULT_CHANNEL;
+-        token->type                       = expectedTokenType;
++        token->setLine                                  (token, current->getLine(current));
++        token->setCharPositionInLine    (token, current->getCharPositionInLine(current));
++        token->setChannel                               (token, ANTLR3_TOKEN_DEFAULT_CHANNEL);
++        token->setType                                  (token, expectedTokenType);
++    token->user1                    = current->user1;
++    token->user2                    = current->user2;
++    token->user3                    = current->user3;
++    token->custom                   = current->custom;
++    token->lineStart                = current->lineStart;
+
+         // Create the token text that shows it has been inserted
+         //
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3basetree.c b/modules/cctbx_project/ucif/antlr3/src/antlr3basetree.c
+old mode 100755
+new mode 100644
+index fc58cf2d8a..1380e03614
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3basetree.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3basetree.c
+@@ -187,13 +187,16 @@ addChild (pANTLR3_BASE_TREE tree, pANTLR3_BASE_TREE child)
+                 for (i = 0; i < n; i++)
+                 {
+                     pANTLR3_BASE_TREE entry;
+-                    entry = child->children->get(child->children, i);
++                    entry = (pANTLR3_BASE_TREE)child->children->get(child->children, i);
+
+                     // ANTLR3 lists can be sparse, unlike Array Lists
+                     //
+                     if (entry != NULL)
+                     {
+-                        tree->children->add(tree->children, entry, (void (ANTLR3_CDECL *) (void *))child->free);
++                        ANTLR3_UINT32 count = tree->children->add(tree->children, entry, (void (ANTLR3_CDECL *) (void *))child->free);
++
++                        entry->setChildIndex(entry, count - 1);
++                        entry->setParent(entry, tree);
+                     }
+                 }
+             }
+@@ -211,8 +214,9 @@ addChild (pANTLR3_BASE_TREE tree, pANTLR3_BASE_TREE child)
+                         tree->createChildrenList(tree);
+                 }
+
+-                tree->children->add(tree->children, child, (void (ANTLR3_CDECL *)(void *))child->free);
+-
++                ANTLR3_UINT32 count = tree->children->add(tree->children, child, (void (ANTLR3_CDECL *)(void *))child->free);
++                child->setChildIndex(child, count - 1);
++                child->setParent(child, tree);
+         }
+ }
+
+@@ -260,7 +264,7 @@ dupTree         (pANTLR3_BASE_TREE tree)
+         ANTLR3_UINT32   i;
+         ANTLR3_UINT32   s;
+
+-        newTree = tree->dupNode     (tree);
++        newTree = (pANTLR3_BASE_TREE)tree->dupNode          (tree);
+
+         if      (tree->children != NULL)
+         {
+@@ -275,7 +279,7 @@ dupTree         (pANTLR3_BASE_TREE tree)
+
+                         if  (t!= NULL)
+                         {
+-                                newNode     = t->dupTree(t);
++                                newNode     = (pANTLR3_BASE_TREE)t->dupTree(t);
+                                 newTree->addChild(newTree, newNode);
+                         }
+                 }
+@@ -480,7 +484,7 @@ freshenPACIndexes       (pANTLR3_BASE_TREE tree, ANTLR3_UINT32 offset)
+         {
+                 pANTLR3_BASE_TREE       child;
+
+-                child = tree->getChild(tree, c);
++                child = (pANTLR3_BASE_TREE)tree->getChild(tree, c);
+
+                 child->setChildIndex(child, c);
+                 child->setParent(child, tree);
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3basetreeadaptor.c b/modules/cctbx_project/ucif/antlr3/src/antlr3basetreeadaptor.c
+old mode 100755
+new mode 100644
+index 1f3131c483..532895985f
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3basetreeadaptor.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3basetreeadaptor.c
+@@ -192,7 +192,7 @@ defineDotNodes(pANTLR3_BASE_TREE_ADAPTOR adaptor, void * t, pANTLR3_STRING dotSp
+
+                 // Pick up a pointer for the child
+                 //
+-                child = adaptor->getChild(adaptor, t, i);
++                child = (pANTLR3_BASE_TREE)adaptor->getChild(adaptor, t, i);
+
+                 // Name the node
+                 //
+@@ -275,7 +275,7 @@ defineDotEdges(pANTLR3_BASE_TREE_ADAPTOR adaptor, void * t, pANTLR3_STRING dotSp
+
+                 // Next child
+                 //
+-                child   = adaptor->getChild(adaptor, t, i);
++                child   = (pANTLR3_BASE_TREE)adaptor->getChild(adaptor, t, i);
+
+                 // Create the edge relation
+                 //
+@@ -440,7 +440,7 @@ makeDot (pANTLR3_BASE_TREE_ADAPTOR adaptor, void * theTree)
+ static  pANTLR3_BASE_TREE
+ nilNode     (pANTLR3_BASE_TREE_ADAPTOR adaptor)
+ {
+-        return  adaptor->create(adaptor, NULL);
++        return  (pANTLR3_BASE_TREE)adaptor->create(adaptor, NULL);
+ }
+
+ static  pANTLR3_BASE_TREE
+@@ -448,7 +448,7 @@ dbgNil      (pANTLR3_BASE_TREE_ADAPTOR adaptor)
+ {
+         pANTLR3_BASE_TREE t;
+
+-        t = adaptor->create                             (adaptor, NULL);
++        t = (pANTLR3_BASE_TREE)adaptor->create                          (adaptor, NULL);
+         adaptor->debugger->createNode   (adaptor->debugger, t);
+
+         return  t;
+@@ -460,7 +460,7 @@ dbgNil      (pANTLR3_BASE_TREE_ADAPTOR adaptor)
+ static  pANTLR3_BASE_TREE
+ dupTree  (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE_TREE t)
+ {
+-        return  adaptor->dupTreeTT(adaptor, t, NULL);
++        return  (pANTLR3_BASE_TREE)adaptor->dupTreeTT(adaptor, t, NULL);
+ }
+
+ pANTLR3_BASE_TREE
+@@ -476,7 +476,7 @@ dupTreeTT                       (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE
+         {
+                 return NULL;
+         }
+-        newTree = t->dupNode(t);
++        newTree = (pANTLR3_BASE_TREE)t->dupNode(t);
+
+         // Ensure new subtree root has parent/child index set
+         //
+@@ -486,8 +486,8 @@ dupTreeTT                       (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE
+
+         for     (i=0; i < n; i++)
+         {
+-                child = adaptor->getChild               (adaptor, t, i);
+-                newSubTree = adaptor->dupTreeTT (adaptor, child, t);
++                child = (pANTLR3_BASE_TREE)adaptor->getChild            (adaptor, t, i);
++                newSubTree = (pANTLR3_BASE_TREE)adaptor->dupTreeTT      (adaptor, child, t);
+                 adaptor->addChild                               (adaptor, newTree, newSubTree);
+         }
+         return  newTree;
+@@ -510,7 +510,7 @@ simulateTreeConstruction(pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE_TREE tr
+         n = adaptor->getChildCount(adaptor, tree);
+         for     (i = 0; i < n; i++)
+         {
+-                child = adaptor->getChild(adaptor, tree, i);
++                child = (pANTLR3_BASE_TREE)adaptor->getChild(adaptor, tree, i);
+                 simulateTreeConstruction(adaptor, child);
+                 adaptor->debugger->addChild(adaptor->debugger, tree, child);
+         }
+@@ -523,7 +523,7 @@ dbgDupTree              (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE_TREE tr
+
+         // Call the normal dup tree mechanism first
+         //
+-        t = adaptor->dupTreeTT(adaptor, tree, NULL);
++        t = (pANTLR3_BASE_TREE)adaptor->dupTreeTT(adaptor, tree, NULL);
+
+         // In order to tell the debugger what we have just done, we now
+         // simulate the tree building mechanism. THis will fire
+@@ -578,7 +578,7 @@ dbgAddChildToken                (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE
+
+         if      (t != NULL && child != NULL)
+         {
+-                tc = adaptor->create(adaptor, child);
++                tc = (pANTLR3_BASE_TREE)adaptor->create(adaptor, child);
+                 adaptor->addChild(adaptor, t, tc);
+                 adaptor->debugger->addChild(adaptor->debugger, t, tc);
+         }
+@@ -654,7 +654,7 @@ becomeRoot      (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE_TREE newRootTre
+          * because if it was a Nil Node, then we can reuse it now.
+                  */
+         saveRoot    = newRootTree;
+-                newRootTree = newRootTree->getChild(newRootTree, 0);
++                newRootTree = (pANTLR3_BASE_TREE)newRootTree->getChild(newRootTree, 0);
+
+         // Reclaim the old nilNode()
+         //
+@@ -718,7 +718,7 @@ static  pANTLR3_BASE_TREE
+                 }
+                 else if (root->getChildCount(root) == 1)
+                 {
+-                        root = root->getChild(root, 0);
++                        root = (pANTLR3_BASE_TREE)root->getChild(root, 0);
+                         root->setParent(root, NULL);
+                         root->setChildIndex(root, -1);
+
+@@ -739,14 +739,14 @@ static  pANTLR3_BASE_TREE
+ static  pANTLR3_BASE_TREE
+    becomeRootToken      (pANTLR3_BASE_TREE_ADAPTOR adaptor, void * newRoot, pANTLR3_BASE_TREE oldRoot)
+ {
+-        return  adaptor->becomeRoot(adaptor, adaptor->create(adaptor, newRoot), oldRoot);
++        return  (pANTLR3_BASE_TREE)adaptor->becomeRoot(adaptor, adaptor->create(adaptor, (pANTLR3_COMMON_TOKEN)newRoot), oldRoot);
+ }
+ static  pANTLR3_BASE_TREE
+ dbgBecomeRootToken      (pANTLR3_BASE_TREE_ADAPTOR adaptor, void * newRoot, pANTLR3_BASE_TREE oldRoot)
+ {
+         pANTLR3_BASE_TREE       t;
+
+-        t =     adaptor->becomeRoot(adaptor, adaptor->create(adaptor, newRoot), oldRoot);
++        t =     (pANTLR3_BASE_TREE)adaptor->becomeRoot(adaptor, adaptor->create(adaptor, (pANTLR3_COMMON_TOKEN)newRoot), oldRoot);
+
+         adaptor->debugger->becomeRoot(adaptor->debugger,t, oldRoot);
+
+@@ -765,11 +765,11 @@ createTypeToken (pANTLR3_BASE_TREE_ADAPTOR adaptor, ANTLR3_UINT32 tokenType, pAN
+
+         /* Set the type of the new token to that supplied
+          */
+-        fromToken->type = tokenType;
++        fromToken->setType(fromToken, tokenType);
+
+         /* Return a new node based upon this token
+          */
+-        return  adaptor->create(adaptor, fromToken);
++        return  (pANTLR3_BASE_TREE)adaptor->create(adaptor, fromToken);
+ }
+ static  pANTLR3_BASE_TREE
+ dbgCreateTypeToken      (pANTLR3_BASE_TREE_ADAPTOR adaptor, ANTLR3_UINT32 tokenType, pANTLR3_COMMON_TOKEN fromToken)
+@@ -792,7 +792,7 @@ createTypeTokenText     (pANTLR3_BASE_TREE_ADAPTOR adaptor, ANTLR3_UINT32 tokenT
+
+         /* Set the type of the new token to that supplied
+          */
+-        fromToken->type = tokenType;
++        fromToken->setType(fromToken, tokenType);
+
+         /* Set the text of the token accordingly
+          */
+@@ -800,7 +800,7 @@ createTypeTokenText     (pANTLR3_BASE_TREE_ADAPTOR adaptor, ANTLR3_UINT32 tokenT
+
+         /* Return a new node based upon this token
+          */
+-        return  adaptor->create(adaptor, fromToken);
++        return  (pANTLR3_BASE_TREE)adaptor->create(adaptor, fromToken);
+ }
+ static  pANTLR3_BASE_TREE
+ dbgCreateTypeTokenText  (pANTLR3_BASE_TREE_ADAPTOR adaptor, ANTLR3_UINT32 tokenType, pANTLR3_COMMON_TOKEN fromToken, pANTLR3_UINT8 text)
+@@ -825,7 +825,7 @@ static  pANTLR3_BASE_TREE
+
+         /* Return a new node based upon this token
+          */
+-        return  adaptor->create(adaptor, fromToken);
++        return  (pANTLR3_BASE_TREE)adaptor->create(adaptor, fromToken);
+ }
+ static  pANTLR3_BASE_TREE
+    dbgCreateTypeText    (pANTLR3_BASE_TREE_ADAPTOR adaptor, ANTLR3_UINT32 tokenType, pANTLR3_UINT8 text)
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3bitset.c b/modules/cctbx_project/ucif/antlr3/src/antlr3bitset.c
+old mode 100755
+new mode 100644
+index fdb96af8f7..72eb3086d6
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3bitset.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3bitset.c
+@@ -101,14 +101,13 @@ antlr3BitsetNew(ANTLR3_UINT32 numBits)
+         numelements     = ((numBits -1) >> ANTLR3_BITSET_LOG_BITS) + 1;
+
+         bitset->blist.bits    = (pANTLR3_BITWORD) ANTLR3_MALLOC((size_t)(numelements * sizeof(ANTLR3_BITWORD)));
+-        memset(bitset->blist.bits, 0, (size_t)(numelements * sizeof(ANTLR3_BITWORD)));
+-        bitset->blist.length  = numelements;
+-
+         if      (bitset->blist.bits == NULL)
+         {
+                 ANTLR3_FREE(bitset);
+                 return  NULL;
+         }
++        memset(bitset->blist.bits, 0, (size_t)(numelements * sizeof(ANTLR3_BITWORD)));
++        bitset->blist.length  = numelements;
+
+         antlr3BitsetSetAPI(bitset);
+
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3collections.c b/modules/cctbx_project/ucif/antlr3/src/antlr3collections.c
+old mode 100755
+new mode 100644
+index b75a104916..572aa6cdb2
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3collections.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3collections.c
+@@ -97,7 +97,7 @@ static  ANTLR3_UINT32           antlr3VectorSet         (pANTLR3_VECTOR vector,
+ static  ANTLR3_UINT32           antlr3VectorSize    (pANTLR3_VECTOR vector);
+ static  ANTLR3_BOOLEAN      antlr3VectorSwap    (pANTLR3_VECTOR vector, ANTLR3_UINT32 entry1, ANTLR3_UINT32 entry2);
+
+-static  void                newPool             (pANTLR3_VECTOR_FACTORY factory);
++static  ANTLR3_BOOLEAN      newPool             (pANTLR3_VECTOR_FACTORY factory);
+ static  void                            closeVectorFactory  (pANTLR3_VECTOR_FACTORY factory);
+ static  pANTLR3_VECTOR          newVector                       (pANTLR3_VECTOR_FACTORY factory);
+ static  void                            returnVector            (pANTLR3_VECTOR_FACTORY factory, pANTLR3_VECTOR vector);
+@@ -132,7 +132,7 @@ antlr3HashTableNew(ANTLR3_UINT32 sizeHint)
+
+         ANTLR3_UINT32   bucket; // Used to traverse the buckets
+
+-        table   = ANTLR3_MALLOC(sizeof(ANTLR3_HASH_TABLE));
++        table   = (pANTLR3_HASH_TABLE)ANTLR3_MALLOC(sizeof(ANTLR3_HASH_TABLE));
+
+         // Error out if no memory left
+         if      (table  == NULL)
+@@ -653,7 +653,7 @@ antlr3HashPut(pANTLR3_HASH_TABLE table, void * key, void * element, void (ANTLR3
+     }
+     else
+     {
+-        entry->keybase.key.sKey = key;                  /* Record the key value                                                         */
++        entry->keybase.key.sKey = (pANTLR3_UINT8)key;                  /* Record the key value                                                          */
+     }
+         entry->nextEntry                = NULL;                                 /* Ensure that the forward pointer ends the chain   */
+
+@@ -1285,7 +1285,7 @@ static  void *          antrl3VectorRemove  (pANTLR3_VECTOR vector, ANTLR3_UINT3
+         return  element;
+ }
+
+-static  void
++static  ANTLR3_BOOLEAN
+ antlr3VectorResize  (pANTLR3_VECTOR vector, ANTLR3_UINT32 hint)
+ {
+         ANTLR3_UINT32   newSize;
+@@ -1310,7 +1310,13 @@ antlr3VectorResize  (pANTLR3_VECTOR vector, ANTLR3_UINT32 hint)
+         // We were already larger than the internal size, so we just
+         // use realloc so that the pointers are copied for us
+         //
+-        vector->elements        = (pANTLR3_VECTOR_ELEMENT)ANTLR3_REALLOC(vector->elements, (sizeof(ANTLR3_VECTOR_ELEMENT)* newSize));
++                pANTLR3_VECTOR_ELEMENT newElements = (pANTLR3_VECTOR_ELEMENT)ANTLR3_REALLOC(vector->elements, (sizeof(ANTLR3_VECTOR_ELEMENT)* newSize));
++                if (newElements == NULL)
++                {
++                        // realloc failed, but the old allocation is still there
++                        return ANTLR3_FALSE;
++                }
++        vector->elements = newElements;
+     }
+     else
+     {
+@@ -1320,10 +1326,16 @@ antlr3VectorResize  (pANTLR3_VECTOR vector, ANTLR3_UINT32 hint)
+         // is part of the internal or external entries, so we copy the internal ones to the new space
+         //
+         vector->elements        = (pANTLR3_VECTOR_ELEMENT)ANTLR3_MALLOC((sizeof(ANTLR3_VECTOR_ELEMENT)* newSize));
++                if (vector->elements == NULL)
++                {
++                        // malloc failed
++                        return ANTLR3_FALSE;
++                }
+         ANTLR3_MEMCPY(vector->elements, vector->internal, ANTLR3_VECTOR_INTERNAL_SIZE * sizeof(ANTLR3_VECTOR_ELEMENT));
+     }
+
+         vector->elementsSize    = newSize;
++        return ANTLR3_TRUE;
+ }
+
+ /// Add the supplied pointer and freeing function pointer to the list,
+@@ -1335,7 +1347,12 @@ static  ANTLR3_UINT32    antlr3VectorAdd            (pANTLR3_VECTOR vector, void
+         //
+         if      (vector->count == vector->elementsSize)
+         {
+-                antlr3VectorResize(vector, 0);      // Give no hint, we let it add 1024 or double it
++                // Give no hint, we let it add 1024 or double it
++                if (!antlr3VectorResize(vector, 0))
++                {
++                        // Resize failed
++                        return 0;
++                }
+         }
+
+         // Insert the new entry
+@@ -1360,7 +1377,12 @@ antlr3VectorSet     (pANTLR3_VECTOR vector, ANTLR3_UINT32 entry, void * element,
+         //
+         if (entry >= vector->elementsSize)
+         {
+-                antlr3VectorResize(vector, entry);      // We will get at least this many
++                // We will get at least this many
++                if (!antlr3VectorResize(vector, entry))
++                {
++                        // Resize failed
++                        return 0;
++                }
+         }
+
+         // Valid request, replace the current one, freeing any prior entry if told to
+@@ -1491,25 +1513,40 @@ returnVector            (pANTLR3_VECTOR_FACTORY factory, pANTLR3_VECTOR vector)
+         // TODO: remove this line once happy printf("Returned vector %08X to the pool, stack size is %d\n", vector, factory->freeStack->size(factory->freeStack));
+ }
+
+-static void
++static ANTLR3_BOOLEAN
+ newPool(pANTLR3_VECTOR_FACTORY factory)
+ {
++        pANTLR3_VECTOR *newPools;
++
+     /* Increment factory count
+      */
+-    factory->thisPool++;
++    ++factory->thisPool;
+
+     /* Ensure we have enough pointers allocated
+      */
+-    factory->pools = (pANTLR3_VECTOR *)
+-                     ANTLR3_REALLOC(    (void *)factory->pools,     /* Current pools pointer (starts at NULL)   */
++        newPools = (pANTLR3_VECTOR *)
++                ANTLR3_REALLOC( (void *)factory->pools,     /* Current pools pointer (starts at NULL)   */
+                                         (ANTLR3_UINT32)((factory->thisPool + 1) * sizeof(pANTLR3_VECTOR *))     /* Memory for new pool pointers */
+                                         );
++        if (newPools == NULL)
++        {
++                // realloc failed, but we still have the old allocation
++                --factory->thisPool;
++                return ANTLR3_FALSE;
++        }
++        factory->pools = newPools;
+
+     /* Allocate a new pool for the factory
+      */
+     factory->pools[factory->thisPool]   =
+                             (pANTLR3_VECTOR)
+                                 ANTLR3_MALLOC((size_t)(sizeof(ANTLR3_VECTOR) * ANTLR3_FACTORY_VPOOL_SIZE));
++        if (factory->pools[factory->thisPool] == NULL)
++        {
++                // malloc failed
++                --factory->thisPool;
++                return ANTLR3_FALSE;
++        }
+
+
+     /* Reset the counters
+@@ -1518,7 +1555,7 @@ newPool(pANTLR3_VECTOR_FACTORY factory)
+
+     /* Done
+      */
+-    return;
++    return ANTLR3_TRUE;
+ }
+
+ static  void
+@@ -1641,7 +1678,7 @@ newVector(pANTLR3_VECTOR_FACTORY factory)
+
+         // If we have anything on the re claim stack, reuse it
+         //
+-        vector = factory->freeStack->peek(factory->freeStack);
++        vector = (pANTLR3_VECTOR)factory->freeStack->peek(factory->freeStack);
+
+         if  (vector != NULL)
+         {
+@@ -1661,7 +1698,11 @@ newVector(pANTLR3_VECTOR_FACTORY factory)
+     {
+         // We ran out of vectors in the current pool, so we need a new pool
+         //
+-        newPool(factory);
++        if (!newPool(factory))
++                {
++                        // new pool creation failed
++                        return NULL;
++                }
+     }
+
+     // Assuming everything went well (we are trying for performance here so doing minimal
+@@ -1676,7 +1717,7 @@ newVector(pANTLR3_VECTOR_FACTORY factory)
+     vector->factoryMade = ANTLR3_TRUE;
+
+     // We know that the pool vectors are created at the default size, which means they
+-    // will start off using their internal entry pointers. We must intialize our pool vector
++    // will start off using their internal entry pointers. We must initialize our pool vector
+     // to point to its own internal entry table and not the pre-made one.
+     //
+     vector->elements = vector->internal;
+@@ -1893,7 +1934,6 @@ intTrieDel      (pANTLR3_INT_TRIE trie, ANTLR3_INTKEY key)
+     pANTLR3_INT_TRIE_NODE   p;
+
+     p=trie->root;
+-    key = key;
+
+     return ANTLR3_FALSE;
+ }
+@@ -2337,7 +2377,7 @@ addEdge          (pANTLR3_TOPO topo, ANTLR3_UINT32 edge, ANTLR3_UINT32 dependenc
+     {
+         // We don't have any edges yet, so create an array to hold them
+         //
+-        topo->edges = ANTLR3_CALLOC(sizeof(pANTLR3_BITSET) * (maxEdge + 1), 1);
++        topo->edges = (pANTLR3_BITSET*)ANTLR3_CALLOC(sizeof(pANTLR3_BITSET) * (maxEdge + 1), 1);
+         if (topo->edges == NULL)
+         {
+             return;
+@@ -2351,7 +2391,7 @@ addEdge          (pANTLR3_TOPO topo, ANTLR3_UINT32 edge, ANTLR3_UINT32 dependenc
+     {
+         // WE have some edges but not enough
+         //
+-        topo->edges = ANTLR3_REALLOC(topo->edges, sizeof(pANTLR3_BITSET) * (maxEdge + 1));
++        topo->edges = (pANTLR3_BITSET*)ANTLR3_REALLOC(topo->edges, sizeof(pANTLR3_BITSET) * (maxEdge + 1));
+         if (topo->edges == NULL)
+         {
+             return;
+@@ -2529,14 +2569,22 @@ sortToArray      (pANTLR3_TOPO topo)
+     //
+     if  (topo->edges == NULL)
+     {
+-        return 0;
++        return NULL;
+     }
+     // First we need a vector to populate with enough
+-    // entries to accomodate the sorted list and another to accomodate
++    // entries to accommodate the sorted list and another to accommodate
+     // the maximum cycle we could detect which is all nodes such as 0->1->2->3->0
+     //
+-    topo->sorted    = ANTLR3_MALLOC(topo->limit * sizeof(ANTLR3_UINT32));
+-    topo->cycle     = ANTLR3_MALLOC(topo->limit * sizeof(ANTLR3_UINT32));
++    topo->sorted    = (pANTLR3_UINT32)ANTLR3_MALLOC(topo->limit * sizeof(ANTLR3_UINT32));
++        if (topo->sorted == NULL)
++        {
++                return NULL;
++        }
++    topo->cycle     = (pANTLR3_UINT32)ANTLR3_MALLOC(topo->limit * sizeof(ANTLR3_UINT32));
++        if (topo->cycle == NULL)
++        {
++                return NULL;
++        }
+
+     // Next we need an empty bitset to show whether we have visited a node
+     // or not. This is the bit that gives us linear time of course as we are essentially
+@@ -2595,7 +2643,7 @@ sortVector       (pANTLR3_TOPO topo, pANTLR3_VECTOR v)
+     // we are given. This is just a convenience routine that allows you to
+     // sort the children of a tree node into topological order before or
+     // during an AST walk. This can be useful for optimizations that require
+-    // dag reorders and also when the input stream defines thigns that are
++    // dag reorders and also when the input stream defines things that are
+     // interdependent and you want to walk the list of the generated trees
+     // for those things in topological order so you can ignore the interdependencies
+     // at that point.
+@@ -2621,13 +2669,13 @@ sortVector       (pANTLR3_TOPO topo, pANTLR3_VECTOR v)
+     }
+
+     // Ensure that the vector we are sorting is at least as big as the
+-    // the input sequence we were adsked to sort. It does not matter if it is
+-    // bigger as thaat probably just means that nodes numbered higher than the
++    // the input sequence we were asked to sort. It does not matter if it is
++    // bigger as that probably just means that nodes numbered higher than the
+     // limit had no dependencies and so can be left alone.
+     //
+     if  (topo->limit > v->count)
+     {
+-        // We can only sort the entries that we have! The caller is
++        // We can only sort the entries that we have dude! The caller is
+         // responsible for ensuring the vector is the correct one and is the
+         // correct size etc.
+         //
+@@ -2636,10 +2684,15 @@ sortVector       (pANTLR3_TOPO topo, pANTLR3_VECTOR v)
+     // We need to know the locations of each of the entries
+     // in the vector as we don't want to duplicate them in a new vector. We
+     // just use an indirection table to get the vector entry for a particular sequence
+-    // acording to where we moved it last. Then we can just swap vector entries until
++    // according to where we moved it last. Then we can just swap vector entries until
+     // we are done :-)
+     //
+-    vIndex = ANTLR3_MALLOC(topo->limit * sizeof(ANTLR3_UINT32));
++    vIndex = (pANTLR3_UINT32)ANTLR3_MALLOC(topo->limit * sizeof(ANTLR3_UINT32));
++        if (vIndex == NULL)
++        {
++                // malloc failed
++                return;
++        }
+
+     // Start index, each vector entry is located where you think it is
+     //
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3commontoken.c b/modules/cctbx_project/ucif/antlr3/src/antlr3commontoken.c
+old mode 100755
+new mode 100644
+index b2f090870c..082c8514ba
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3commontoken.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3commontoken.c
+@@ -40,10 +40,21 @@
+ static  pANTLR3_STRING  getText                                 (pANTLR3_COMMON_TOKEN token);
+ static  void                    setText                                 (pANTLR3_COMMON_TOKEN token, pANTLR3_STRING text);
+ static  void                    setText8                                (pANTLR3_COMMON_TOKEN token, pANTLR3_UINT8 text);
++static  ANTLR3_UINT32   getType                                 (pANTLR3_COMMON_TOKEN token);
+ static  void                    setType                                 (pANTLR3_COMMON_TOKEN token, ANTLR3_UINT32 type);
++static  ANTLR3_UINT32   getLine                                 (pANTLR3_COMMON_TOKEN token);
++static  void                    setLine                                 (pANTLR3_COMMON_TOKEN token, ANTLR3_UINT32 line);
++static  ANTLR3_INT32    getCharPositionInLine   (pANTLR3_COMMON_TOKEN token);
++static  void                    setCharPositionInLine   (pANTLR3_COMMON_TOKEN token, ANTLR3_INT32 pos);
++static  ANTLR3_UINT32   getChannel                              (pANTLR3_COMMON_TOKEN token);
++static  void                    setChannel                              (pANTLR3_COMMON_TOKEN token, ANTLR3_UINT32 channel);
++static  ANTLR3_MARKER   getTokenIndex                   (pANTLR3_COMMON_TOKEN token);
++static  void                    setTokenIndex                   (pANTLR3_COMMON_TOKEN token, ANTLR3_MARKER);
+ static  ANTLR3_MARKER   getStartIndex                   (pANTLR3_COMMON_TOKEN token);
+ static  void                    setStartIndex                   (pANTLR3_COMMON_TOKEN token, ANTLR3_MARKER index);
++static  ANTLR3_MARKER   getStopIndex                    (pANTLR3_COMMON_TOKEN token);
+ static  void                    setStopIndex                    (pANTLR3_COMMON_TOKEN token, ANTLR3_MARKER index);
++static  pANTLR3_STRING  toString                                (pANTLR3_COMMON_TOKEN token);
+
+ /* Factory API
+  */
+@@ -54,7 +65,7 @@ static  void                    factoryReset    (pANTLR3_TOKEN_FACTORY factory);
+
+ /* Internal management functions
+  */
+-static  void                    newPool         (pANTLR3_TOKEN_FACTORY factory);
++static  ANTLR3_BOOLEAN                  newPool         (pANTLR3_TOKEN_FACTORY factory);
+ static  pANTLR3_COMMON_TOKEN    newPoolToken    (pANTLR3_TOKEN_FACTORY factory);
+
+
+@@ -69,7 +80,7 @@ antlr3CommonTokenNew(ANTLR3_UINT32 ttype)
+
+         if      (token != NULL)
+         {
+-                token->type = ttype;
++                token->setType(token, ttype);
+         }
+
+         // All good
+@@ -137,30 +148,44 @@ setInputStream  (pANTLR3_TOKEN_FACTORY factory, pANTLR3_INPUT_STREAM input)
+     }
+ }
+
+-static void
++static ANTLR3_BOOLEAN
+ newPool(pANTLR3_TOKEN_FACTORY factory)
+ {
+     /* Increment factory count
+      */
+-    factory->thisPool++;
++    ++(factory->thisPool);
+
+     // If we were reusing this token factory then we may already have a pool
+-    // allocated. If we exceeded the max avaible then we must allocate a new
++    // allocated. If we exceeded the max available then we must allocate a new
+     // one.
+     if  (factory->thisPool > factory->maxPool)
+     {
+         /* Ensure we have enough pointers allocated
+          */
+-        factory->pools = (pANTLR3_COMMON_TOKEN *)
+-                         ANTLR3_REALLOC(        (void *)factory->pools,     /* Current pools pointer (starts at NULL)   */
+-                                            (ANTLR3_UINT32)((factory->thisPool + 1) * sizeof(pANTLR3_COMMON_TOKEN *))   /* Memory for new pool pointers */
+-                                            );
++                pANTLR3_COMMON_TOKEN *newPools = (pANTLR3_COMMON_TOKEN *)
++                        ANTLR3_REALLOC((void *)factory->pools,      /* Current pools pointer (starts at NULL)   */
++                                   (ANTLR3_UINT32)((factory->thisPool + 1) * sizeof(pANTLR3_COMMON_TOKEN *))    /* Memory for new pool pointers */
++                        );
++                if (newPools == NULL)
++                {
++                        // We are out of memory, but the old allocation is still valid for now
++                        --(factory->thisPool);
++                        return ANTLR3_FALSE;
++                }
++
++        factory->pools = newPools;
+
+         /* Allocate a new pool for the factory
+          */
+         factory->pools[factory->thisPool]       =
+                                 (pANTLR3_COMMON_TOKEN)
+                                     ANTLR3_CALLOC(1, (size_t)(sizeof(ANTLR3_COMMON_TOKEN) * ANTLR3_FACTORY_POOL_SIZE));
++                if (factory->pools[factory->thisPool] == NULL)
++                {
++                        // Allocation failed
++                        --(factory->thisPool);
++                        return ANTLR3_FALSE;
++                }
+
+         // We now have a new pool and can track it as the maximum we have created so far
+         //
+@@ -173,7 +198,7 @@ newPool(pANTLR3_TOKEN_FACTORY factory)
+
+     /* Done
+      */
+-    return;
++    return ANTLR3_TRUE;
+ }
+
+ static pANTLR3_COMMON_TOKEN
+@@ -181,6 +206,8 @@ newPoolToken(pANTLR3_TOKEN_FACTORY factory)
+ {
+     pANTLR3_COMMON_TOKEN token;
+
++        if (factory == NULL) { return NULL; }
++
+     /* See if we need a new token pool before allocating a new
+      * one
+      */
+@@ -188,9 +215,16 @@ newPoolToken(pANTLR3_TOKEN_FACTORY factory)
+     {
+         /* We ran out of tokens in the current pool, so we need a new pool
+          */
+-        newPool(factory);
++        if (!newPool(factory))
++                {
++                        return NULL;
++                }
+     }
+
++        // make sure the factory is sane
++        if (factory->pools == NULL) { return NULL; }
++        if (factory->pools[factory->thisPool] == NULL) { return NULL; }
++
+     /* Assuming everything went well (we are trying for performance here so doing minimal
+      * error checking. Then we can work out what the pointer is to the next token.
+      */
+@@ -264,11 +298,11 @@ factoryClose        (pANTLR3_TOKEN_FACTORY factory)
+                 /* If the programmer made this a custom token, then
+                  * see if we need to call their free routine.
+                  */
+-/*              if  (check->custom != NULL && check->freeCustom != NULL)
++                if  (check->custom != NULL && check->freeCustom != NULL)
+                 {
+                     check->freeCustom(check->custom);
+                     check->custom = NULL;
+-                }*/
++                }
+             }
+         }
+
+@@ -317,10 +351,22 @@ antlr3SetTokenAPI(pANTLR3_COMMON_TOKEN token)
+     token->getText                  = getText;
+     token->setText                  = setText;
+     token->setText8                 = setText8;
++    token->getType                  = getType;
+     token->setType                  = setType;
++    token->getLine                  = getLine;
++    token->setLine                  = setLine;
++    token->setLine                  = setLine;
++    token->getCharPositionInLine    = getCharPositionInLine;
++    token->setCharPositionInLine    = setCharPositionInLine;
++    token->getChannel               = getChannel;
++    token->setChannel               = setChannel;
++    token->getTokenIndex            = getTokenIndex;
++    token->setTokenIndex            = setTokenIndex;
+     token->getStartIndex            = getStartIndex;
+     token->setStartIndex            = setStartIndex;
++    token->getStopIndex             = getStopIndex;
+     token->setStopIndex             = setStopIndex;
++    token->toString                 = toString;
+
+     return;
+ }
+@@ -379,7 +425,7 @@ static  pANTLR3_STRING  getText                 (pANTLR3_COMMON_TOKEN token)
+
+                                 return  token->input->substr(   token->input,
+                                                                                                 token->getStartIndex(token),
+-                                                                                                token->stop
++                                                                                                token->getStopIndex(token)
+                                                                                         );
+                         }
+
+@@ -437,11 +483,57 @@ static  void            setText                 (pANTLR3_COMMON_TOKEN token, pAN
+         */
+         return;
+ }
++
++static  ANTLR3_UINT32   getType                 (pANTLR3_COMMON_TOKEN token)
++{
++    return  token->type;
++}
++
+ static  void            setType                 (pANTLR3_COMMON_TOKEN token, ANTLR3_UINT32 type)
+ {
+     token->type = type;
+ }
+
++static  ANTLR3_UINT32   getLine                 (pANTLR3_COMMON_TOKEN token)
++{
++    return  token->line;
++}
++
++static  void            setLine                 (pANTLR3_COMMON_TOKEN token, ANTLR3_UINT32 line)
++{
++    token->line = line;
++}
++
++static  ANTLR3_INT32    getCharPositionInLine   (pANTLR3_COMMON_TOKEN token)
++{
++    return  token->charPosition;
++}
++
++static  void            setCharPositionInLine   (pANTLR3_COMMON_TOKEN token, ANTLR3_INT32 pos)
++{
++    token->charPosition = pos;
++}
++
++static  ANTLR3_UINT32   getChannel              (pANTLR3_COMMON_TOKEN token)
++{
++    return  token->channel;
++}
++
++static  void            setChannel              (pANTLR3_COMMON_TOKEN token, ANTLR3_UINT32 channel)
++{
++    token->channel  = channel;
++}
++
++static  ANTLR3_MARKER   getTokenIndex           (pANTLR3_COMMON_TOKEN token)
++{
++    return  token->index;
++}
++
++static  void            setTokenIndex           (pANTLR3_COMMON_TOKEN token, ANTLR3_MARKER index)
++{
++    token->index    = index;
++}
++
+ static  ANTLR3_MARKER   getStartIndex           (pANTLR3_COMMON_TOKEN token)
+ {
+         return  token->start == -1 ? (ANTLR3_MARKER)(token->input->data) : token->start;
+@@ -452,7 +544,65 @@ static  void            setStartIndex           (pANTLR3_COMMON_TOKEN token, ANT
+     token->start    = start;
+ }
+
++static  ANTLR3_MARKER   getStopIndex            (pANTLR3_COMMON_TOKEN token)
++{
++    return  token->stop;
++}
++
+ static  void            setStopIndex            (pANTLR3_COMMON_TOKEN token, ANTLR3_MARKER stop)
+ {
+     token->stop = stop;
+ }
++
++static  pANTLR3_STRING    toString              (pANTLR3_COMMON_TOKEN token)
++{
++    pANTLR3_STRING  text;
++    pANTLR3_STRING  outtext;
++
++    text    =   token->getText(token);
++
++    if  (text == NULL)
++    {
++                return NULL;
++    }
++
++        if      (text->factory == NULL)
++        {
++                return text;            // This usally means it is the EOF token
++        }
++
++    /* A new empty string to assemble all the stuff in
++     */
++    outtext = text->factory->newRaw(text->factory);
++
++    /* Now we use our handy dandy string utility to assemble the
++     * the reporting string
++     * return "[@"+getTokenIndex()+","+start+":"+stop+"='"+txt+"',<"+type+">"+channelStr+","+line+":"+getCharPositionInLine()+"]";
++     */
++    outtext->append8(outtext, "[Index: ");
++    outtext->addi   (outtext, (ANTLR3_INT32)token->getTokenIndex(token));
++    outtext->append8(outtext, " (Start: ");
++    outtext->addi   (outtext, (ANTLR3_INT32)token->getStartIndex(token));
++    outtext->append8(outtext, "-Stop: ");
++    outtext->addi   (outtext, (ANTLR3_INT32)token->getStopIndex(token));
++    outtext->append8(outtext, ") ='");
++    outtext->appendS(outtext, text);
++    outtext->append8(outtext, "', type<");
++    outtext->addi   (outtext, token->type);
++    outtext->append8(outtext, "> ");
++
++    if  (token->getChannel(token) > ANTLR3_TOKEN_DEFAULT_CHANNEL)
++    {
++                outtext->append8(outtext, "(channel = ");
++                outtext->addi   (outtext, (ANTLR3_INT32)token->getChannel(token));
++                outtext->append8(outtext, ") ");
++    }
++
++    outtext->append8(outtext, "Line: ");
++    outtext->addi   (outtext, (ANTLR3_INT32)token->getLine(token));
++    outtext->append8(outtext, " LinePos:");
++    outtext->addi   (outtext, token->getCharPositionInLine(token));
++    outtext->addc   (outtext, ']');
++
++    return  outtext;
++}
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3commontree.c b/modules/cctbx_project/ucif/antlr3/src/antlr3commontree.c
+old mode 100755
+new mode 100644
+index 5df0bfa4e1..e7f633b24a
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3commontree.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3commontree.c
+@@ -55,7 +55,7 @@ static void                 reuse                   (pANTLR3_BASE_TREE tree);
+
+ // Factory functions for the Arboretum
+ //
+-static void                                     newPool                         (pANTLR3_ARBORETUM factory);
++static ANTLR3_BOOLEAN           newPool                         (pANTLR3_ARBORETUM factory);
+ static pANTLR3_BASE_TREE    newPoolTree                 (pANTLR3_ARBORETUM factory);
+ static pANTLR3_BASE_TREE    newFromTree                 (pANTLR3_ARBORETUM factory, pANTLR3_COMMON_TREE tree);
+ static pANTLR3_BASE_TREE    newFromToken                (pANTLR3_ARBORETUM factory, pANTLR3_COMMON_TOKEN token);
+@@ -120,25 +120,40 @@ antlr3ArboretumNew(pANTLR3_STRING_FACTORY strFactory)
+
+ }
+
+-static void
++static ANTLR3_BOOLEAN
+ newPool(pANTLR3_ARBORETUM factory)
+ {
++        pANTLR3_COMMON_TREE *newPools;
++
+     // Increment factory count
+     //
+-    factory->thisPool++;
++    ++factory->thisPool;
+
+     // Ensure we have enough pointers allocated
+     //
+-    factory->pools = (pANTLR3_COMMON_TREE *)
++    newPools = (pANTLR3_COMMON_TREE *)
+                                         ANTLR3_REALLOC( (void *)factory->pools,                                                                         // Current pools pointer (starts at NULL)
+                                         (ANTLR3_UINT32)((factory->thisPool + 1) * sizeof(pANTLR3_COMMON_TREE *))        // Memory for new pool pointers
+                                         );
++        if (newPools == NULL)
++        {
++                // realloc failed, but we still have the old allocation
++                --factory->thisPool;
++                return ANTLR3_FALSE;
++        }
++        factory->pools = newPools;
+
+     // Allocate a new pool for the factory
+     //
+     factory->pools[factory->thisPool]   =
+                             (pANTLR3_COMMON_TREE)
+                                 ANTLR3_MALLOC((size_t)(sizeof(ANTLR3_COMMON_TREE) * ANTLR3_FACTORY_POOL_SIZE));
++        if (factory->pools[factory->thisPool] == NULL)
++        {
++                // malloc failed
++                --factory->thisPool;
++                return ANTLR3_FALSE;
++        }
+
+
+     // Reset the counters
+@@ -147,7 +162,7 @@ newPool(pANTLR3_ARBORETUM factory)
+
+     // Done
+     //
+-    return;
++    return ANTLR3_TRUE;
+ }
+
+ static  pANTLR3_BASE_TREE
+@@ -157,7 +172,7 @@ newPoolTree         (pANTLR3_ARBORETUM factory)
+
+     // If we have anything on the re claim stack, reuse that sucker first
+     //
+-    tree = factory->nilStack->peek(factory->nilStack);
++    tree = (pANTLR3_COMMON_TREE)factory->nilStack->peek(factory->nilStack);
+
+     if  (tree != NULL)
+     {
+@@ -176,7 +191,11 @@ newPoolTree         (pANTLR3_ARBORETUM factory)
+         {
+                 // We ran out of tokens in the current pool, so we need a new pool
+                 //
+-                newPool(factory);
++                if (!newPool(factory))
++                {
++                        // new pool creation failed
++                        return NULL;
++                }
+         }
+
+         // Assuming everything went well - we are trying for performance here so doing minimal
+@@ -337,7 +356,7 @@ ANTLR3_API pANTLR3_COMMON_TREE
+ antlr3CommonTreeNew()
+ {
+         pANTLR3_COMMON_TREE     tree;
+-        tree    = ANTLR3_CALLOC(1, sizeof(ANTLR3_COMMON_TREE));
++        tree = (pANTLR3_COMMON_TREE)ANTLR3_CALLOC(1, sizeof(ANTLR3_COMMON_TREE));
+
+         if      (tree == NULL)
+         {
+@@ -432,7 +451,7 @@ getType                 (pANTLR3_BASE_TREE tree)
+         }
+         else
+         {
+-                return  theTree->token->type;
++                return  theTree->token->getType(theTree->token);
+         }
+ }
+
+@@ -451,7 +470,7 @@ static ANTLR3_UINT32        getLine                     (pANTLR3_BASE_TREE tree)
+
+         token   = cTree->token;
+
+-        if      (token == NULL || token->line == 0)
++        if      (token == NULL || token->getLine(token) == 0)
+         {
+                 if  (tree->getChildCount(tree) > 0)
+                 {
+@@ -462,7 +481,7 @@ static ANTLR3_UINT32        getLine                     (pANTLR3_BASE_TREE tree)
+                 }
+                 return 0;
+         }
+-        return  token->line;
++        return  token->getLine(token);
+ }
+
+ static ANTLR3_UINT32        getCharPositionInLine       (pANTLR3_BASE_TREE tree)
+@@ -471,7 +490,7 @@ static ANTLR3_UINT32        getCharPositionInLine       (pANTLR3_BASE_TREE tree)
+
+         token   = ((pANTLR3_COMMON_TREE)(tree->super))->token;
+
+-        if      (token == NULL || token->charPosition == -1)
++        if      (token == NULL || token->getCharPositionInLine(token) == -1)
+         {
+                 if  (tree->getChildCount(tree) > 0)
+                 {
+@@ -483,7 +502,7 @@ static ANTLR3_UINT32        getCharPositionInLine       (pANTLR3_BASE_TREE tree)
+                 }
+                 return 0;
+         }
+-        return  token->charPosition;
++        return  token->getCharPositionInLine(token);
+ }
+
+ static pANTLR3_STRING       toString                    (pANTLR3_BASE_TREE tree)
+@@ -503,13 +522,15 @@ static pANTLR3_STRING       toString                    (pANTLR3_BASE_TREE tree)
+ static pANTLR3_BASE_TREE
+ getParent                               (pANTLR3_BASE_TREE tree)
+ {
++        if (((pANTLR3_COMMON_TREE)(tree->super))->parent == NULL)
++                return NULL;
+         return & (((pANTLR3_COMMON_TREE)(tree->super))->parent->baseTree);
+ }
+
+ static void
+ setParent                               (pANTLR3_BASE_TREE tree, pANTLR3_BASE_TREE parent)
+ {
+-        ((pANTLR3_COMMON_TREE)(tree->super))->parent = parent == NULL ? NULL : ((pANTLR3_COMMON_TREE)(parent->super))->parent;
++        ((pANTLR3_COMMON_TREE)(tree->super))->parent = parent == NULL ? NULL : ((pANTLR3_COMMON_TREE)(parent->super));
+ }
+
+ static void
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3commontreeadaptor.c b/modules/cctbx_project/ucif/antlr3/src/antlr3commontreeadaptor.c
+old mode 100755
+new mode 100644
+index b03a6eda39..5da8bb8f24
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3commontreeadaptor.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3commontreeadaptor.c
+@@ -243,7 +243,7 @@ errorNode                               (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANT
+         // need to track and free the memory allocated to it, so for now, we just
+         // want something in the tree that isn't a NULL pointer.
+         //
+-        return adaptor->createTypeText(adaptor, ANTLR3_TOKEN_INVALID, (pANTLR3_UINT8)"Tree Error Node");
++        return (pANTLR3_BASE_TREE)adaptor->createTypeText(adaptor, ANTLR3_TOKEN_INVALID, (pANTLR3_UINT8)"Tree Error Node");
+
+ }
+
+@@ -252,7 +252,7 @@ errorNode                               (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANT
+ static  pANTLR3_BASE_TREE
+ dupNode         (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE_TREE treeNode)
+ {
+-        return  treeNode == NULL ? NULL : treeNode->dupNode(treeNode);
++        return  treeNode == NULL ? NULL : (pANTLR3_BASE_TREE)treeNode->dupNode(treeNode);
+ }
+
+ static  pANTLR3_BASE_TREE
+@@ -298,7 +298,7 @@ createToken             (pANTLR3_BASE_TREE_ADAPTOR adaptor, ANTLR3_UINT32 tokenT
+     {
+                 newToken->textState             = ANTLR3_TEXT_CHARP;
+                 newToken->tokText.chars = (pANTLR3_UCHAR)text;
+-                newToken->type = tokenType;
++                newToken->setType(newToken, tokenType);
+                 newToken->input                         = adaptor->tokenFactory->input;
+         newToken->strFactory        = adaptor->strFactory;
+     }
+@@ -337,6 +337,8 @@ createTokenFromToken    (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_COMMON_TOKEN
+                 //
+                 pANTLR3_STRING  text;
+
++                newToken->toString  = fromToken->toString;
++
+                 if      (fromToken->textState == ANTLR3_TEXT_CHARP)
+                 {
+                         newToken->textState             = ANTLR3_TEXT_CHARP;
+@@ -349,11 +351,11 @@ createTokenFromToken    (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_COMMON_TOKEN
+                         newToken->tokText.text      = adaptor->strFactory->newPtr(adaptor->strFactory, text->chars, text->len);
+                 }
+
+-                newToken->line         = fromToken->line;
+-                newToken->index        = fromToken->index;
+-                newToken->charPosition = fromToken->charPosition;
+-                newToken->channel      = fromToken->channel;
+-                newToken->type         = fromToken->type;
++                newToken->setLine                               (newToken, fromToken->getLine(fromToken));
++                newToken->setTokenIndex                 (newToken, fromToken->getTokenIndex(fromToken));
++                newToken->setCharPositionInLine (newToken, fromToken->getCharPositionInLine(fromToken));
++                newToken->setChannel                    (newToken, fromToken->getChannel(fromToken));
++                newToken->setType                               (newToken, fromToken->getType(fromToken));
+     }
+
+     return  newToken;
+@@ -381,7 +383,7 @@ setTokenBoundaries      (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE_TREE t,
+
+         if      ( startToken != NULL)
+         {
+-                start = startToken->index;
++                start = startToken->getTokenIndex(startToken);
+         }
+         else
+         {
+@@ -390,7 +392,7 @@ setTokenBoundaries      (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE_TREE t,
+
+         if      ( stopToken != NULL)
+         {
+-                stop = stopToken->index;
++                stop = stopToken->getTokenIndex(stopToken);
+         }
+         else
+         {
+@@ -410,7 +412,7 @@ dbgSetTokenBoundaries   (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE_TREE t,
+
+         if      (t != NULL && startToken != NULL && stopToken != NULL)
+         {
+-                adaptor->debugger->setTokenBoundaries(adaptor->debugger, t, startToken->index, stopToken->index);
++                adaptor->debugger->setTokenBoundaries(adaptor->debugger, t, startToken->getTokenIndex(startToken), stopToken->getTokenIndex(stopToken));
+         }
+ }
+
+@@ -451,7 +453,7 @@ replaceChildren
+ static  pANTLR3_BASE_TREE
+ getChild                                (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE_TREE t, ANTLR3_UINT32 i)
+ {
+-        return t->getChild(t, i);
++        return (pANTLR3_BASE_TREE)t->getChild(t, i);
+ }
+ static  void
+ setChild                                (pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_BASE_TREE t, ANTLR3_UINT32 i, pANTLR3_BASE_TREE child)
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3commontreenodestream.c b/modules/cctbx_project/ucif/antlr3/src/antlr3commontreenodestream.c
+old mode 100755
+new mode 100644
+index 3d169e7ee6..8f42f875ef
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3commontreenodestream.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3commontreenodestream.c
+@@ -503,7 +503,7 @@ fillBuffer(pANTLR3_COMMON_TREE_NODE_STREAM ctns, pANTLR3_BASE_TREE t)
+         //
+         for     (c = 0; c < nCount; c++)
+         {
+-                fillBuffer(ctns, ctns->adaptor->getChild(ctns->adaptor, t, c));
++                fillBuffer(ctns, (pANTLR3_BASE_TREE)ctns->adaptor->getChild(ctns->adaptor, t, c));
+         }
+
+         // If the tree had children and was not a nil (list) node, then we
+@@ -560,7 +560,7 @@ LB(pANTLR3_TREE_NODE_STREAM tns, ANTLR3_INT32 k)
+                 return  &(tns->ctns->INVALID_NODE.baseTree);
+         }
+
+-        return tns->ctns->nodes->get(tns->ctns->nodes, tns->ctns->p - k);
++        return (pANTLR3_BASE_TREE)tns->ctns->nodes->get(tns->ctns->nodes, tns->ctns->p - k);
+ }
+
+ /// Get tree node at current input pointer + i ahead where i=1 is next node.
+@@ -597,7 +597,7 @@ _LT         (pANTLR3_TREE_NODE_STREAM tns, ANTLR3_INT32 k)
+                 return &(tns->ctns->EOF_NODE.baseTree);
+         }
+
+-        return  tns->ctns->nodes->get(tns->ctns->nodes, tns->ctns->p + k - 1);
++        return  (pANTLR3_BASE_TREE)tns->ctns->nodes->get(tns->ctns->nodes, tns->ctns->p + k - 1);
+ }
+
+ /// Where is this stream pulling nodes from?  This is not the name, but
+@@ -867,7 +867,7 @@ toStringWork    (pANTLR3_TREE_NODE_STREAM tns, pANTLR3_BASE_TREE p, pANTLR3_BASE
+         {
+                 pANTLR3_BASE_TREE   child;
+
+-                child = p->getChild(p, c);
++                child = (pANTLR3_BASE_TREE)p->getChild(p, c);
+                 tns->toStringWork(tns, child, stop, buf);
+         }
+
+@@ -947,7 +947,7 @@ get                                                     (pANTLR3_TREE_NODE_STREA
+                 fillBufferRoot(tns->ctns);
+         }
+
+-        return tns->ctns->nodes->get(tns->ctns->nodes, k);
++        return (pANTLR3_BASE_TREE)tns->ctns->nodes->get(tns->ctns->nodes, k);
+ }
+
+ static  void
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3convertutf.c b/modules/cctbx_project/ucif/antlr3/src/antlr3convertutf.c
+old mode 100755
+new mode 100644
+index 9fe5f6a338..ee4def358f
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3convertutf.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3convertutf.c
+@@ -288,25 +288,25 @@ isLegalUTF8(const UTF8 *source, int length) {
+     UTF8 a;
+     const UTF8 *srcptr = source+length;
+     switch (length) {
+-    default: return false;
++    default: return ANTLR3_FALSE;
+         /* Everything else falls through when "true"... */
+-    case 4: if ((a = (*--srcptr)) < 0x80 || a > 0xBF) return false;
+-    case 3: if ((a = (*--srcptr)) < 0x80 || a > 0xBF) return false;
+-    case 2: if ((a = (*--srcptr)) > 0xBF) return false;
++    case 4: if ((a = (*--srcptr)) < 0x80 || a > 0xBF) return ANTLR3_FALSE;
++    case 3: if ((a = (*--srcptr)) < 0x80 || a > 0xBF) return ANTLR3_FALSE;
++    case 2: if ((a = (*--srcptr)) > 0xBF) return ANTLR3_FALSE;
+
+         switch (*source) {
+             /* no fall-through in this inner switch */
+-            case 0xE0: if (a < 0xA0) return false; break;
+-            case 0xED: if (a > 0x9F) return false; break;
+-            case 0xF0: if (a < 0x90) return false; break;
+-            case 0xF4: if (a > 0x8F) return false; break;
+-            default:   if (a < 0x80) return false;
++            case 0xE0: if (a < 0xA0) return ANTLR3_FALSE; break;
++            case 0xED: if (a > 0x9F) return ANTLR3_FALSE; break;
++            case 0xF0: if (a < 0x90) return ANTLR3_FALSE; break;
++            case 0xF4: if (a > 0x8F) return ANTLR3_FALSE; break;
++            default:   if (a < 0x80) return ANTLR3_FALSE;
+         }
+
+-    case 1: if (*source >= 0x80 && *source < 0xC2) return false;
++    case 1: if (*source >= 0x80 && *source < 0xC2) return ANTLR3_FALSE;
+     }
+-    if (*source > 0xF4) return false;
+-    return true;
++    if (*source > 0xF4) return ANTLR3_FALSE;
++    return ANTLR3_TRUE;
+ }
+
+ /* --------------------------------------------------------------------- */
+@@ -319,7 +319,7 @@ ANTLR3_BOOLEAN
+ isLegalUTF8Sequence(const UTF8 *source, const UTF8 *sourceEnd) {
+     int length = trailingBytesForUTF8[*source]+1;
+     if (source+length > sourceEnd) {
+-        return false;
++        return ANTLR3_FALSE;
+     }
+     return isLegalUTF8(source, length);
+ }
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3cyclicdfa.c b/modules/cctbx_project/ucif/antlr3/src/antlr3cyclicdfa.c
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3debughandlers.c b/modules/cctbx_project/ucif/antlr3/src/antlr3debughandlers.c
+old mode 100755
+new mode 100644
+index 8d9813ec49..21ff2f458d
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3debughandlers.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3debughandlers.c
+@@ -94,7 +94,7 @@ antlr3DebugListenerNew()
+ {
+         pANTLR3_DEBUG_EVENT_LISTENER    delboy;
+
+-        delboy = ANTLR3_CALLOC(1, sizeof(ANTLR3_DEBUG_EVENT_LISTENER));
++        delboy = (pANTLR3_DEBUG_EVENT_LISTENER)ANTLR3_CALLOC(1, sizeof(ANTLR3_DEBUG_EVENT_LISTENER));
+
+         if      (delboy == NULL)
+         {
+@@ -136,7 +136,7 @@ antlr3DebugListenerNew()
+         delboy->terminate                               = terminate;
+         delboy->errorNode                               = errorNode;
+
+-        delboy->PROTOCOL_VERSION                = 2;    // ANTLR 3.1 is at protocol version 2
++        delboy->protocol_version                = 2;    // ANTLR 3.1 is at protocol version 2
+
+         delboy->port                                    = DEFAULT_DEBUGGER_PORT;
+
+@@ -299,7 +299,7 @@ handshake                               (pANTLR3_DEBUG_EVENT_LISTENER delboy)
+                 // Disable Nagle as this is essentially a chat exchange
+                 //
+                 optVal  = 1;
+-                setsockopt(delboy->socket, SOL_SOCKET, TCP_NODELAY, (const void *)&optVal, sizeof(optVal));
++                setsockopt(delboy->socket, SOL_SOCKET, TCP_NODELAY, (const char *)&optVal, sizeof(optVal));
+
+         }
+
+@@ -307,7 +307,7 @@ handshake                               (pANTLR3_DEBUG_EVENT_LISTENER delboy)
+         // send it the protocol version we are using and what the name of the grammar
+         // is that we represent.
+         //
+-        sprintf         (message, "ANTLR %d\n", delboy->PROTOCOL_VERSION);
++        sprintf         (message, "ANTLR %d\n", delboy->protocol_version);
+         sockSend        (delboy->socket, message, (int)strlen(message));
+         sprintf         (message, "grammar \"%s\n", delboy->grammarFileName->chars);
+         sockSend        (delboy->socket, message, (int)strlen(message));
+@@ -435,15 +435,15 @@ serializeToken(pANTLR3_DEBUG_EVENT_LISTENER delboy, pANTLR3_COMMON_TOKEN t)
+         // Now we serialize the elements of the token.Note that the debugger only
+         // uses 32 bits.
+         //
+-        delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(t->index));
++        delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(t->getTokenIndex(t)));
+         delboy->tokenString->addc(delboy->tokenString, '\t');
+-        delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(t->type));
++        delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(t->getType(t)));
+         delboy->tokenString->addc(delboy->tokenString, '\t');
+-        delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(t->channel));
++        delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(t->getChannel(t)));
+         delboy->tokenString->addc(delboy->tokenString, '\t');
+-        delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(t->line));
++        delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(t->getLine(t)));
+         delboy->tokenString->addc(delboy->tokenString, '\t');
+-        delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(t->charPosition));
++        delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(t->getCharPositionInLine(t)));
+
+         // Now send the text that the token represents.
+         //
+@@ -511,9 +511,9 @@ serializeNode(pANTLR3_DEBUG_EVENT_LISTENER delboy, pANTLR3_BASE_TREE node)
+         {
+                 // Real token
+                 //
+-                delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(token->line));
++                delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(token->getLine(token)));
+                 delboy->tokenString->addc(delboy->tokenString, ' ');
+-                delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(token->charPosition));
++                delboy->tokenString->addi(delboy->tokenString, (ANTLR3_INT32)(token->getCharPositionInLine(token)));
+         }
+         else
+         {
+@@ -1004,7 +1004,7 @@ createNodeTok                   (pANTLR3_DEBUG_EVENT_LISTENER delboy, pANTLR3_BA
+ {
+         char    buffer[128];
+
+-        sprintf(buffer, "createNode\t%d\t%d\n", delboy->adaptor->getUniqueID(delboy->adaptor, node), (ANTLR3_UINT32)token->index);
++        sprintf(buffer, "createNode\t%d\t%d\n", delboy->adaptor->getUniqueID(delboy->adaptor, node), (ANTLR3_UINT32)token->getTokenIndex(token));
+
+         transmit(delboy, buffer);
+ }
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3encodings.c b/modules/cctbx_project/ucif/antlr3/src/antlr3encodings.c
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3exception.c b/modules/cctbx_project/ucif/antlr3/src/antlr3exception.c
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3filestream.c b/modules/cctbx_project/ucif/antlr3/src/antlr3filestream.c
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3inputstream.c b/modules/cctbx_project/ucif/antlr3/src/antlr3inputstream.c
+old mode 100755
+new mode 100644
+index c6a7fc7d9f..c2915d056c
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3inputstream.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3inputstream.c
+@@ -263,7 +263,7 @@ antlr3InputReset(pANTLR3_INPUT_STREAM input)
+
+     input->nextChar             = input->data;  /* Input at first character */
+     input->line                 = 1;            /* starts at line 1         */
+-    input->charPositionInLine   = -1;
++    input->charPositionInLine   = 0;
+     input->currentLine          = input->data;
+     input->markDepth            = 0;            /* Reset markers            */
+
+@@ -451,26 +451,32 @@ antlr38BitMark  (pANTLR3_INT_STREAM is)
+
+     /* New mark point
+      */
+-    input->markDepth++;
++    ++input->markDepth;
+
+     /* See if we are revisiting a mark as we can just reuse the vector
+      * entry if we are, otherwise, we need a new one
+      */
+     if  (input->markDepth > input->markers->count)
+     {
+-        state   = ANTLR3_MALLOC(sizeof(ANTLR3_LEX_STATE));
++                state = (pANTLR3_LEX_STATE)ANTLR3_MALLOC(sizeof(ANTLR3_LEX_STATE));
++                if (state == NULL)
++                {
++                        // malloc failed
++                        --input->markDepth;
++                        return 0;
++                }
+
+-        /* Add it to the table
+-         */
+-        input->markers->add(input->markers, state, ANTLR3_FREE_FUNC);   /* No special structure, just free() on delete */
++                /* Add it to the table
++                 */
++                input->markers->add(input->markers, state, ANTLR3_FREE_FUNC);   /* No special structure, just free() on delete */
+     }
+     else
+     {
+-        state   = (pANTLR3_LEX_STATE)input->markers->get(input->markers, input->markDepth - 1);
++                state   = (pANTLR3_LEX_STATE)input->markers->get(input->markers, input->markDepth - 1);
+
+-        /* Assume no errors for speed, it will just blow up if the table failed
+-         * for some reasons, hence lots of unit tests on the tables ;-)
+-         */
++                /* Assume no errors for speed, it will just blow up if the table failed
++                 * for some reasons, hence lots of unit tests on the tables ;-)
++                 */
+     }
+
+     /* We have created or retrieved the state, so update it with the current
+@@ -522,6 +528,7 @@ antlr38BitRewind        (pANTLR3_INT_STREAM is, ANTLR3_MARKER mark)
+     /* Find the supplied mark state
+      */
+     state   = (pANTLR3_LEX_STATE)input->markers->get(input->markers, (ANTLR3_UINT32)(mark - 1));
++        if (state == NULL) { return; }
+
+     /* Seek input pointer to the requested point (note we supply the void *pointer
+      * to whatever is implementing the int stream to seek).
+@@ -572,7 +579,7 @@ antlr38BitSeek  (pANTLR3_INT_STREAM is, ANTLR3_MARKER seekPoint)
+         ANTLR3_INT32   count;
+         pANTLR3_INPUT_STREAM input;
+
+-        input   = ANTLR3_FUNC_PTR(((pANTLR3_INPUT_STREAM) is->super));
++        input   = (pANTLR3_INPUT_STREAM)ANTLR3_FUNC_PTR(((pANTLR3_INPUT_STREAM) is->super));
+
+         /* If the requested seek point is less than the current
+         * input point, then we assume that we are resetting from a mark
+@@ -865,7 +872,7 @@ antlr3UTF16LA(pANTLR3_INT_STREAM is, ANTLR3_INT32 la)
+         // in the input stream
+         //
+         input       = ((pANTLR3_INPUT_STREAM) (is->super));
+-        nextChar    = input->nextChar;
++        nextChar    = (UTF16*)input->nextChar;
+
+         // If a positive offset then advance forward, else retreat
+         //
+@@ -1145,7 +1152,7 @@ antlr3UTF16LALE(pANTLR3_INT_STREAM is, ANTLR3_INT32 la)
+         // in the input stream
+         //
+         input       = ((pANTLR3_INPUT_STREAM) (is->super));
+-        nextChar    = input->nextChar;
++        nextChar    = (pANTLR3_UCHAR)input->nextChar;
+
+         // If a positive offset then advance forward, else retreat
+         //
+@@ -1366,7 +1373,7 @@ antlr3UTF16LABE(pANTLR3_INT_STREAM is, ANTLR3_INT32 la)
+         // in the input stream
+         //
+         input       = ((pANTLR3_INPUT_STREAM) (is->super));
+-        nextChar    = input->nextChar;
++        nextChar    = (pANTLR3_UCHAR)input->nextChar;
+
+         // If a positive offset then advance forward, else retreat
+         //
+@@ -1810,7 +1817,7 @@ antlr3UTF8Consume(pANTLR3_INT_STREAM is)
+
+     input   = ((pANTLR3_INPUT_STREAM) (is->super));
+
+-    nextChar = input->nextChar;
++    nextChar = (pANTLR3_UINT8)input->nextChar;
+
+     if  (nextChar < (((pANTLR3_UINT8)input->data) + input->sizeBuf))
+     {
+@@ -1876,7 +1883,7 @@ antlr3UTF8LA(pANTLR3_INT_STREAM is, ANTLR3_INT32 la)
+
+     input   = ((pANTLR3_INPUT_STREAM) (is->super));
+
+-    nextChar = input->nextChar;
++    nextChar = (pANTLR3_UINT8)input->nextChar;
+
+     // Do we need to traverse forwards or backwards?
+     // - LA(0) is treated as LA(1) and we assume that the nextChar is
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3intstream.c b/modules/cctbx_project/ucif/antlr3/src/antlr3intstream.c
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3lexer.c b/modules/cctbx_project/ucif/antlr3/src/antlr3lexer.c
+old mode 100755
+new mode 100644
+index 2c8544f8ba..bb8ece5316
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3lexer.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3lexer.c
+@@ -148,18 +148,26 @@ antlr3LexerNew(ANTLR3_UINT32 sizeHint, pANTLR3_RECOGNIZER_SHARED_STATE state)
+      */
+     specialT                                    = &(lexer->rec->state->tokSource->eofToken);
+     antlr3SetTokenAPI     (specialT);
+-    specialT->type              = ANTLR3_TOKEN_EOF;
++    specialT->setType     (specialT, ANTLR3_TOKEN_EOF);
+     specialT->factoryMade               = ANTLR3_TRUE;                                  // Prevent things trying to free() it
+     specialT->strFactory        = NULL;
+         specialT->textState                     = ANTLR3_TEXT_NONE;
++        specialT->custom                        = NULL;
++        specialT->user1                         = 0;
++        specialT->user2                         = 0;
++        specialT->user3                         = 0;
+
+         // Initialize the skip token.
+         //
+     specialT                                    = &(lexer->rec->state->tokSource->skipToken);
+     antlr3SetTokenAPI     (specialT);
+-    specialT->type              = ANTLR3_TOKEN_INVALID;
++    specialT->setType     (specialT, ANTLR3_TOKEN_INVALID);
+     specialT->factoryMade               = ANTLR3_TRUE;                                  // Prevent things trying to free() it
+     specialT->strFactory        = NULL;
++        specialT->custom                        = NULL;
++        specialT->user1                         = 0;
++        specialT->user2                         = 0;
++        specialT->user3                         = 0;
+     return  lexer;
+ }
+
+@@ -168,7 +176,7 @@ reset   (pANTLR3_BASE_RECOGNIZER rec)
+ {
+     pANTLR3_LEXER   lexer;
+
+-    lexer   = rec->super;
++    lexer   = (pANTLR3_LEXER)rec->super;
+
+     lexer->rec->state->token                        = NULL;
+     lexer->rec->state->type                         = ANTLR3_TOKEN_INVALID;
+@@ -240,6 +248,11 @@ nextTokenStr        (pANTLR3_TOKEN_SOURCE toksource)
+             state->tokenStartCharPositionInLine     = input->charPositionInLine;
+             state->tokenStartLine                   = input->line;
+             state->text                             = NULL;
++            state->custom                           = NULL;
++            state->user1                            = 0;
++            state->user2                            = 0;
++            state->user3                            = 0;
++
+             if  (istream->_LA(istream, 1) == ANTLR3_CHARSTREAM_EOF)
+             {
+                 // Reached the end of the current stream, nothing more to do if this is
+@@ -249,7 +262,7 @@ nextTokenStr        (pANTLR3_TOKEN_SOURCE toksource)
+
+                 teof->setStartIndex (teof, lexer->getCharIndex(lexer));
+                 teof->setStopIndex  (teof, lexer->getCharIndex(lexer));
+-                teof->line = lexer->getLine(lexer);
++                teof->setLine       (teof, lexer->getLine(lexer));
+                 teof->factoryMade = ANTLR3_TRUE;        // This isn't really manufactured but it stops things from trying to free it
+                 return  teof;
+             }
+@@ -330,12 +343,12 @@ nextToken           (pANTLR3_TOKEN_SOURCE toksource)
+         // stream we just consumed, otherwise we will return EOF
+         // on the reinstalled input stream, when in actual fact
+         // there might be more input streams to POP before the
+-        // real EOF of the whole logical inptu stream. Hence we
+-        // use a while loop here until we find somethign in the stream
++        // real EOF of the whole logical input stream. Hence we
++        // use a while loop here until we find something in the stream
+         // that isn't EOF or we reach the actual end of the last input
+         // stream on the stack.
+         //
+-        while   (tok->type == ANTLR3_TOKEN_EOF)
++        while   ((tok != NULL) && (tok->type == ANTLR3_TOKEN_EOF))
+         {
+                 pANTLR3_LEXER   lexer;
+
+@@ -636,6 +649,7 @@ emit        (pANTLR3_LEXER lexer)
+     * trying to emit a new token.
+     */
+     token   = lexer->rec->state->tokFactory->newToken(lexer->rec->state->tokFactory);
++        if (token == NULL) { return NULL; }
+
+     /* Install the supplied information, and some other bits we already know
+     * get added automatically, such as the input stream it is associated with
+@@ -657,6 +671,11 @@ emit        (pANTLR3_LEXER lexer)
+     {
+         token->textState        = ANTLR3_TEXT_NONE;
+     }
++    token->lineStart    = lexer->input->currentLine;
++    token->user1        = lexer->rec->state->user1;
++    token->user2        = lexer->rec->state->user2;
++    token->user3        = lexer->rec->state->user3;
++    token->custom       = lexer->rec->state->custom;
+
+     lexer->rec->state->token        = token;
+
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3parser.c b/modules/cctbx_project/ucif/antlr3/src/antlr3parser.c
+old mode 100755
+new mode 100644
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3rewritestreams.c b/modules/cctbx_project/ucif/antlr3/src/antlr3rewritestreams.c
+old mode 100755
+new mode 100644
+index eaa945c177..36ac5fae4e
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3rewritestreams.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3rewritestreams.c
+@@ -197,7 +197,7 @@ antlr3RewriteRuleElementStreamNewAE(pANTLR3_BASE_TREE_ADAPTOR adaptor, pANTLR3_B
+                 // Remove the entry from the vector. We do not
+                 // cause it to be freed by using remove.
+                 //
+-                stream = rec->state->rStreams->remove(rec->state->rStreams, rec->state->rStreams->count - 1);
++                stream = (pANTLR3_REWRITE_RULE_ELEMENT_STREAM)rec->state->rStreams->remove(rec->state->rStreams, rec->state->rStreams->count - 1);
+
+                 // We found a stream we can reuse.
+                 // If the stream had a vector, then it will have been cleared
+@@ -577,13 +577,13 @@ nextTree(pANTLR3_REWRITE_RULE_ELEMENT_STREAM stream)
+                 // if out of elements and size is 1, dup
+                 //
+                 el = stream->_next(stream);
+-                return stream->dup(stream, el);
++                return (pANTLR3_BASE_TREE)stream->dup(stream, el);
+         }
+
+         // test size above then fetch
+         //
+         el = stream->_next(stream);
+-        return el;
++        return (pANTLR3_BASE_TREE)el;
+ }
+
+ /// Return the next element for a caller that wants just the token
+@@ -607,7 +607,7 @@ next        (pANTLR3_REWRITE_RULE_ELEMENT_STREAM stream)
+         {
+                 pANTLR3_BASE_TREE el;
+
+-                el = stream->_next(stream);
++                el = (pANTLR3_BASE_TREE)stream->_next(stream);
+
+                 return  stream->dup(stream, el);
+         }
+@@ -737,7 +737,7 @@ toTree   (pANTLR3_REWRITE_RULE_ELEMENT_STREAM stream, void * element)
+ static pANTLR3_BASE_TREE
+ toTreeNode   (pANTLR3_REWRITE_RULE_ELEMENT_STREAM stream, void * element)
+ {
+-        return stream->adaptor->dupNode(stream->adaptor, (pANTLR3_BASE_TREE)element);
++        return (pANTLR3_BASE_TREE)stream->adaptor->dupNode(stream->adaptor, (pANTLR3_BASE_TREE)element);
+ }
+
+ #ifdef ANTLR3_WINDOWS
+@@ -766,13 +766,13 @@ hasNext  (pANTLR3_REWRITE_RULE_ELEMENT_STREAM stream)
+ static pANTLR3_BASE_TREE
+ nextNodeToken(pANTLR3_REWRITE_RULE_ELEMENT_STREAM stream)
+ {
+-        return stream->adaptor->create(stream->adaptor, stream->_next(stream));
++        return (pANTLR3_BASE_TREE)stream->adaptor->create(stream->adaptor, (pANTLR3_COMMON_TOKEN)stream->_next(stream));
+ }
+
+ static pANTLR3_BASE_TREE
+ nextNodeNode(pANTLR3_REWRITE_RULE_ELEMENT_STREAM stream)
+ {
+-        return stream->_next(stream);
++        return (pANTLR3_BASE_TREE)stream->_next(stream);
+ }
+
+ /// Treat next element as a single node even if it's a subtree.
+@@ -789,7 +789,7 @@ nextNode (pANTLR3_REWRITE_RULE_ELEMENT_STREAM stream)
+ {
+
+         ANTLR3_UINT32   n;
+-        pANTLR3_BASE_TREE       el = stream->_next(stream);
++        pANTLR3_BASE_TREE       el = (pANTLR3_BASE_TREE)stream->_next(stream);
+
+         n = stream->size(stream);
+         if (stream->dirty == ANTLR3_TRUE || (stream->cursor > n && n == 1))
+@@ -797,7 +797,7 @@ nextNode (pANTLR3_REWRITE_RULE_ELEMENT_STREAM stream)
+                 // We are out of elements and the size is 1, which means we just
+                 // dup the node that we have
+                 //
+-                return  stream->adaptor->dupNode(stream->adaptor, el);
++                return  (pANTLR3_BASE_TREE)stream->adaptor->dupNode(stream->adaptor, el);
+         }
+
+         // We were not out of nodes, so the one we received is the one to return
+@@ -837,7 +837,7 @@ getDescription  (pANTLR3_REWRITE_RULE_ELEMENT_STREAM stream)
+ {
+         if (stream->elementDescription == NULL)
+         {
+-                stream->elementDescription = "<unknown source>";
++                stream->elementDescription = (void*)"<unknown source>";
+         }
+
+         return  stream->elementDescription;
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3string.c b/modules/cctbx_project/ucif/antlr3/src/antlr3string.c
+old mode 100755
+new mode 100644
+index 7759b12e51..f87cea82bc
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3string.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3string.c
+@@ -432,9 +432,11 @@ newSize8        (pANTLR3_STRING_FACTORY factory, ANTLR3_UINT32 size)
+     /* Always add one more byte for a terminator ;-)
+     */
+     string->chars       = (pANTLR3_UINT8) ANTLR3_MALLOC((size_t)(sizeof(ANTLR3_UINT8) * (size+1)));
+-    *(string->chars)    = '\0';
+-    string->size        = size + 1;
+-
++        if (string->chars != NULL)
++    {
++                *(string->chars)        = '\0';
++                string->size    = size + 1;
++        }
+
+     return string;
+ }
+@@ -460,8 +462,11 @@ newSizeUTF16    (pANTLR3_STRING_FACTORY factory, ANTLR3_UINT32 size)
+     /* Always add one more byte for a terminator ;-)
+     */
+     string->chars       = (pANTLR3_UINT8) ANTLR3_MALLOC((size_t)(sizeof(ANTLR3_UINT16) * (size+1)));
+-    *(string->chars)    = '\0';
+-    string->size        = size+1;       /* Size is always in characters, as is len */
++    if (string->chars != NULL)
++        {
++                *(string->chars)        = '\0';
++                string->size    = size+1;       /* Size is always in characters, as is len */
++        }
+
+     return string;
+ }
+@@ -800,7 +805,12 @@ append8 (pANTLR3_STRING string, const char * newbit)
+
+     if  (string->size < (string->len + len + 1))
+     {
+-                string->chars   = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(string->len + len + 1));
++                pANTLR3_UINT8 newAlloc = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(string->len + len + 1));
++                if (newAlloc == NULL)
++                {
++                        return NULL;
++                }
++                string->chars   = newAlloc;
+                 string->size    = string->len + len + 1;
+     }
+
+@@ -823,7 +833,12 @@ appendUTF16_8   (pANTLR3_STRING string, const char * newbit)
+
+     if  (string->size < (string->len + len + 1))
+     {
+-                string->chars   = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)((sizeof(ANTLR3_UINT16)*(string->len + len + 1))));
++                pANTLR3_UINT8 newAlloc = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)((sizeof(ANTLR3_UINT16)*(string->len + len + 1))));
++                if (newAlloc == NULL)
++                {
++                        return NULL;
++                }
++                string->chars   = newAlloc;
+                 string->size    = string->len + len + 1;
+     }
+
+@@ -857,7 +872,12 @@ appendUTF16_UTF16       (pANTLR3_STRING string, const char * newbit)
+
+     if  (string->size < (string->len + len + 1))
+     {
+-                string->chars   = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)( sizeof(ANTLR3_UINT16) *(string->len + len + 1) ));
++                pANTLR3_UINT8 newAlloc = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)( sizeof(ANTLR3_UINT16) *(string->len + len + 1) ));
++                if (newAlloc == NULL)
++                {
++                        return NULL;
++                }
++                string->chars   = newAlloc;
+                 string->size    = string->len + len + 1;
+     }
+
+@@ -877,7 +897,12 @@ set8    (pANTLR3_STRING string, const char * chars)
+     len = (ANTLR3_UINT32)strlen(chars);
+     if  (string->size < len + 1)
+     {
+-                string->chars   = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(len + 1));
++                pANTLR3_UINT8 newAlloc = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(len + 1));
++                if (newAlloc == NULL)
++                {
++                        return NULL;
++                }
++                string->chars   = newAlloc;
+                 string->size    = len + 1;
+     }
+
+@@ -900,7 +925,12 @@ setUTF16_8      (pANTLR3_STRING string, const char * chars)
+     len = (ANTLR3_UINT32)strlen(chars);
+     if  (string->size < len + 1)
+         {
+-                string->chars   = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(sizeof(ANTLR3_UINT16)*(len + 1)));
++                pANTLR3_UINT8 newAlloc = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(sizeof(ANTLR3_UINT16)*(len + 1)));
++                if (newAlloc == NULL)
++                {
++                        return NULL;
++                }
++                string->chars   = newAlloc;
+                 string->size    = len + 1;
+     }
+     apPoint = ((pANTLR3_UINT16)string->chars);
+@@ -933,7 +963,12 @@ setUTF16_UTF16    (pANTLR3_STRING string, const char * chars)
+
+     if  (string->size < len + 1)
+     {
+-                string->chars   = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(sizeof(ANTLR3_UINT16)*(len + 1)));
++                pANTLR3_UINT8 newAlloc = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(sizeof(ANTLR3_UINT16)*(len + 1)));
++                if (newAlloc == NULL)
++                {
++                        return NULL;
++                }
++                string->chars   = newAlloc;
+                 string->size    = len + 1;
+     }
+
+@@ -951,7 +986,12 @@ addc8   (pANTLR3_STRING string, ANTLR3_UINT32 c)
+ {
+     if  (string->size < string->len + 2)
+     {
+-                string->chars   = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(string->len + 2));
++                pANTLR3_UINT8 newAlloc = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(string->len + 2));
++                if (newAlloc == NULL)
++                {
++                        return NULL;
++                }
++                string->chars   = newAlloc;
+                 string->size    = string->len + 2;
+     }
+     *(string->chars + string->len)      = (ANTLR3_UINT8)c;
+@@ -968,7 +1008,12 @@ addcUTF16       (pANTLR3_STRING string, ANTLR3_UINT32 c)
+
+     if  (string->size < string->len + 2)
+     {
+-                string->chars   = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(sizeof(ANTLR3_UINT16) * (string->len + 2)));
++                pANTLR3_UINT8 newAlloc = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(sizeof(ANTLR3_UINT16) * (string->len + 2)));
++                if (newAlloc == NULL)
++                {
++                        return NULL;
++                }
++                string->chars   = newAlloc;
+                 string->size    = string->len + 2;
+     }
+     ptr = (pANTLR3_UINT16)(string->chars);
+@@ -1035,7 +1080,12 @@ insert8 (pANTLR3_STRING string, ANTLR3_UINT32 point, const char * newbit)
+
+     if  (string->size < (string->len + len + 1))
+     {
+-                string->chars   = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(string->len + len + 1));
++                pANTLR3_UINT8 newAlloc = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(string->len + len + 1));
++                if (newAlloc == NULL)
++                {
++                        return NULL;
++                }
++                string->chars   = newAlloc;
+                 string->size    = string->len + len + 1;
+     }
+
+@@ -1073,8 +1123,13 @@ insertUTF16_8   (pANTLR3_STRING string, ANTLR3_UINT32 point, const char * newbit
+
+     if  (string->size < (string->len + len + 1))
+     {
+-        string->chars   = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(sizeof(ANTLR3_UINT16)*(string->len + len + 1)));
+-        string->size    = string->len + len + 1;
++                pANTLR3_UINT8 newAlloc = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(sizeof(ANTLR3_UINT16)*(string->len + len + 1)));
++                if (newAlloc == NULL)
++                {
++                        return NULL;
++                }
++                string->chars   = newAlloc;
++                string->size    = string->len + len + 1;
+     }
+
+     /* Move the characters we are inserting before, including the delimiter
+@@ -1120,7 +1175,12 @@ insertUTF16_UTF16       (pANTLR3_STRING string, ANTLR3_UINT32 point, const char
+
+     if  (string->size < (string->len + len + 1))
+     {
+-                string->chars   = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(sizeof(ANTLR3_UINT16)*(string->len + len + 1)));
++                pANTLR3_UINT8 newAlloc = (pANTLR3_UINT8) ANTLR3_REALLOC((void *)string->chars, (ANTLR3_UINT32)(sizeof(ANTLR3_UINT16)*(string->len + len + 1)));
++                if (newAlloc == NULL)
++                {
++                        return NULL;
++                }
++                string->chars   = newAlloc;
+                 string->size    = string->len + len + 1;
+     }
+
+@@ -1379,24 +1439,27 @@ static    pANTLR3_STRING    to8_UTF16   (pANTLR3_STRING string)
+         /* Always add one more byte for a terminator
+         */
+         newStr->chars   = (pANTLR3_UINT8) ANTLR3_MALLOC((size_t)(string->len + 1));
+-        newStr->size    = string->len + 1;
+-        newStr->len         = string->len;
+-
+-        /* Now copy each UTF16 charActer , making it an 8 bit character of
+-        * some sort.
+-        */
+-        for     (i=0; i<string->len; i++)
++        if (newStr->chars != NULL)
+         {
+-                ANTLR3_UCHAR    c;
++                newStr->size    = string->len + 1;
++                newStr->len         = string->len;
+
+-                c = *(((pANTLR3_UINT16)(string->chars)) + i);
++                /* Now copy each UTF16 charActer , making it an 8 bit character of
++                * some sort.
++                */
++                for     (i=0; i<string->len; i++)
++                {
++                        ANTLR3_UCHAR    c;
+
+-                *(newStr->chars + i) = (ANTLR3_UINT8)(c > 255 ? '_' : c);
+-        }
++                        c = *(((pANTLR3_UINT16)(string->chars)) + i);
+
+-        /* Terminate
+-        */
+-        *(newStr->chars + newStr->len) = '\0';
++                        *(newStr->chars + i) = (ANTLR3_UINT8)(c > 255 ? '_' : c);
++                }
++
++                /* Terminate
++                */
++                *(newStr->chars + newStr->len) = '\0';
++        }
+
+         return newStr;
+ }
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3tokenstream.c b/modules/cctbx_project/ucif/antlr3/src/antlr3tokenstream.c
+old mode 100755
+new mode 100644
+index 8c35a080f8..80f79c53fb
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3tokenstream.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3tokenstream.c
+@@ -581,7 +581,7 @@ toStringTT  (pANTLR3_TOKEN_STREAM ts, pANTLR3_COMMON_TOKEN start, pANTLR3_COMMON
+ {
+         if      (start != NULL && stop != NULL)
+         {
+-                return  ts->toStringSS(ts, (ANTLR3_UINT32)start->index, (ANTLR3_UINT32)stop->index);
++                return  ts->toStringSS(ts, (ANTLR3_UINT32)start->getTokenIndex(start), (ANTLR3_UINT32)stop->getTokenIndex(stop));
+         }
+         else
+         {
+@@ -748,7 +748,7 @@ getTokensSet    (pANTLR3_COMMON_TOKEN_STREAM tokenStream, ANTLR3_UINT32 start, A
+         tok = tokenStream->tstream->get(tokenStream->tstream, i);
+
+         if  (      types == NULL
+-                || types->isMember(types, tok->type == ANTLR3_TRUE)
++                || types->isMember(types, tok->getType(tok) == ANTLR3_TRUE)
+             )
+         {
+             filteredList->put(filteredList, n++, (void *)tok, NULL);
+@@ -808,7 +808,7 @@ _LA  (pANTLR3_INT_STREAM is, ANTLR3_INT32 i)
+
+         if      (tok != NULL)
+         {
+-                return  tok->type;
++                return  tok->getType(tok);
+         }
+         else
+         {
+@@ -974,12 +974,12 @@ fillBuffer(pANTLR3_COMMON_TOKEN_STREAM tokenStream) {
+          */
+
+         if (tokenStream->discardSet != NULL
+-            && tokenStream->discardSet->get(tokenStream->discardSet, tok->type) != NULL)
++            && tokenStream->discardSet->get(tokenStream->discardSet, tok->getType(tok)) != NULL)
+         {
+             discard = ANTLR3_TRUE;
+         }
+         else if (   tokenStream->discardOffChannel == ANTLR3_TRUE
+-                 && tok->channel != tokenStream->channel
++                 && tok->getChannel(tok) != tokenStream->channel
+                  )
+         {
+             discard = ANTLR3_TRUE;
+@@ -988,13 +988,13 @@ fillBuffer(pANTLR3_COMMON_TOKEN_STREAM tokenStream) {
+         {
+             /* See if this type is in the override map
+              */
+-            channelI = tokenStream->channelOverrides->get(tokenStream->channelOverrides, tok->type + 1);
++            channelI = tokenStream->channelOverrides->get(tokenStream->channelOverrides, tok->getType(tok) + 1);
+
+             if (channelI != NULL)
+             {
+                 /* Override found
+                  */
+-                tok->channel = ANTLR3_UINT32_CAST(channelI) - 1;
++                tok->setChannel(tok, ANTLR3_UINT32_CAST(channelI) - 1);
+             }
+         }
+
+@@ -1004,7 +1004,7 @@ fillBuffer(pANTLR3_COMMON_TOKEN_STREAM tokenStream) {
+         {
+             /* Add it, indicating that we will delete it and the table should not
+              */
+-            tok->index = index;
++            tok->setTokenIndex(tok, index);
+             tokenStream->p++;
+             tokenStream->tokens->add(tokenStream->tokens, (void *) tok, NULL);
+             index++;
+diff --git a/modules/cctbx_project/ucif/antlr3/src/antlr3treeparser.c b/modules/cctbx_project/ucif/antlr3/src/antlr3treeparser.c
+old mode 100755
+new mode 100644
+index dc65075dab..bd33a530a2
+--- a/modules/cctbx_project/ucif/antlr3/src/antlr3treeparser.c
++++ b/modules/cctbx_project/ucif/antlr3/src/antlr3treeparser.c
+@@ -232,7 +232,7 @@ getMissingSymbol                        (pANTLR3_BASE_RECOGNIZER recognizer, pAN
+                 current = tns->_LT(tns, i--);
+     }
+
+-        node    = current->dupNode(current);
++        node    = (pANTLR3_BASE_TREE)current->dupNode(current);
+
+         // Find the newly dupicated token
+         //
