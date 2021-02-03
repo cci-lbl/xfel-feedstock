@@ -51,3 +51,16 @@ index fd20008e93..6e526f690b 100644
 
    def add_make(self):
      self.add_command('libtbx.scons', args=['-j',
+diff --git a/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py b/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
+index 64ec90023b..b9c8c43429 100644
+--- a/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
++++ b/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
+@@ -124,7 +124,7 @@ def update_libtbx_env(default_dir=None):
+   for path in sys.path:
+     if path.endswith('site-packages'):
+       site_packages_path = env.as_relocatable_path(path)
+-      break
++      # break
+   relocatable_sys_prefix = env.as_relocatable_path(sys_prefix)
+   env.repository_paths = [relocatable_sys_prefix, site_packages_path]
+   env.scons_dist_path = relocatable_sys_prefix
