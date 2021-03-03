@@ -10,7 +10,6 @@ source:
   patches:
     - antlr3_osx-arm64.patch  # [build_platform != target_platform]
     - cbf.patch
-    - crys3d.patch
     - dxtbx.patch
     - libtbx_osx-arm64.patch  # [build_platform != target_platform]
     - ccp4io_osx-arm64.patch  # [build_platform != target_platform]
