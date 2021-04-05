@@ -1,8 +1,8 @@
 diff --git a/modules/dxtbx/SConscript b/modules/dxtbx/SConscript
-index 2e7cc66..b5d7adc 100644
+index 7a63479..04eed08 100644
 --- a/modules/dxtbx/SConscript
 +++ b/modules/dxtbx/SConscript
-@@ -100,87 +100,3 @@ else:
+@@ -96,90 +96,3 @@ else:
      )
      if os.path.exists(psdm_hdf5_path):
          env_etc.dxtbx_hdf5_lib_paths.append(psdm_hdf5_path)
@@ -26,6 +26,9 @@ index 2e7cc66..b5d7adc 100644
 -    if env_etc.clang_version:
 -        wd = ["-Wno-unused-function"]
 -        env.Append(CCFLAGS=wd)
+-
+-    if hasattr(env_etc, "cppdefines"):
+-        env.Append(CPPDEFINES=env_etc.cppdefines)
 -
 -    env.SharedLibrary(
 -        target="#lib/dxtbx_ext",
