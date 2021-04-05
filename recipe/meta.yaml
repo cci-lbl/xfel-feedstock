@@ -8,11 +8,9 @@ source:
   url: https://github.com/cctbx/cctbx_project/releases/download/v{{ version }}/cctbx-{{ version }}.tar.gz
   sha256: a0fce583497a96b549f1849e772f9aa4422887b83c46e8ebf097445c840ead02
   patches:
-    - antlr3_osx-arm64.patch  # [build_platform != target_platform]
     - cbf.patch
     - dxtbx.patch
     - libtbx_osx-arm64.patch  # [build_platform != target_platform]
-    - ccp4io_osx-arm64.patch  # [build_platform != target_platform]
 
 build:
   number: 0
