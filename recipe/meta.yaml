@@ -9,6 +9,7 @@ source:
   sha256: a0fce583497a96b549f1849e772f9aa4422887b83c46e8ebf097445c840ead02
   patches:
     - cbf.patch
+    - crys3d.patch
     - dxtbx.patch
     - libtbx_osx-arm64.patch  # [build_platform != target_platform]
 
