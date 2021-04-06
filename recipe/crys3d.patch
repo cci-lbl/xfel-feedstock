@@ -1,0 +1,13 @@
+diff --git a/modules/cctbx_project/crys3d/hklview/cmdlineframes.py b/modules/cctbx_project/crys3d/hklview/cmdlineframes.py
+index c55d0c3cc4..b21ebad035 100644
+--- a/modules/cctbx_project/crys3d/hklview/cmdlineframes.py
++++ b/modules/cctbx_project/crys3d/hklview/cmdlineframes.py
+@@ -67,7 +67,7 @@ class HKLViewFrame() :
+     self.tncsvec = None
+     self.uservectors = []
+     self.new_miller_array_operations_lst = []
+-    self.copyrightpaths = [("CCTBX copyright", libtbx.env.under_root(os.path.join("modules","cctbx_project","COPYRIGHT.txt"))),
++    self.copyrightpaths = [("CCTBX copyright", libtbx.env.under_build("COPYRIGHT.txt")),
+      ("NGL copyright", libtbx.env.under_dist("crys3d","hklview/License_for_NGL.txt")),
+      ("html2canvas copyright", libtbx.env.under_dist("crys3d","hklview/LICENSE_for_html2canvas.txt"))
+     ]

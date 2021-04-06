@@ -72,6 +72,13 @@ mkdir -p ${EXTRA_CCTBX_DIR}
 CCTBX_CONDA_BUILD=./modules/cctbx_project/libtbx/auto_build/conda_build
 ./build/bin/libtbx.python ${CCTBX_CONDA_BUILD}/install_build.py --preserve-egg-dir
 
+# copy version and copyright files
+${PYTHON} ./modules/cctbx_project/libtbx/version.py --version=${PKG_VERSION}
+cp ./modules/cctbx_project/COPYRIGHT.txt ${EXTRA_CCTBX_DIR}
+cp ./modules/cctbx_project/cctbx_version.txt ${EXTRA_CCTBX_DIR}
+cp ./modules/cctbx_project/cctbx_version.h ${PREFIX}/include/cctbx
+${PYTHON} ./modules/cctbx_project/setup.py install
+
 # copy libtbx_env and update dispatchers
 echo Copying libtbx_env
 ./build/bin/libtbx.python ${CCTBX_CONDA_BUILD}/update_libtbx_env.py
