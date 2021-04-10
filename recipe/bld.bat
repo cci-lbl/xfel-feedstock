@@ -60,8 +60,10 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 copy .\modules\cctbx_project\COPYRIGHT.txt %EXTRA_CCTBX_DIR%
 copy .\modules\cctbx_project\cctbx_version.txt %EXTRA_CCTBX_DIR%
 copy .\modules\cctbx_project\cctbx_version.h %LIBRARY_INC%\cctbx
-%PYTHON% .\modules\cctbx_project\setup.py install
+cd .\modules\cctbx_project
+%PYTHON% setup.py install
 if %errorlevel% neq 0 exit /b %errorlevel%
+cd ..\..
 
 REM copy libtbx_env and update dispatchers
 echo Copying libtbx_env

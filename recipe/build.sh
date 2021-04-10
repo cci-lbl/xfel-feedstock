@@ -77,7 +77,9 @@ ${PYTHON} ./modules/cctbx_project/libtbx/version.py --version=${PKG_VERSION}
 cp ./modules/cctbx_project/COPYRIGHT.txt ${EXTRA_CCTBX_DIR}
 cp ./modules/cctbx_project/cctbx_version.txt ${EXTRA_CCTBX_DIR}
 cp ./modules/cctbx_project/cctbx_version.h ${PREFIX}/include/cctbx
-${PYTHON} ./modules/cctbx_project/setup.py install
+cd ./modules/cctbx_project
+${PYTHON} setup.py install
+cd ../..
 
 # copy libtbx_env and update dispatchers
 echo Copying libtbx_env

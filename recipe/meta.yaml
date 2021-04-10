@@ -14,7 +14,7 @@ source:
     - libtbx_osx-arm64.patch  # [build_platform != target_platform]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and py==39]
   preserve_egg_dir: true
 
