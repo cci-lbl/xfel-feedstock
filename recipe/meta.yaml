@@ -15,7 +15,6 @@ source:
 
 build:
   number: 0
-  skip: true  # [win and py==39]
   preserve_egg_dir: true
 
 requirements:
@@ -69,8 +68,8 @@ outputs:
     test:
       imports:
         - scitbx.array_family.flex
-        - gltbx.gl
-        - gltbx.glu
+        - gltbx.gl  # [not (win and py==39)]
+        - gltbx.glu  # [not (win and py==39)]
       commands:
         - libtbx.show_commands
         - pip check
@@ -90,8 +89,8 @@ outputs:
     test:
       imports:
         - scitbx.array_family.flex
-        - gltbx.gl
-        - gltbx.glu
+        - gltbx.gl  # [not (win and py==39)]
+        - gltbx.glu  # [not (win and py==39)]
       commands:
         - libtbx.show_commands
         - pip check
