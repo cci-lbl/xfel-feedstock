@@ -1,4 +1,4 @@
-{% set version = "2021.4" %}
+{% set version = "2021.5" %}
 
 package:
   name: cctbx-base
@@ -6,16 +6,17 @@ package:
 
 source:
   url: https://github.com/cctbx/cctbx_project/releases/download/v{{ version }}/cctbx-{{ version }}.tar.gz
-  sha256: d01041d4909ee9d37574e5f0676eb3037f1311cc8c8c7979c77dd053e393b67f
+  sha256: 3550945d21115c8aa1e3c6c93f1168575cd44182396adad777fad3030da7b594
   patches:
     - cbf.patch
     - crys3d.patch
     - dxtbx.patch
     - libtbx_osx-arm64.patch  # [build_platform != target_platform]
+    - test.patch
+    - test2.patch
 
 build:
   number: 0
-  skip: true  # [win and py==39]
   preserve_egg_dir: true
 
 requirements:
@@ -69,8 +70,8 @@ outputs:
     test:
       imports:
         - scitbx.array_family.flex
-        - gltbx.gl
-        - gltbx.glu
+        - gltbx.gl  # [not (win and py==39)]
+        - gltbx.glu  # [not (win and py==39)]
       commands:
         - libtbx.show_commands
         - pip check
@@ -90,8 +91,8 @@ outputs:
     test:
       imports:
         - scitbx.array_family.flex
-        - gltbx.gl
-        - gltbx.glu
+        - gltbx.gl  # [not (win and py==39)]
+        - gltbx.glu  # [not (win and py==39)]
       commands:
         - libtbx.show_commands
         - pip check
