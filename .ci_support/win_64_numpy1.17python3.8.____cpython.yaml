@@ -7,7 +7,7 @@ c_compiler:
 channel_sources:
 - conda-forge,defaults
 channel_targets:
-- conda-forge main
+- cctbx-nightly main
 cxx_compiler:
 - vs2017
 libsvm:
