@@ -1,4 +1,4 @@
-{% set version = "-2021.6.a10" %}
+{% set version = "2021.6.a10" %}
 
 package:
   name: cctbx-base
