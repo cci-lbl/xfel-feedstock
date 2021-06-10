@@ -11,8 +11,6 @@ source:
     - crys3d.patch
     - dxtbx.patch
     - libtbx_osx-arm64.patch  # [build_platform != target_platform]
-    - test.patch
-    - test2.patch
 
 build:
   number: 0
