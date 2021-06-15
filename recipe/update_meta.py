@@ -82,10 +82,10 @@ def run():
   if raw_url is not None:
     file_url = urlsplit(raw_url)
     new_url = list(file_url)
-    new_url[3] = 'file&subPath=%2Fcctbx-{{ version }}.tar.gz'
+    new_url[3] = 'format=file&subPath=%2Fcctbx-{{ version }}.tar.gz'
     unix_url = urlunsplit(new_url)
     # Windows does not like the %2F
-    new_url[3] = 'file&subPath=/cctbx-{{ version }}.tar.gz'
+    new_url[3] = 'format=file&subPath=/cctbx-{{ version }}.tar.gz'
     win_url = urlunsplit(new_url)
 
   # modify meta.yaml to use new version and URL
@@ -97,7 +97,7 @@ def run():
     for i, line in enumerate(lines):
       if i == 0:
         print('Old: ', line)
-        lines[i] = r'{% set version = "' + namespace.new_version + r'" %}'
+        lines[i] = r'{% set version = "' + namespace.new_version + r'" %}' + '\n'
         print('New: ', lines[i])
       if line.startswith('  url:') and line.endswith('[unix]\n'):
         print('Old: ', line)
