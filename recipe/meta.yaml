@@ -57,7 +57,7 @@ outputs:
         - libsvm
         - matplotlib-base
         - mrcfile
-        - {{ pin_compatible('numpy') }}
+        - {{ pin_compatible('numpy', upper_bound='1.21') }}
         - pillow
         - psutil
         - python
