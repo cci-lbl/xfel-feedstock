@@ -1,8 +1,8 @@
 diff --git a/modules/dxtbx/SConscript b/modules/dxtbx/SConscript
-index 2b5928b7..6504b854 100644
+index 8bd47170..d1d3551d 100644
 --- a/modules/dxtbx/SConscript
 +++ b/modules/dxtbx/SConscript
-@@ -97,89 +97,89 @@ else:
+@@ -97,98 +97,98 @@ else:
      if os.path.exists(psdm_hdf5_path):
          env_etc.dxtbx_hdf5_lib_paths.append(psdm_hdf5_path)
 
@@ -91,6 +91,15 @@ index 2b5928b7..6504b854 100644
 -        LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs + env["LIBS"],
 -    )
 -
+-    env.SharedLibrary(
+-        target="#/lib/dxtbx_flumpy",
+-        source=[
+-            "src/dxtbx/boost_python/flumpy.cc",
+-        ],
+-        LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs + env["LIBS"],
+-        CPPFLAGS=["-fvisibility=hidden"],
+-    )
+-
 -    env.SConscript("src/dxtbx/masking/SConscript", exports={"env": env})
 +# if not env_etc.no_boost_python and hasattr(env_etc, "boost_adaptbx_include"):
 +#     Import("env_no_includes_boost_python_ext")
@@ -177,4 +186,23 @@ index 2b5928b7..6504b854 100644
 +#         LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs + env["LIBS"],
 +#     )
 +
++#     env.SharedLibrary(
++#         target="#/lib/dxtbx_flumpy",
++#         source=[
++#             "src/dxtbx/boost_python/flumpy.cc",
++#         ],
++#         LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs + env["LIBS"],
++#         CPPFLAGS=["-fvisibility=hidden"],
++#     )
++
 +#     env.SConscript("src/dxtbx/masking/SConscript", exports={"env": env})
+diff --git a/modules/dxtbx/libtbx_refresh.py b/modules/dxtbx/libtbx_refresh.py
+index fbed593a..1007bbb4 100644
+--- a/modules/dxtbx/libtbx_refresh.py
++++ b/modules/dxtbx/libtbx_refresh.py
+@@ -35,4 +35,4 @@ def _install_dxtbx_setup():
+ if not pkg_resources or any(x.key == "libtbx.dxtbx" for x in pkg_resources.working_set):
+     libtbx.pkg_utils.define_entry_points({})
+
+-_install_dxtbx_setup()
++# _install_dxtbx_setup()
