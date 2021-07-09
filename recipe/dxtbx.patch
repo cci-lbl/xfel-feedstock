@@ -1,8 +1,8 @@
 diff --git a/modules/dxtbx/SConscript b/modules/dxtbx/SConscript
-index 8bd47170..d1d3551d 100644
+index 7a634794..c8f258bd 100644
 --- a/modules/dxtbx/SConscript
 +++ b/modules/dxtbx/SConscript
-@@ -97,98 +97,98 @@ else:
+@@ -97,89 +97,89 @@ else:
      if os.path.exists(psdm_hdf5_path):
          env_etc.dxtbx_hdf5_lib_paths.append(psdm_hdf5_path)
 
@@ -32,16 +32,16 @@ index 8bd47170..d1d3551d 100644
 -    env.SharedLibrary(
 -        target="#lib/dxtbx_ext",
 -        source=[
--            "src/dxtbx/boost_python/to_ewald_sphere_helpers.cc",
--            "src/dxtbx/boost_python/ext.cpp",
--            "src/dxtbx/boost_python/compression.cc",
+-            "boost_python/to_ewald_sphere_helpers.cc",
+-            "boost_python/ext.cpp",
+-            "boost_python/compression.cc",
 -        ],
 -        LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs,
 -    )
 -
 -    nexus = env.SharedLibrary(
 -        target="#/lib/dxtbx_format_nexus_ext",
--        source=["src/dxtbx/format/boost_python/nexus_ext.cc"],
+-        source=["format/boost_python/nexus_ext.cc"],
 -        LIBS=env_etc.libs_python
 -        + env_etc.libm
 -        + env_etc.dxtbx_libs
@@ -50,7 +50,7 @@ index 8bd47170..d1d3551d 100644
 -
 -    imageset = env.SharedLibrary(
 -        target="#/lib/dxtbx_imageset_ext",
--        source=["src/dxtbx/boost_python/imageset_ext.cc"],
+-        source=["boost_python/imageset_ext.cc"],
 -        LIBS=env_etc.libs_python
 -        + env_etc.libm
 -        + env_etc.dxtbx_libs
@@ -60,8 +60,8 @@ index 8bd47170..d1d3551d 100644
 -    image = env.SharedLibrary(
 -        target="#/lib/dxtbx_format_image_ext",
 -        source=[
--            "src/dxtbx/format/boost_python/image_ext.cc",
--            "src/dxtbx/format/boost_python/cbf_read_buffer.cpp",
+-            "format/boost_python/image_ext.cc",
+-            "format/boost_python/cbf_read_buffer.cpp",
 -        ],
 -        LIBS=env_etc.libs_python
 -        + env_etc.libm
@@ -72,35 +72,26 @@ index 8bd47170..d1d3551d 100644
 -    model = env.SharedLibrary(
 -        target="#/lib/dxtbx_model_ext",
 -        source=[
--            "src/dxtbx/model/boost_python/beam.cc",
--            "src/dxtbx/model/boost_python/spectrum.cc",
--            "src/dxtbx/model/boost_python/goniometer.cc",
--            "src/dxtbx/model/boost_python/kappa_goniometer.cc",
--            "src/dxtbx/model/boost_python/multi_axis_goniometer.cc",
--            "src/dxtbx/model/boost_python/panel.cc",
--            "src/dxtbx/model/boost_python/detector.cc",
--            "src/dxtbx/model/boost_python/scan.cc",
--            "src/dxtbx/model/boost_python/scan_helpers.cc",
--            "src/dxtbx/model/boost_python/crystal.cc",
--            "src/dxtbx/model/boost_python/parallax_correction.cc",
--            "src/dxtbx/model/boost_python/pixel_to_millimeter.cc",
--            "src/dxtbx/model/boost_python/experiment.cc",
--            "src/dxtbx/model/boost_python/experiment_list.cc",
--            "src/dxtbx/model/boost_python/model_ext.cc",
+-            "model/boost_python/beam.cc",
+-            "model/boost_python/spectrum.cc",
+-            "model/boost_python/goniometer.cc",
+-            "model/boost_python/kappa_goniometer.cc",
+-            "model/boost_python/multi_axis_goniometer.cc",
+-            "model/boost_python/panel.cc",
+-            "model/boost_python/detector.cc",
+-            "model/boost_python/scan.cc",
+-            "model/boost_python/scan_helpers.cc",
+-            "model/boost_python/crystal.cc",
+-            "model/boost_python/parallax_correction.cc",
+-            "model/boost_python/pixel_to_millimeter.cc",
+-            "model/boost_python/experiment.cc",
+-            "model/boost_python/experiment_list.cc",
+-            "model/boost_python/model_ext.cc",
 -        ],
 -        LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs + env["LIBS"],
 -    )
 -
--    env.SharedLibrary(
--        target="#/lib/dxtbx_flumpy",
--        source=[
--            "src/dxtbx/boost_python/flumpy.cc",
--        ],
--        LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs + env["LIBS"],
--        CPPFLAGS=["-fvisibility=hidden"],
--    )
--
--    env.SConscript("src/dxtbx/masking/SConscript", exports={"env": env})
+-    env.SConscript("masking/SConscript", exports={"env": env})
 +# if not env_etc.no_boost_python and hasattr(env_etc, "boost_adaptbx_include"):
 +#     Import("env_no_includes_boost_python_ext")
 +#     env = env_no_includes_boost_python_ext.Clone()
@@ -127,16 +118,16 @@ index 8bd47170..d1d3551d 100644
 +#     env.SharedLibrary(
 +#         target="#lib/dxtbx_ext",
 +#         source=[
-+#             "src/dxtbx/boost_python/to_ewald_sphere_helpers.cc",
-+#             "src/dxtbx/boost_python/ext.cpp",
-+#             "src/dxtbx/boost_python/compression.cc",
++#             "boost_python/to_ewald_sphere_helpers.cc",
++#             "boost_python/ext.cpp",
++#             "boost_python/compression.cc",
 +#         ],
 +#         LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs,
 +#     )
 +
 +#     nexus = env.SharedLibrary(
 +#         target="#/lib/dxtbx_format_nexus_ext",
-+#         source=["src/dxtbx/format/boost_python/nexus_ext.cc"],
++#         source=["format/boost_python/nexus_ext.cc"],
 +#         LIBS=env_etc.libs_python
 +#         + env_etc.libm
 +#         + env_etc.dxtbx_libs
@@ -145,7 +136,7 @@ index 8bd47170..d1d3551d 100644
 +
 +#     imageset = env.SharedLibrary(
 +#         target="#/lib/dxtbx_imageset_ext",
-+#         source=["src/dxtbx/boost_python/imageset_ext.cc"],
++#         source=["boost_python/imageset_ext.cc"],
 +#         LIBS=env_etc.libs_python
 +#         + env_etc.libm
 +#         + env_etc.dxtbx_libs
@@ -155,8 +146,8 @@ index 8bd47170..d1d3551d 100644
 +#     image = env.SharedLibrary(
 +#         target="#/lib/dxtbx_format_image_ext",
 +#         source=[
-+#             "src/dxtbx/format/boost_python/image_ext.cc",
-+#             "src/dxtbx/format/boost_python/cbf_read_buffer.cpp",
++#             "format/boost_python/image_ext.cc",
++#             "format/boost_python/cbf_read_buffer.cpp",
 +#         ],
 +#         LIBS=env_etc.libs_python
 +#         + env_etc.libm
@@ -167,42 +158,23 @@ index 8bd47170..d1d3551d 100644
 +#     model = env.SharedLibrary(
 +#         target="#/lib/dxtbx_model_ext",
 +#         source=[
-+#             "src/dxtbx/model/boost_python/beam.cc",
-+#             "src/dxtbx/model/boost_python/spectrum.cc",
-+#             "src/dxtbx/model/boost_python/goniometer.cc",
-+#             "src/dxtbx/model/boost_python/kappa_goniometer.cc",
-+#             "src/dxtbx/model/boost_python/multi_axis_goniometer.cc",
-+#             "src/dxtbx/model/boost_python/panel.cc",
-+#             "src/dxtbx/model/boost_python/detector.cc",
-+#             "src/dxtbx/model/boost_python/scan.cc",
-+#             "src/dxtbx/model/boost_python/scan_helpers.cc",
-+#             "src/dxtbx/model/boost_python/crystal.cc",
-+#             "src/dxtbx/model/boost_python/parallax_correction.cc",
-+#             "src/dxtbx/model/boost_python/pixel_to_millimeter.cc",
-+#             "src/dxtbx/model/boost_python/experiment.cc",
-+#             "src/dxtbx/model/boost_python/experiment_list.cc",
-+#             "src/dxtbx/model/boost_python/model_ext.cc",
++#             "model/boost_python/beam.cc",
++#             "model/boost_python/spectrum.cc",
++#             "model/boost_python/goniometer.cc",
++#             "model/boost_python/kappa_goniometer.cc",
++#             "model/boost_python/multi_axis_goniometer.cc",
++#             "model/boost_python/panel.cc",
++#             "model/boost_python/detector.cc",
++#             "model/boost_python/scan.cc",
++#             "model/boost_python/scan_helpers.cc",
++#             "model/boost_python/crystal.cc",
++#             "model/boost_python/parallax_correction.cc",
++#             "model/boost_python/pixel_to_millimeter.cc",
++#             "model/boost_python/experiment.cc",
++#             "model/boost_python/experiment_list.cc",
++#             "model/boost_python/model_ext.cc",
 +#         ],
 +#         LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs + env["LIBS"],
 +#     )
 +
-+#     env.SharedLibrary(
-+#         target="#/lib/dxtbx_flumpy",
-+#         source=[
-+#             "src/dxtbx/boost_python/flumpy.cc",
-+#         ],
-+#         LIBS=env_etc.libs_python + env_etc.libm + env_etc.dxtbx_libs + env["LIBS"],
-+#         CPPFLAGS=["-fvisibility=hidden"],
-+#     )
-+
-+#     env.SConscript("src/dxtbx/masking/SConscript", exports={"env": env})
-diff --git a/modules/dxtbx/libtbx_refresh.py b/modules/dxtbx/libtbx_refresh.py
-index fbed593a..1007bbb4 100644
---- a/modules/dxtbx/libtbx_refresh.py
-+++ b/modules/dxtbx/libtbx_refresh.py
-@@ -35,4 +35,4 @@ def _install_dxtbx_setup():
- if not pkg_resources or any(x.key == "libtbx.dxtbx" for x in pkg_resources.working_set):
-     libtbx.pkg_utils.define_entry_points({})
-
--_install_dxtbx_setup()
-+# _install_dxtbx_setup()
++#     env.SConscript("masking/SConscript", exports={"env": env})
