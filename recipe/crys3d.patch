@@ -1,7 +1,7 @@
-diff --git a/modules/cctbx_project/crys3d/hklview/cmdlineframes.py b/modules/cctbx_project/crys3d/hklview/cmdlineframes.py
+diff --git a/modules/cctbx_project/crys3d/hklviewer/cmdlineframes.py b/modules/cctbx_project/crys3d/hklviewer/cmdlineframes.py
 index c55d0c3cc4..b21ebad035 100644
---- a/modules/cctbx_project/crys3d/hklview/cmdlineframes.py
-+++ b/modules/cctbx_project/crys3d/hklview/cmdlineframes.py
+--- a/modules/cctbx_project/crys3d/hklviewer/cmdlineframes.py
++++ b/modules/cctbx_project/crys3d/hklviewer/cmdlineframes.py
 @@ -67,7 +67,7 @@ class HKLViewFrame() :
      self.tncsvec = None
      self.uservectors = []
