@@ -1,0 +1,13 @@
+diff --git a/modules/cctbx_project/libtbx/SConscript b/modules/cctbx_project/libtbx/SConscript
+index d408c75e65..7ad075442c 100644
+--- a/modules/cctbx_project/libtbx/SConscript
++++ b/modules/cctbx_project/libtbx/SConscript
+@@ -389,8 +389,6 @@ For newer versions, please adjust this SConscript.
+       "/bigobj", # for heavy use of template libraries
+       "/wd4996", # warning C4996: ... was declared deprecated
+       "/wd4068", # warning C4068: unknown pragma
+-      "/Z7", # produce program database file containing debugging symbols.
+-             # Harmless for release builds
+       "/Zm800"]
+     # include header files from cctbx_project/msvc9.0_include for VS 2008
+     if (env_base['MSVC_VERSION'] == '9.0'):
