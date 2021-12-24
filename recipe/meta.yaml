@@ -42,7 +42,7 @@ requirements:
     - python
     - python.app  # [osx]
     - scons
-    - setuptools
+    - setuptools <60
     - six
     - xorg-libxfixes  # [linux]
 
