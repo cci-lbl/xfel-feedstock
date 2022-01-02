@@ -84,10 +84,10 @@ outputs:
       run:
         - {{ pin_subpackage('cctbx-base', max_pin="x.x.x") }}
         - ipython
-        - pyside2  # [not aarch64 and not ppc64le and python_impl == "cpython"]
+        - pyside2  # [x86_64 and py<310]
         - pyzmq
         - websockets
-        - wxpython  # [not aarch64 and not ppc64le and python_impl == "cpython"]
+        - wxpython
     test:
       imports:
         - scitbx.array_family.flex
