@@ -81,6 +81,8 @@ outputs:
   - name: cctbx
     build:
     requirements:
+      host:
+        - python
       run:
         - {{ pin_subpackage('cctbx-base', max_pin="x.x.x") }}
         - ipython
