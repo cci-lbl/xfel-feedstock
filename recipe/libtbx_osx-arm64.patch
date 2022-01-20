@@ -1,8 +1,8 @@
 diff --git a/modules/cctbx_project/boost_adaptbx/SConscript b/modules/cctbx_project/boost_adaptbx/SConscript
-index 0a37d55d74..c68882862a 100644
+index e892dc3450..e760cea33e 100644
 --- a/modules/cctbx_project/boost_adaptbx/SConscript
 +++ b/modules/cctbx_project/boost_adaptbx/SConscript
-@@ -718,7 +718,7 @@ main()
+@@ -726,7 +726,7 @@ main()
              + u.replace(" ", "_").upper(), file=f)
        print(file=f)
        print("#endif // GUARD", file=f)
@@ -12,10 +12,10 @@ index 0a37d55d74..c68882862a 100644
    if (os.path.isfile(libtbx.env.under_build("lib/libswig_class_example.a"))):
      # this example requires these manual steps:
 diff --git a/modules/cctbx_project/libtbx/SConscript b/modules/cctbx_project/libtbx/SConscript
-index 162d260cf0..2d90a1df2a 100644
+index 312679d172..72b99212ec 100644
 --- a/modules/cctbx_project/libtbx/SConscript
 +++ b/modules/cctbx_project/libtbx/SConscript
-@@ -1137,7 +1137,8 @@ if env_etc.cxx11_is_available:
+@@ -1144,7 +1144,8 @@ if env_etc.cxx11_is_available:
    test_code += "{i=7; std::cout << i << std::endl;}\n"
    test_code += " x = func(std::vector<int>(2)); return 0;}\n"
    conf = env_base.Configure()
@@ -26,19 +26,19 @@ index 162d260cf0..2d90a1df2a 100644
    if not flag:
      env_etc.cxx11_is_available = False
 diff --git a/modules/cctbx_project/libtbx/auto_build/bootstrap.py b/modules/cctbx_project/libtbx/auto_build/bootstrap.py
-index fd20008e93..6e526f690b 100644
+index 5a48439ab1..c1467fc15b 100644
 --- a/modules/cctbx_project/libtbx/auto_build/bootstrap.py
 +++ b/modules/cctbx_project/libtbx/auto_build/bootstrap.py
-@@ -1815,7 +1815,7 @@ environment exists in or is defined by {conda_env}.
-       # conda python prefers no environment customizations
+@@ -1848,7 +1848,7 @@ environment exists in or is defined by {conda_env}.
        # the get_environment function in ShellCommand updates the environment
-       env = {
--        'PYTHONPATH': None,
-+        # 'PYTHONPATH': None,
-         'LD_LIBRARY_PATH': None,
-         'DYLD_LIBRARY_PATH': None
-       }
-@@ -1850,9 +1850,9 @@ environment exists in or is defined by {conda_env}.
+       if os.environ.get('CCTBX_CONDA_USE_ENVIRONMENT_VARIABLES', None):
+         env = {
+-          'PYTHONPATH': None,
++          # 'PYTHONPATH': None,
+           'LD_LIBRARY_PATH': None,
+           'DYLD_LIBRARY_PATH': None,
+           'DYLD_FALLBACK_LIBRARY_PATH': None
+@@ -1884,9 +1884,9 @@ environment exists in or is defined by {conda_env}.
        ))
 
      # write extra setpaths script for conda
@@ -52,7 +52,7 @@ index fd20008e93..6e526f690b 100644
    def add_make(self):
      self.add_command('libtbx.scons', args=['-j',
 diff --git a/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py b/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
-index 64ec90023b..b9c8c43429 100644
+index a3b8594c36..09a2b48197 100644
 --- a/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
 +++ b/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
 @@ -124,7 +124,7 @@ def update_libtbx_env(default_dir=None):
