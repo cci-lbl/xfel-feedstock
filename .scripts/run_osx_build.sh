@@ -24,8 +24,7 @@ source ${MINIFORGE_HOME}/etc/profile.d/conda.sh
 conda activate base
 
 echo -e "\n\nInstalling conda-forge-ci-setup=3 and conda-build."
-mamba install -n base --update-specs --quiet --yes "conda-forge-ci-setup=3" conda-build pip boa
-mamba update -n base --update-specs --quiet --yes "conda-forge-ci-setup=3" conda-build pip boa
+mamba install -n base --update-specs --quiet --yes "conda-forge-ci-setup=3" conda-build pip
 
 
 
@@ -59,7 +58,7 @@ if [[ "${HOST_PLATFORM}" != "${BUILD_PLATFORM}" ]]; then
     EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --no-test"
 fi
 
-conda mambabuild ./recipe -m ./.ci_support/${CONFIG}.yaml --suppress-variables --clobber-file ./.ci_support/clobber_${CONFIG}.yaml ${EXTRA_CB_OPTIONS:-}
+conda build ./recipe -m ./.ci_support/${CONFIG}.yaml --suppress-variables --clobber-file ./.ci_support/clobber_${CONFIG}.yaml ${EXTRA_CB_OPTIONS:-}
 
 ( startgroup "Uploading packages" ) 2> /dev/null
 
