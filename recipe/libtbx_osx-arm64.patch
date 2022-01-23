@@ -8,11 +8,11 @@ index e892dc3450..e760cea33e 100644
        print("#endif // GUARD", file=f)
 -  write_type_id_eq_h()
 +  # write_type_id_eq_h()
-
+ 
    if (os.path.isfile(libtbx.env.under_build("lib/libswig_class_example.a"))):
      # this example requires these manual steps:
 diff --git a/modules/cctbx_project/libtbx/SConscript b/modules/cctbx_project/libtbx/SConscript
-index 312679d172..72b99212ec 100644
+index c6b5c71bcb..35229a021f 100644
 --- a/modules/cctbx_project/libtbx/SConscript
 +++ b/modules/cctbx_project/libtbx/SConscript
 @@ -1144,7 +1144,8 @@ if env_etc.cxx11_is_available:
@@ -26,7 +26,7 @@ index 312679d172..72b99212ec 100644
    if not flag:
      env_etc.cxx11_is_available = False
 diff --git a/modules/cctbx_project/libtbx/auto_build/bootstrap.py b/modules/cctbx_project/libtbx/auto_build/bootstrap.py
-index 5a48439ab1..c1467fc15b 100644
+index 5a48439ab1..8aef7e471a 100644
 --- a/modules/cctbx_project/libtbx/auto_build/bootstrap.py
 +++ b/modules/cctbx_project/libtbx/auto_build/bootstrap.py
 @@ -1848,7 +1848,7 @@ environment exists in or is defined by {conda_env}.
@@ -40,7 +40,7 @@ index 5a48439ab1..c1467fc15b 100644
            'DYLD_FALLBACK_LIBRARY_PATH': None
 @@ -1884,9 +1884,9 @@ environment exists in or is defined by {conda_env}.
        ))
-
+ 
      # write extra setpaths script for conda
 -    if self.use_conda is not None:
 -      self.add_command('libtbx.install_conda', args=['--write_setpaths'],
@@ -48,9 +48,23 @@ index 5a48439ab1..c1467fc15b 100644
 +    # if self.use_conda is not None:
 +    #   self.add_command('libtbx.install_conda', args=['--write_setpaths'],
 +    #                    description='Writing additional setup scripts for conda.')
-
+ 
    def add_make(self):
      self.add_command('libtbx.scons', args=['-j',
+@@ -1901,9 +1901,10 @@ environment exists in or is defined by {conda_env}.
+ 
+   def add_install(self):
+     """Run after compile, before tests."""
+-    self.add_command('mmtbx.rebuild_rotarama_cache',
+-                     name="rebuild rotarama",
+-    )
++    # self.add_command('mmtbx.rebuild_rotarama_cache',
++    #                  name="rebuild rotarama",
++    # )
++    pass
+ 
+   def add_tests(self):
+     """Run the unit tests."""
 diff --git a/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py b/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
 index a3b8594c36..09a2b48197 100644
 --- a/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
