@@ -98,9 +98,6 @@ outputs:
         - gltbx.glu  # [not (win and py>=39)]
       commands:
         - libtbx.show_commands
-        - pip check
-      requires:
-        - pip
 
 about:
   home: https://github.com/cctbx/cctbx_project
