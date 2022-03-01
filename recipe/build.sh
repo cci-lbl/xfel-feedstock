@@ -84,7 +84,11 @@ cd ../..
 # copy libtbx_env and update dispatchers
 echo Copying libtbx_env
 ./build/bin/libtbx.python ${CCTBX_CONDA_BUILD}/update_libtbx_env.py
-${PYTHON} ${CCTBX_CONDA_BUILD}/update_libtbx_env.py
+if [[ -f "${PREFIX}/python.app/Contents/MacOS/python" ]]; then
+  ${PREFIX}/python.app/Contents/MacOS/python ${CCTBX_CONDA_BUILD}/update_libtbx_env.py
+else
+  ${PYTHON} ${CCTBX_CONDA_BUILD}/update_libtbx_env.py
+fi
 
 # remove extra copies of dispatchers
 echo Removing some duplicate dispatchers
