@@ -1,6 +1,8 @@
 github:
   user_or_org: cctbx
   repo_name: nightly-feedstock
+  branch_name: main
+  tooling_branch_name: main
 channels:
   targets:
     - [cctbx-nightly, main]
@@ -14,3 +16,4 @@ build_platform:
 test_on_native_only: true
 upload_on_branch: master
 # build_with_mambabuild: False
+test: native
