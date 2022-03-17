@@ -40,7 +40,7 @@ requirements:
     - libglu  # [linux]
     - numpy
     - python
-    - python.app <1.4 # [osx]
+    - python.app  # [osx]
     - scons
     - setuptools <60
     - six
