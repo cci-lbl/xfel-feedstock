@@ -1,12 +1,12 @@
-{% set version = "2022.3a18" %}
+{% set version = "2022.3a19" %}
 
 package:
   name: cctbx-base
   version: {{ version }}
 
 source:
-  url: https://artprodcus3.artifacts.visualstudio.com/Ae7d56bcd-6398-4fef-808d-577536b26a95/67feccdf-8c7f-4afe-8ff5-f21e77cdbf9d/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2NjdGJ4LXJlbGVhc2UvcHJvamVjdElkLzY3ZmVjY2RmLThjN2YtNGFmZS04ZmY1LWYyMWU3N2NkYmY5ZC9idWlsZElkLzIwMzQvYXJ0aWZhY3ROYW1lL2NjdGJ4LTIwMjIuM2ExOA2/content?format=file&subPath=%2Fcctbx-{{ version }}.tar.gz  # [unix]
-  url: https://artprodcus3.artifacts.visualstudio.com/Ae7d56bcd-6398-4fef-808d-577536b26a95/67feccdf-8c7f-4afe-8ff5-f21e77cdbf9d/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2NjdGJ4LXJlbGVhc2UvcHJvamVjdElkLzY3ZmVjY2RmLThjN2YtNGFmZS04ZmY1LWYyMWU3N2NkYmY5ZC9idWlsZElkLzIwMzQvYXJ0aWZhY3ROYW1lL2NjdGJ4LTIwMjIuM2ExOA2/content?format=file&subPath=/cctbx-{{ version }}.tar.gz  # [win]
+  url: https://artprodcus3.artifacts.visualstudio.com/Ae7d56bcd-6398-4fef-808d-577536b26a95/67feccdf-8c7f-4afe-8ff5-f21e77cdbf9d/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2NjdGJ4LXJlbGVhc2UvcHJvamVjdElkLzY3ZmVjY2RmLThjN2YtNGFmZS04ZmY1LWYyMWU3N2NkYmY5ZC9idWlsZElkLzIwNDAvYXJ0aWZhY3ROYW1lL2NjdGJ4LTIwMjIuM2ExOQ2/content?format=file&subPath=%2Fcctbx-{{ version }}.tar.gz  # [unix]
+  url: https://artprodcus3.artifacts.visualstudio.com/Ae7d56bcd-6398-4fef-808d-577536b26a95/67feccdf-8c7f-4afe-8ff5-f21e77cdbf9d/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2NjdGJ4LXJlbGVhc2UvcHJvamVjdElkLzY3ZmVjY2RmLThjN2YtNGFmZS04ZmY1LWYyMWU3N2NkYmY5ZC9idWlsZElkLzIwNDAvYXJ0aWZhY3ROYW1lL2NjdGJ4LTIwMjIuM2ExOQ2/content?format=file&subPath=/cctbx-{{ version }}.tar.gz  # [win]
   patches:
     - cbf.patch
     - crys3d.patch
