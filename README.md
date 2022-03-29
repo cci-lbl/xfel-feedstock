@@ -170,16 +170,41 @@ conda config --add channels cctbx-nightly
 conda config --set channel_priority strict
 ```
 
-Once the `cctbx-nightly` channel has been enabled, `cctbx, cctbx-base` can be installed with:
+Once the `cctbx-nightly` channel has been enabled, `cctbx, cctbx-base` can be installed with `conda`:
 
 ```
 conda install cctbx cctbx-base
 ```
 
-It is possible to list all of the versions of `cctbx` available on your platform with:
+or with `mamba`:
+
+```
+mamba install cctbx cctbx-base
+```
+
+It is possible to list all of the versions of `cctbx` available on your platform with `conda`:
 
 ```
 conda search cctbx --channel cctbx-nightly
+```
+
+or with `mamba`:
+
+```
+mamba search cctbx --channel cctbx-nightly
+```
+
+Alternatively, `mamba repoquery` may provide more information:
+
+```
+# Search all versions available on your platform:
+mamba repoquery search cctbx --channel cctbx-nightly
+
+# List packages depending on `cctbx`:
+mamba repoquery whoneeds cctbx --channel cctbx-nightly
+
+# List dependencies of `cctbx`:
+mamba repoquery depends cctbx --channel cctbx-nightly
 ```
 
 
