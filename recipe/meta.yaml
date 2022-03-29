@@ -70,8 +70,8 @@ outputs:
     test:
       imports:
         - scitbx.array_family.flex
-        - gltbx.gl  # [not (win and py>=39)]
-        - gltbx.glu  # [not (win and py>=39)]
+        - gltbx.gl  # [not (win and py>=38)]
+        - gltbx.glu  # [not (win and py>=38)]
       commands:
         - libtbx.show_commands
         - pip check
@@ -94,8 +94,8 @@ outputs:
     test:
       imports:
         - scitbx.array_family.flex
-        - gltbx.gl  # [not (win and py>=39)]
-        - gltbx.glu  # [not (win and py>=39)]
+        - gltbx.gl  # [not (win and py>=38)]
+        - gltbx.glu  # [not (win and py>=38)]
       commands:
         - libtbx.show_commands
 
