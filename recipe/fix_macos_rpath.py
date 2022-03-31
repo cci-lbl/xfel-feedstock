@@ -18,7 +18,14 @@ if __name__ == '__main__':
                + glob.glob('build/**/boost_python/*.so', recursive=True)
   for ext_file in exe_dev_files + ext_files + lib_files + test_files:
     libraries = check_output([os.environ['OTOOL'], '-L', ext_file]).decode('utf8').split('\n')
-    for line in libraries[1:]:
+    print('\n'.join(libraries))
+    # update id
+    new_id = '@rpath/' + libraries[0][:-1].split('/')[-1]
+    cmd = [os.environ["INSTALL_NAME_TOOL"], '-id', new_id, ext_file]
+    print(' '.join(cmd))
+    output = check_output(cmd)
+    # update rpath
+    for line in libraries[2:]:
       lib = line.replace('\t', '').split()
       if len(lib) > 0:
         lib = lib[0]
