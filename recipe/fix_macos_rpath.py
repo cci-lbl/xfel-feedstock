@@ -25,7 +25,7 @@ if __name__ == '__main__':
     print(' '.join(cmd))
     output = check_output(cmd)
     # update rpath
-    for line in libraries[2:]:
+    for line in libraries[1:]:
       lib = line.replace('\t', '').split()
       if len(lib) > 0:
         lib = lib[0]
