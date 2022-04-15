@@ -5,7 +5,7 @@ Home: https://github.com/cctbx/cctbx_project
 
 Package license: BSD-3-Clause-LBNL AND BSD-3-Clause AND BSL-1.0 AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MIT AND LGPL-2.0-or-later WITH WxWindows-exception-3.1
 
-Feedstock license: [BSD-3-Clause](https://github.com/cctbx/nightly-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/cci-lbl/xfel-feedstock/blob/main/LICENSE.txt)
 
 Summary: The Computational Crystallography Toolbox
 
@@ -33,8 +33,8 @@ Current build status
     <td>
       <details>
         <summary>
-          <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-            <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main">
+          <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+            <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main">
           </a>
         </summary>
         <table>
@@ -42,106 +42,106 @@ Current build status
           <tbody><tr>
               <td>linux_64_numpy1.19python3.7.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.19python3.7.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.19python3.7.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_numpy1.19python3.8.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.19python3.8.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.19python3.8.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_numpy1.19python3.9.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.19python3.9.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.19python3.9.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_numpy1.21python3.10.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.21python3.10.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.21python3.10.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_numpy1.19python3.7.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.19python3.7.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.19python3.7.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_numpy1.19python3.8.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.19python3.8.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.19python3.8.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_numpy1.19python3.9.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.19python3.9.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.19python3.9.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_numpy1.21python3.10.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.21python3.10.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.21python3.10.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_arm64_numpy1.19python3.8.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_numpy1.19python3.8.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_numpy1.19python3.8.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_arm64_numpy1.19python3.9.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_numpy1.19python3.9.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_numpy1.19python3.9.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_arm64_numpy1.21python3.10.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_numpy1.21python3.10.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_numpy1.21python3.10.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_numpy1.19python3.7.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.19python3.7.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.19python3.7.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_numpy1.19python3.8.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.19python3.8.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.19python3.8.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_numpy1.19python3.9.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.19python3.9.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.19python3.9.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_numpy1.21python3.10.____cpython</td>
               <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=11&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/nightly-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.21python3.10.____cpython" alt="variant">
+                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=&branchName=main">
+                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.21python3.10.____cpython" alt="variant">
                 </a>
               </td>
             </tr>
@@ -157,20 +157,20 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-cctbx-green.svg)](https://anaconda.org/cctbx-nightly/cctbx) | [![Conda Downloads](https://img.shields.io/conda/dn/cctbx-nightly/cctbx.svg)](https://anaconda.org/cctbx-nightly/cctbx) | [![Conda Version](https://img.shields.io/conda/vn/cctbx-nightly/cctbx.svg)](https://anaconda.org/cctbx-nightly/cctbx) | [![Conda Platforms](https://img.shields.io/conda/pn/cctbx-nightly/cctbx.svg)](https://anaconda.org/cctbx-nightly/cctbx) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-cctbx--base-green.svg)](https://anaconda.org/cctbx-nightly/cctbx-base) | [![Conda Downloads](https://img.shields.io/conda/dn/cctbx-nightly/cctbx-base.svg)](https://anaconda.org/cctbx-nightly/cctbx-base) | [![Conda Version](https://img.shields.io/conda/vn/cctbx-nightly/cctbx-base.svg)](https://anaconda.org/cctbx-nightly/cctbx-base) | [![Conda Platforms](https://img.shields.io/conda/pn/cctbx-nightly/cctbx-base.svg)](https://anaconda.org/cctbx-nightly/cctbx-base) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-cctbx-green.svg)](https://anaconda.org/xfel/cctbx) | [![Conda Downloads](https://img.shields.io/conda/dn/xfel/cctbx.svg)](https://anaconda.org/xfel/cctbx) | [![Conda Version](https://img.shields.io/conda/vn/xfel/cctbx.svg)](https://anaconda.org/xfel/cctbx) | [![Conda Platforms](https://img.shields.io/conda/pn/xfel/cctbx.svg)](https://anaconda.org/xfel/cctbx) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-cctbx--base-green.svg)](https://anaconda.org/xfel/cctbx-base) | [![Conda Downloads](https://img.shields.io/conda/dn/xfel/cctbx-base.svg)](https://anaconda.org/xfel/cctbx-base) | [![Conda Version](https://img.shields.io/conda/vn/xfel/cctbx-base.svg)](https://anaconda.org/xfel/cctbx-base) | [![Conda Platforms](https://img.shields.io/conda/pn/xfel/cctbx-base.svg)](https://anaconda.org/xfel/cctbx-base) |
 
 Installing cctbx-base
 =====================
 
-Installing `cctbx-base` from the `cctbx-nightly` channel can be achieved by adding `cctbx-nightly` to your channels with:
+Installing `cctbx-base` from the `xfel` channel can be achieved by adding `xfel` to your channels with:
 
 ```
-conda config --add channels cctbx-nightly
+conda config --add channels xfel
 conda config --set channel_priority strict
 ```
 
-Once the `cctbx-nightly` channel has been enabled, `cctbx, cctbx-base` can be installed with `conda`:
+Once the `xfel` channel has been enabled, `cctbx, cctbx-base` can be installed with `conda`:
 
 ```
 conda install cctbx cctbx-base
@@ -185,26 +185,26 @@ mamba install cctbx cctbx-base
 It is possible to list all of the versions of `cctbx` available on your platform with `conda`:
 
 ```
-conda search cctbx --channel cctbx-nightly
+conda search cctbx --channel xfel
 ```
 
 or with `mamba`:
 
 ```
-mamba search cctbx --channel cctbx-nightly
+mamba search cctbx --channel xfel
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search cctbx --channel cctbx-nightly
+mamba repoquery search cctbx --channel xfel
 
 # List packages depending on `cctbx`:
-mamba repoquery whoneeds cctbx --channel cctbx-nightly
+mamba repoquery whoneeds cctbx --channel xfel
 
 # List dependencies of `cctbx`:
-mamba repoquery depends cctbx --channel cctbx-nightly
+mamba repoquery depends cctbx --channel xfel
 ```
 
 
@@ -218,9 +218,9 @@ package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
-`cctbx-nightly` channel, whereupon the built conda packages will be available for
-everybody to install and use from the `cctbx-nightly` channel.
-Note that all branches in the cctbx/cctbx-base-feedstock are
+`xfel` channel, whereupon the built conda packages will be available for
+everybody to install and use from the `xfel` channel.
+Note that all branches in the cci-lbl/cctbx-base-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
