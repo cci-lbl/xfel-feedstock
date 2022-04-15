@@ -1,11 +1,11 @@
 github:
-  user_or_org: cctbx
-  repo_name: nightly-feedstock
+  user_or_org: cci-lbl
+  repo_name: xfel-feedstock
   branch_name: main
   tooling_branch_name: main
 channels:
   targets:
-    - [cctbx-nightly, main]
+    - [xfel, main]
 
 azure:
   user_or_org: cctbx-release
@@ -15,5 +15,4 @@ build_platform:
   osx_arm64: osx_64
 test_on_native_only: true
 upload_on_branch: main
-# build_with_mambabuild: False
 test: native
