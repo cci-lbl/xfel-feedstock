@@ -20,6 +20,10 @@ rm -fr ./modules/boost
 rm -fr ./modules/eigen
 rm -fr ./modules/scons
 
+# remove some libtbx_refresh.py files
+rm -fr ./modules/dxtbx/libtbx_refresh.py
+rm -fr ./modules/xia2/libtbx_refresh.py
+
 # build
 ${PYTHON} bootstrap.py build --builder=xfel --use-conda ${PREFIX} --nproc ${CPU_COUNT} \
   --config-flags="--compiler=conda" --config-flags="--use_environment_flags" \
