@@ -1,5 +1,5 @@
-About cctbx-base
-================
+About xfel
+==========
 
 Home: https://github.com/cctbx/cctbx_project
 
@@ -157,70 +157,69 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-cctbx-green.svg)](https://anaconda.org/xfel/cctbx) | [![Conda Downloads](https://img.shields.io/conda/dn/xfel/cctbx.svg)](https://anaconda.org/xfel/cctbx) | [![Conda Version](https://img.shields.io/conda/vn/xfel/cctbx.svg)](https://anaconda.org/xfel/cctbx) | [![Conda Platforms](https://img.shields.io/conda/pn/xfel/cctbx.svg)](https://anaconda.org/xfel/cctbx) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-cctbx--base-green.svg)](https://anaconda.org/xfel/cctbx-base) | [![Conda Downloads](https://img.shields.io/conda/dn/xfel/cctbx-base.svg)](https://anaconda.org/xfel/cctbx-base) | [![Conda Version](https://img.shields.io/conda/vn/xfel/cctbx-base.svg)](https://anaconda.org/xfel/cctbx-base) | [![Conda Platforms](https://img.shields.io/conda/pn/xfel/cctbx-base.svg)](https://anaconda.org/xfel/cctbx-base) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-xfel-green.svg)](https://anaconda.org/xfel/xfel) | [![Conda Downloads](https://img.shields.io/conda/dn/xfel/xfel.svg)](https://anaconda.org/xfel/xfel) | [![Conda Version](https://img.shields.io/conda/vn/xfel/xfel.svg)](https://anaconda.org/xfel/xfel) | [![Conda Platforms](https://img.shields.io/conda/pn/xfel/xfel.svg)](https://anaconda.org/xfel/xfel) |
 
-Installing cctbx-base
-=====================
+Installing xfel
+===============
 
-Installing `cctbx-base` from the `xfel` channel can be achieved by adding `xfel` to your channels with:
+Installing `xfel` from the `xfel` channel can be achieved by adding `xfel` to your channels with:
 
 ```
 conda config --add channels xfel
 conda config --set channel_priority strict
 ```
 
-Once the `xfel` channel has been enabled, `cctbx, cctbx-base` can be installed with `conda`:
+Once the `xfel` channel has been enabled, `xfel` can be installed with `conda`:
 
 ```
-conda install cctbx cctbx-base
-```
-
-or with `mamba`:
-
-```
-mamba install cctbx cctbx-base
-```
-
-It is possible to list all of the versions of `cctbx` available on your platform with `conda`:
-
-```
-conda search cctbx --channel xfel
+conda install xfel
 ```
 
 or with `mamba`:
 
 ```
-mamba search cctbx --channel xfel
+mamba install xfel
+```
+
+It is possible to list all of the versions of `xfel` available on your platform with `conda`:
+
+```
+conda search xfel --channel xfel
+```
+
+or with `mamba`:
+
+```
+mamba search xfel --channel xfel
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search cctbx --channel xfel
+mamba repoquery search xfel --channel xfel
 
-# List packages depending on `cctbx`:
-mamba repoquery whoneeds cctbx --channel xfel
+# List packages depending on `xfel`:
+mamba repoquery whoneeds xfel --channel xfel
 
-# List dependencies of `cctbx`:
-mamba repoquery depends cctbx --channel xfel
+# List dependencies of `xfel`:
+mamba repoquery depends xfel --channel xfel
 ```
 
 
 
 
-Updating cctbx-base-feedstock
-=============================
+Updating xfel-feedstock
+=======================
 
-If you would like to improve the cctbx-base recipe or build a new
+If you would like to improve the xfel recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `xfel` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `xfel` channel.
-Note that all branches in the cci-lbl/cctbx-base-feedstock are
+Note that all branches in the cci-lbl/xfel-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
