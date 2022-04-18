@@ -1,7 +1,7 @@
 {% set version = "2022.4a18" %}
 
 package:
-  name: xfel
+  name: cctbx.xfel
   version: {{ version }}
 
 source:
@@ -38,8 +38,12 @@ requirements:
     - boost-cpp
     - eigen
     - future
+    - hdf5
     - libglu  # [linux]
+    - msgpack-c
     - numpy
+    - procrunner
+    - pybind11
     - python
     - python.app  # [osx]
     - scons
@@ -48,7 +52,7 @@ requirements:
     - xorg-libxfixes  # [linux]
 
 outputs:
-  - name: xfel
+  - name: cctbx.xfel
     requirements:
       run:
         - biopython
