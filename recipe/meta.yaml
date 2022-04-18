@@ -1,7 +1,7 @@
 {% set version = "2022.4a18" %}
 
 package:
-  name: cctbx-base
+  name: xfel
   version: {{ version }}
 
 source:
@@ -24,6 +24,7 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
     - gnuconfig  # [unix]
+    - pip
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ cdt('mesa-libgl-devel') }}  # [linux]
@@ -47,7 +48,7 @@ requirements:
     - xorg-libxfixes  # [linux]
 
 outputs:
-  - name: cctbx-base
+  - name: xfel
     requirements:
       run:
         - biopython
@@ -77,27 +78,6 @@ outputs:
         - pip check
       requires:
         - pip
-
-  - name: cctbx
-    build:
-    requirements:
-      host:
-        - python
-      run:
-        - {{ pin_subpackage('cctbx-base', max_pin="x.x.x") }}
-        - ipython
-        - pyside2  # [x86_64 and py<310]
-        - python
-        - pyzmq
-        - websockets
-        - wxpython
-    test:
-      imports:
-        - scitbx.array_family.flex
-        - gltbx.gl  # [not (win and py>=38)]
-        - gltbx.glu  # [not (win and py>=38)]
-      commands:
-        - libtbx.show_commands
 
 about:
   home: https://github.com/cctbx/cctbx_project
