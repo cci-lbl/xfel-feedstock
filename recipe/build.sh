@@ -21,38 +21,38 @@ rm -fr ./modules/eigen
 rm -fr ./modules/scons
 
 # build
-${PYTHON} bootstrap.py build --builder=cctbx --use-conda ${PREFIX} --nproc ${CPU_COUNT} \
+${PYTHON} bootstrap.py build --builder=xfel --use-conda ${PREFIX} --nproc ${CPU_COUNT} \
   --config-flags="--compiler=conda" --config-flags="--use_environment_flags" \
   --config-flags="--enable_cxx11" --config-flags="--no_bin_python" \
   --config-flags="--skip_phenix_dispatchers"
 cd build
-./bin/libtbx.configure cma_es crys3d fable rstbx spotinder
-./bin/libtbx.scons -j ${CPU_COUNT}
-./bin/libtbx.scons -j ${CPU_COUNT}
+# ./bin/libtbx.configure cma_es crys3d fable rstbx spotinder
+# ./bin/libtbx.scons -j ${CPU_COUNT}
+# ./bin/libtbx.scons -j ${CPU_COUNT}
 cd ..
 
 # remove dxtbx and cbflib
-rm -fr ./build/*cbflib*
-rm -fr ./build/lib/cbflib*
-rm -fr ./build/lib/*dxtbx*
-rm -fr ./modules/dxtbx
-rm -fr ./modules/cbflib
-rm -fr ./build/annlib
-rm -fr ./modules/annlib
-./build/bin/libtbx.python ${RECIPE_DIR}/clean_env.py
+# rm -fr ./build/*cbflib*
+# rm -fr ./build/lib/cbflib*
+# rm -fr ./build/lib/*dxtbx*
+# rm -fr ./modules/dxtbx
+# rm -fr ./modules/cbflib
+# rm -fr ./build/annlib
+# rm -fr ./modules/annlib
+# ./build/bin/libtbx.python ${RECIPE_DIR}/clean_env.py
 
 # remove extra source files (C, C++, Fortran, CUDA)
-cd build
-find . -name "*.c" -type f -delete
-find . -name "*.cpp" -type f -delete
-find . -name "*.cu" -type f -delete
-find . -name "*.f" -type f -delete
-cd ../modules
-find . -name "*.c" -type f -delete
-find . -name "*.cpp" -type f -delete
-find . -name "*.cu" -type f -delete
-find . -name "*.f" -type f -delete
-cd ..
+# cd build
+# find . -name "*.c" -type f -delete
+# find . -name "*.cpp" -type f -delete
+# find . -name "*.cu" -type f -delete
+# find . -name "*.f" -type f -delete
+# cd ../modules
+# find . -name "*.c" -type f -delete
+# find . -name "*.cpp" -type f -delete
+# find . -name "*.cu" -type f -delete
+# find . -name "*.f" -type f -delete
+# cd ..
 
 # remove intermediate objects in build directory
 cd build
