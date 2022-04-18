@@ -49,6 +49,7 @@ requirements:
     - scons
     - setuptools <60
     - six
+    - wxpython
     - xorg-libxfixes  # [linux]
 
 outputs:
