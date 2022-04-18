@@ -8,39 +8,39 @@ rmdir /S /Q .\modules\eigen
 rmdir /S /Q .\modules\scons
 
 REM build
-%PYTHON% bootstrap.py build --builder=cctbx --use-conda %PREFIX% --nproc %CPU_COUNT% --config-flags="--enable_cxx11" --config-flags="--no_bin_python" --config-flags="--skip_phenix_dispatchers"
+%PYTHON% bootstrap.py build --builder=xfel --use-conda %PREFIX% --nproc %CPU_COUNT% --config-flags="--enable_cxx11" --config-flags="--no_bin_python" --config-flags="--skip_phenix_dispatchers"
 if %errorlevel% neq 0 exit /b %errorlevel%
-cd build
-call .\bin\libtbx.configure cma_es crys3d fable rstbx spotinder
-if %errorlevel% neq 0 exit /b %errorlevel%
-call .\bin\libtbx.scons -j %CPU_COUNT%
-if %errorlevel% neq 0 exit /b %errorlevel%
-call .\bin\libtbx.scons -j %CPU_COUNT%
-if %errorlevel% neq 0 exit /b %errorlevel%
-cd ..
+@REM cd build
+@REM call .\bin\libtbx.configure cma_es crys3d fable rstbx spotinder
+@REM if %errorlevel% neq 0 exit /b %errorlevel%
+@REM call .\bin\libtbx.scons -j %CPU_COUNT%
+@REM if %errorlevel% neq 0 exit /b %errorlevel%
+@REM call .\bin\libtbx.scons -j %CPU_COUNT%
+@REM if %errorlevel% neq 0 exit /b %errorlevel%
+@REM cd ..
 
 REM remove dxtbx and cbflib
-del /S /Q .\build\*cbflib*
-del /S /Q .\build\lib\cbflib*
-rmdir /S /Q .\modules\dxtbx
-rmdir /S /Q .\modules\cbflib
-rmdir /S /Q .\build\annlib
-rmdir /S /Q .\modules\annlib
-call .\build\bin\libtbx.python %RECIPE_DIR%\clean_env.py
-if %errorlevel% neq 0 exit /b %errorlevel%
+@REM del /S /Q .\build\*cbflib*
+@REM del /S /Q .\build\lib\cbflib*
+@REM rmdir /S /Q .\modules\dxtbx
+@REM rmdir /S /Q .\modules\cbflib
+@REM rmdir /S /Q .\build\annlib
+@REM rmdir /S /Q .\modules\annlib
+@REM call .\build\bin\libtbx.python %RECIPE_DIR%\clean_env.py
+@REM if %errorlevel% neq 0 exit /b %errorlevel%
 
 REM remove extra source files (C, C++, Fortran, CUDA)
-cd build
-del /S /Q *.c
-del /S /Q *.cpp
-del /S /Q *.cu
-del /S /Q *.f
-cd ..\modules
-del /S /Q *.c
-del /S /Q *.cpp
-del /S /Q *.cu
-del /S /Q *.f
-cd ..
+@REM cd build
+@REM del /S /Q *.c
+@REM del /S /Q *.cpp
+@REM del /S /Q *.cu
+@REM del /S /Q *.f
+@REM cd ..\modules
+@REM del /S /Q *.c
+@REM del /S /Q *.cpp
+@REM del /S /Q *.cu
+@REM del /S /Q *.f
+@REM cd ..
 
 REM remove intermediate objects in build directory
 cd build
