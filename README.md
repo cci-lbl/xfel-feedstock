@@ -1,5 +1,5 @@
-About xfel
-==========
+About cctbx.xfel
+================
 
 Home: https://github.com/cctbx/cctbx_project
 
@@ -40,45 +40,10 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_numpy1.19python3.7.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.19python3.7.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_numpy1.19python3.8.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.19python3.8.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>linux_64_numpy1.19python3.9.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
                   <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.19python3.9.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_numpy1.21python3.10.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.21python3.10.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_numpy1.19python3.7.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.19python3.7.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_numpy1.19python3.8.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.19python3.8.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -89,20 +54,6 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_numpy1.21python3.10.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.21python3.10.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_numpy1.19python3.8.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_numpy1.19python3.8.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>osx_arm64_numpy1.19python3.9.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
@@ -110,38 +61,10 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_numpy1.21python3.10.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_numpy1.21python3.10.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy1.19python3.7.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.19python3.7.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy1.19python3.8.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.19python3.8.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>win_64_numpy1.19python3.9.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
                   <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.19python3.9.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy1.21python3.10.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/cctbx-release/feedstock-builds/_build/latest?definitionId=15&branchName=main">
-                  <img src="https://dev.azure.com/cctbx-release/feedstock-builds/_apis/build/status/xfel-feedstock?branchName=main&jobName=win&configuration=win_64_numpy1.21python3.10.____cpython" alt="variant">
                 </a>
               </td>
             </tr>
@@ -157,69 +80,69 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-xfel-green.svg)](https://anaconda.org/xfel/xfel) | [![Conda Downloads](https://img.shields.io/conda/dn/xfel/xfel.svg)](https://anaconda.org/xfel/xfel) | [![Conda Version](https://img.shields.io/conda/vn/xfel/xfel.svg)](https://anaconda.org/xfel/xfel) | [![Conda Platforms](https://img.shields.io/conda/pn/xfel/xfel.svg)](https://anaconda.org/xfel/xfel) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-cctbx.xfel-green.svg)](https://anaconda.org/xfel/cctbx.xfel) | [![Conda Downloads](https://img.shields.io/conda/dn/xfel/cctbx.xfel.svg)](https://anaconda.org/xfel/cctbx.xfel) | [![Conda Version](https://img.shields.io/conda/vn/xfel/cctbx.xfel.svg)](https://anaconda.org/xfel/cctbx.xfel) | [![Conda Platforms](https://img.shields.io/conda/pn/xfel/cctbx.xfel.svg)](https://anaconda.org/xfel/cctbx.xfel) |
 
-Installing xfel
-===============
+Installing cctbx.xfel
+=====================
 
-Installing `xfel` from the `xfel` channel can be achieved by adding `xfel` to your channels with:
+Installing `cctbx.xfel` from the `xfel` channel can be achieved by adding `xfel` to your channels with:
 
 ```
 conda config --add channels xfel
 conda config --set channel_priority strict
 ```
 
-Once the `xfel` channel has been enabled, `xfel` can be installed with `conda`:
+Once the `xfel` channel has been enabled, `cctbx.xfel` can be installed with `conda`:
 
 ```
-conda install xfel
-```
-
-or with `mamba`:
-
-```
-mamba install xfel
-```
-
-It is possible to list all of the versions of `xfel` available on your platform with `conda`:
-
-```
-conda search xfel --channel xfel
+conda install cctbx.xfel
 ```
 
 or with `mamba`:
 
 ```
-mamba search xfel --channel xfel
+mamba install cctbx.xfel
+```
+
+It is possible to list all of the versions of `cctbx.xfel` available on your platform with `conda`:
+
+```
+conda search cctbx.xfel --channel xfel
+```
+
+or with `mamba`:
+
+```
+mamba search cctbx.xfel --channel xfel
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search xfel --channel xfel
+mamba repoquery search cctbx.xfel --channel xfel
 
-# List packages depending on `xfel`:
-mamba repoquery whoneeds xfel --channel xfel
+# List packages depending on `cctbx.xfel`:
+mamba repoquery whoneeds cctbx.xfel --channel xfel
 
-# List dependencies of `xfel`:
-mamba repoquery depends xfel --channel xfel
+# List dependencies of `cctbx.xfel`:
+mamba repoquery depends cctbx.xfel --channel xfel
 ```
 
 
 
 
-Updating xfel-feedstock
-=======================
+Updating cctbx.xfel-feedstock
+=============================
 
-If you would like to improve the xfel recipe or build a new
+If you would like to improve the cctbx.xfel recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `xfel` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `xfel` channel.
-Note that all branches in the cci-lbl/xfel-feedstock are
+Note that all branches in the cci-lbl/cctbx.xfel-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.

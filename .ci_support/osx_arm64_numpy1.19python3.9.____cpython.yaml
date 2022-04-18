@@ -16,8 +16,12 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '12'
+hdf5:
+- 1.10.6
 libsvm:
 - '3.21'
+libtiff:
+- '4'
 macos_machine:
 - arm64-apple-darwin20.0.0
 numpy:
@@ -29,6 +33,8 @@ pin_run_as_build:
     max_pin: x.x.x
   libsvm:
     max_pin: x.x
+  libtiff:
+    max_pin: x
   python:
     min_pin: x.x
     max_pin: x.x
