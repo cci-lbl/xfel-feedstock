@@ -74,6 +74,11 @@ outputs:
         - requests
         - scipy
         - six
+        # optional
+        - gemmi
+        - jupyterlab
+        - mdtraj
+        - reciprocalspaceship
     test:
       imports:
         - scitbx.array_family.flex
