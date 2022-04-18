@@ -7,6 +7,10 @@ rmdir /S /Q .\modules\boost
 rmdir /S /Q .\modules\eigen
 rmdir /S /Q .\modules\scons
 
+REM remove some libtbx_refresh.py files
+del /S /Q .\modules\dxtbx\libtbx_refresh.py
+del /S /Q .\modules\xia2\libtbx_refresh.py
+
 REM build
 %PYTHON% bootstrap.py build --builder=xfel --use-conda %PREFIX% --nproc %CPU_COUNT% --config-flags="--enable_cxx11" --config-flags="--no_bin_python" --config-flags="--skip_phenix_dispatchers"
 if %errorlevel% neq 0 exit /b %errorlevel%
