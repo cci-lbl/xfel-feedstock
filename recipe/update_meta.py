@@ -82,10 +82,10 @@ def run():
   if raw_url is not None:
     file_url = urlsplit(raw_url)
     new_url = list(file_url)
-    new_url[3] = 'format=file&subPath=%2Fmodules.tar'
+    new_url[3] = 'format=file&subPath=%2Fxfel_source.tar'
     unix_url = urlunsplit(new_url)
     # Windows does not like the %2F
-    new_url[3] = 'format=file&subPath=/modules.tar'
+    new_url[3] = 'format=file&subPath=/xfel_source.tar'
     win_url = urlunsplit(new_url)
 
   # modify meta.yaml to use new version and URL
