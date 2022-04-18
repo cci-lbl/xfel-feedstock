@@ -8,9 +8,9 @@ source:
   url: https://artprodcus3.artifacts.visualstudio.com/Ae7d56bcd-6398-4fef-808d-577536b26a95/61b2f770-c205-438f-9953-5597b5ea835b/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2NjdGJ4LXJlbGVhc2UvcHJvamVjdElkLzYxYjJmNzcwLWMyMDUtNDM4Zi05OTUzLTU1OTdiNWVhODM1Yi9idWlsZElkLzIyNjEvYXJ0aWZhY3ROYW1lL3hmZWxfbW9kdWxlcw2/content?format=file&subPath=%2Fmodules.tar  # [unix]
   url: https://artprodcus3.artifacts.visualstudio.com/Ae7d56bcd-6398-4fef-808d-577536b26a95/61b2f770-c205-438f-9953-5597b5ea835b/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2NjdGJ4LXJlbGVhc2UvcHJvamVjdElkLzYxYjJmNzcwLWMyMDUtNDM4Zi05OTUzLTU1OTdiNWVhODM1Yi9idWlsZElkLzIyNjEvYXJ0aWZhY3ROYW1lL3hmZWxfbW9kdWxlcw2/content?format=file&subPath=/modules.tar  # [win]
   patches:
-    - cbf.patch
+    # - cbf.patch
     - crys3d.patch
-    - dxtbx.patch
+    # - dxtbx.patch
     - libtbx_osx-arm64.patch  # [build_platform != target_platform]
     - libtbx_SConscript.patch
 
