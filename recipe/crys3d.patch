@@ -1,9 +1,9 @@
-diff --git a/modules/cctbx_project/crys3d/hklviewer/cmdlineframes.py b/modules/cctbx_project/crys3d/hklviewer/cmdlineframes.py
-index eaae2e60d4..4ddc0a1e75 100644
---- a/modules/cctbx_project/crys3d/hklviewer/cmdlineframes.py
-+++ b/modules/cctbx_project/crys3d/hklviewer/cmdlineframes.py
-@@ -67,7 +67,7 @@ class HKLViewFrame() :
-     self.tncsvec = None
+diff --git a/modules/cctbx_project/crys3d/hklviewer/hklview_frame.py b/modules/cctbx_project/crys3d/hklviewer/hklview_frame.py
+index ea2da44fdb..c00cb3457a 100644
+--- a/modules/cctbx_project/crys3d/hklviewer/hklview_frame.py
++++ b/modules/cctbx_project/crys3d/hklviewer/hklview_frame.py
+@@ -61,7 +61,7 @@ class HKLViewFrame() :
+     self.aniso3 = None
      self.uservectors = []
      self.new_miller_array_operations_lst = []
 -    self.copyrightpaths = [("CCTBX copyright", libtbx.env.under_root(os.path.join("modules","cctbx_project","COPYRIGHT.txt"))),
