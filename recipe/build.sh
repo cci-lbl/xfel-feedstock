@@ -102,6 +102,6 @@ find ${PREFIX}/bin -name "*show_build_path" -not -name "libtbx.show_build_path" 
 # install dxtbx and xia2
 cd ./modules/dxtbx
 ${PYTHON} -m pip install . -vv
-cd ../modules/xia2
-${PYTHON} -m pip install . -vv
+# cd ../modules/xia2
+# ${PYTHON} -m pip install . -vv
 cd ../..
