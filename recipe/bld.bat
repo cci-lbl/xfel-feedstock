@@ -83,3 +83,12 @@ del /Q %LIBRARY_BIN%\*show_build_path.bat
 del /Q %LIBRARY_BIN%\*show_dist_paths.bat
 attrib -H %LIBRARY_BIN%\libtbx.show_build_path.bat
 attrib -H %LIBRARY_BIN%\libtbx.show_dist_paths.bat
+
+@REM install dxtbx and xia2
+cd .\modules\dxtbx
+%PYTHON% -m pip install . -vv
+if %errorlevel% neq 0 exit /b %errorlevel%
+cd ..\modules\xia2
+%PYTHON% -m pip install . -vv
+if %errorlevel% neq 0 exit /b %errorlevel%
+cd ..\..
