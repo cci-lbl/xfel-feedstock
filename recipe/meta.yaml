@@ -62,19 +62,37 @@ outputs:
         - {{ pin_compatible('boost') }}
         - boost-cpp
         - future
+        - h5py
+        - {{ pin_compatible('hdf5') }}
+        - hdf5plugin
         - {{ pin_compatible('libglu') }}  # [linux]
         - libsvm
         - matplotlib-base
         - mrcfile
+        - msgpack-python
         - {{ pin_compatible('numpy') }}
+        - orderedset
+        - pandas
         - pillow
+        - pint
+        - procrunner
         - psutil
         - python
         - python.app  # [osx]
         - reportlab
         - requests
+        - scikit-learn
         - scipy
         - six
+        - tabulate
+        - tqdm
+        - wxpython
+        # testing
+        - dials-data
+        - pytest <7
+        - pytest-forked
+        - pytest-mock
+        - pytest-xdist
         # optional
         - gemmi
         - jupyterlab
