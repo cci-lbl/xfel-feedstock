@@ -58,6 +58,10 @@ SET CCTBX_CONDA_BUILD=.\modules\cctbx_project\libtbx\auto_build\conda_build
 call .\build\bin\libtbx.python %CCTBX_CONDA_BUILD%\install_build.py --prefix %LIBRARY_PREFIX% --sp-dir %SP_DIR% --ext-dir %PREFIX%\lib --preserve-egg-dir
 if %errorlevel% neq 0 exit /b %errorlevel%
 
+REM copy dxtbx_flumpy separately since it does not end it *_ext.so
+copy .\build\lib\dxtbx_flumpy.* %PREFIX%\Lib\
+del /S /Q %LIBRARY_PREFIX%\dxtbx_flumpy.*
+
 REM copy version and copyright files
 %PYTHON% .\modules\cctbx_project\libtbx\version.py --version=%PKG_VERSION%
 if %errorlevel% neq 0 exit /b %errorlevel%
