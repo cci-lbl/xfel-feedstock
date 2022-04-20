@@ -1,4 +1,4 @@
-{% set version = "2022.4a19" %}
+{% set version = "2022.4a20" %}
 
 package:
   name: cctbx.xfel
