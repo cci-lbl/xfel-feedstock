@@ -94,7 +94,7 @@ cd .\modules\dxtbx
 %PYTHON% -m pip install . -vv
 if %errorlevel% neq 0 exit /b %errorlevel%
 rmdir /S /Q %SP_DIR%\xia2
-cd ..\modules\xia2
+cd ..\xia2
 %PYTHON% -m pip install . -vv
 if %errorlevel% neq 0 exit /b %errorlevel%
 cd ..\..

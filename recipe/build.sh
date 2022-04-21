@@ -107,6 +107,6 @@ rm -fr ${SP_DIR}/dxtbx
 cd ./modules/dxtbx
 ${PYTHON} -m pip install . -vv
 rm -fr ${SP_DIR}/xia2
-cd ../modules/xia2
+cd ../xia2
 ${PYTHON} -m pip install . -vv
 cd ../..
