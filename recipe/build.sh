@@ -103,8 +103,10 @@ find ${PREFIX}/bin -name "*show_dist_paths" -not -name "libtbx.show_dist_paths" 
 find ${PREFIX}/bin -name "*show_build_path" -not -name "libtbx.show_build_path" -type f -delete
 
 # install dxtbx and xia2
+rm -fr ${SP_DIR}/dxtbx
 cd ./modules/dxtbx
 ${PYTHON} -m pip install . -vv
-# cd ../modules/xia2
-# ${PYTHON} -m pip install . -vv
+rm -fr ${SP_DIR}/xia2
+cd ../modules/xia2
+${PYTHON} -m pip install . -vv
 cd ../..
