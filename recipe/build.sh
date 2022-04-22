@@ -35,29 +35,6 @@ cd build
 # ./bin/libtbx.scons -j ${CPU_COUNT}
 cd ..
 
-# remove dxtbx and cbflib
-# rm -fr ./build/*cbflib*
-# rm -fr ./build/lib/cbflib*
-# rm -fr ./build/lib/*dxtbx*
-# rm -fr ./modules/dxtbx
-# rm -fr ./modules/cbflib
-# rm -fr ./build/annlib
-# rm -fr ./modules/annlib
-# ./build/bin/libtbx.python ${RECIPE_DIR}/clean_env.py
-
-# remove extra source files (C, C++, Fortran, CUDA)
-# cd build
-# find . -name "*.c" -type f -delete
-# find . -name "*.cpp" -type f -delete
-# find . -name "*.cu" -type f -delete
-# find . -name "*.f" -type f -delete
-# cd ../modules
-# find . -name "*.c" -type f -delete
-# find . -name "*.cpp" -type f -delete
-# find . -name "*.cu" -type f -delete
-# find . -name "*.f" -type f -delete
-# cd ..
-
 # remove intermediate objects in build directory
 cd build
 find . -name "*.o" -type f -delete
@@ -102,9 +79,12 @@ echo Removing some duplicate dispatchers
 find ${PREFIX}/bin -name "*show_dist_paths" -not -name "libtbx.show_dist_paths" -type f -delete
 find ${PREFIX}/bin -name "*show_build_path" -not -name "libtbx.show_build_path" -type f -delete
 
-# install dxtbx and xia2
+# install dxtbx, dials, and xia2
 rm -fr ${SP_DIR}/dxtbx
 cd ./modules/dxtbx
+${PYTHON} -m pip install . -vv
+rm -fr ${SP_DIR}/dials
+cd ../dials
 ${PYTHON} -m pip install . -vv
 rm -fr ${SP_DIR}/xia2
 cd ../xia2

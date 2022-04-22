@@ -88,17 +88,6 @@ outputs:
         - tabulate
         - tqdm
         - wxpython
-        # testing
-        - dials-data
-        - pytest <7
-        - pytest-forked
-        - pytest-mock
-        - pytest-xdist
-        # optional
-        - gemmi
-        - jupyterlab
-        - mdtraj
-        - reciprocalspaceship
     test:
       imports:
         - scitbx.array_family.flex
