@@ -8,7 +8,9 @@ rmdir /S /Q .\modules\eigen
 rmdir /S /Q .\modules\scons
 
 REM remove some libtbx_refresh.py files
+del /S /Q .\modules\dials\libtbx_refresh.py
 del /S /Q .\modules\dxtbx\libtbx_refresh.py
+del /S /Q .\modules\iota\libtbx_refresh.py
 del /S /Q .\modules\xia2\libtbx_refresh.py
 
 REM build
@@ -21,29 +23,6 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 @REM if %errorlevel% neq 0 exit /b %errorlevel%
 @REM call .\bin\libtbx.scons -j %CPU_COUNT%
 @REM if %errorlevel% neq 0 exit /b %errorlevel%
-@REM cd ..
-
-REM remove dxtbx and cbflib
-@REM del /S /Q .\build\*cbflib*
-@REM del /S /Q .\build\lib\cbflib*
-@REM rmdir /S /Q .\modules\dxtbx
-@REM rmdir /S /Q .\modules\cbflib
-@REM rmdir /S /Q .\build\annlib
-@REM rmdir /S /Q .\modules\annlib
-@REM call .\build\bin\libtbx.python %RECIPE_DIR%\clean_env.py
-@REM if %errorlevel% neq 0 exit /b %errorlevel%
-
-REM remove extra source files (C, C++, Fortran, CUDA)
-@REM cd build
-@REM del /S /Q *.c
-@REM del /S /Q *.cpp
-@REM del /S /Q *.cu
-@REM del /S /Q *.f
-@REM cd ..\modules
-@REM del /S /Q *.c
-@REM del /S /Q *.cpp
-@REM del /S /Q *.cu
-@REM del /S /Q *.f
 @REM cd ..
 
 REM remove intermediate objects in build directory
@@ -91,10 +70,22 @@ attrib -H %LIBRARY_BIN%\libtbx.show_dist_paths.bat
 @REM install dxtbx and xia2
 rmdir /S /Q %SP_DIR%\dxtbx
 cd .\modules\dxtbx
-%PYTHON% -m pip install . -vv
+%PYTHON% -m pip install . -vv --no-deps
 if %errorlevel% neq 0 exit /b %errorlevel%
+
+rmdir /S /Q %SP_DIR%\dials
+cd .\modules\dials
+%PYTHON% -m pip install . -vv --no-deps
+if %errorlevel% neq 0 exit /b %errorlevel%
+
+rmdir /S /Q %SP_DIR%\iota
+cd .\modules\iota
+%PYTHON% -m pip install . -vv --no-deps
+if %errorlevel% neq 0 exit /b %errorlevel%
+
 rmdir /S /Q %SP_DIR%\xia2
 cd ..\xia2
-%PYTHON% -m pip install . -vv
+%PYTHON% -m pip install . -vv --no-deps
 if %errorlevel% neq 0 exit /b %errorlevel%
+
 cd ..\..
