@@ -21,7 +21,9 @@ rm -fr ./modules/eigen
 rm -fr ./modules/scons
 
 # remove some libtbx_refresh.py files
+rm -fr ./modules/dials/libtbx)refresh.py
 rm -fr ./modules/dxtbx/libtbx_refresh.py
+rm -fr ./modules/iota/libtbx_refresh.py
 rm -fr ./modules/xia2/libtbx_refresh.py
 
 # build
@@ -79,14 +81,12 @@ echo Removing some duplicate dispatchers
 find ${PREFIX}/bin -name "*show_dist_paths" -not -name "libtbx.show_dist_paths" -type f -delete
 find ${PREFIX}/bin -name "*show_build_path" -not -name "libtbx.show_build_path" -type f -delete
 
-# install dxtbx, dials, and xia2
-rm -fr ${SP_DIR}/dxtbx
-cd ./modules/dxtbx
-${PYTHON} -m pip install . -vv
-rm -fr ${SP_DIR}/dials
-cd ../dials
-${PYTHON} -m pip install . -vv
-rm -fr ${SP_DIR}/xia2
-cd ../xia2
-${PYTHON} -m pip install . -vv
-cd ../..
+# install dxtbx, dials, iota, and xia2
+cd modules
+for m in dxtbx dials iota xia2; do
+  rm -fr ${SP_DIR}/${m}
+  cd ./${m}
+  ${PYTHON} -m pip install . -vv --no-deps
+  cd ..
+done
+cd ..
