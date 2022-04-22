@@ -21,7 +21,7 @@ rm -fr ./modules/eigen
 rm -fr ./modules/scons
 
 # remove some libtbx_refresh.py files
-rm -fr ./modules/dials/libtbx)refresh.py
+rm -fr ./modules/dials/libtbx_refresh.py
 rm -fr ./modules/dxtbx/libtbx_refresh.py
 rm -fr ./modules/iota/libtbx_refresh.py
 rm -fr ./modules/xia2/libtbx_refresh.py
