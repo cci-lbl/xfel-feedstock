@@ -14,7 +14,14 @@ del /S /Q .\modules\iota\libtbx_refresh.py
 del /S /Q .\modules\xia2\libtbx_refresh.py
 
 REM build
-%PYTHON% bootstrap.py build --builder=xfel --use-conda %PREFIX% --nproc %CPU_COUNT% --config-flags="--enable_cxx11" --config-flags="--no_bin_python" --config-flags="--skip_phenix_dispatchers"
+%PYTHON% bootstrap.py build ^
+  --builder=xfel ^
+  --use-conda %PREFIX% ^
+  --nproc %CPU_COUNT% ^
+  --config-flags="--enable_cxx11" ^
+  --config-flags="--enable_openmp_if_possible=True" ^
+  --config-flags="--no_bin_python" ^
+  --config-flags="--skip_phenix_dispatchers"
 if %errorlevel% neq 0 exit /b %errorlevel%
 @REM cd build
 @REM call .\bin\libtbx.configure cma_es crys3d fable rstbx spotinder

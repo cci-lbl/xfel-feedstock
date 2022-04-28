@@ -28,8 +28,11 @@ rm -fr ./modules/xia2/libtbx_refresh.py
 
 # build
 ${PYTHON} bootstrap.py build --builder=xfel --use-conda ${PREFIX} --nproc ${CPU_COUNT} \
-  --config-flags="--compiler=conda" --config-flags="--use_environment_flags" \
-  --config-flags="--enable_cxx11" --config-flags="--no_bin_python" \
+  --config-flags="--compiler=conda" \
+  --config-flags="--use_environment_flags" \
+  --config-flags="--enable_cxx11" \
+  --config-flags="--enable_openmp_if_possible=True" \
+  --config-flags="--no_bin_python" \
   --config-flags="--skip_phenix_dispatchers"
 cd build
 # ./bin/libtbx.configure cma_es crys3d fable rstbx spotinder
