@@ -19,7 +19,6 @@ REM build
   --use-conda %PREFIX% ^
   --nproc %CPU_COUNT% ^
   --config-flags="--enable_cxx11" ^
-  --config-flags="--enable_openmp_if_possible=True" ^
   --config-flags="--no_bin_python" ^
   --config-flags="--skip_phenix_dispatchers"
 if %errorlevel% neq 0 exit /b %errorlevel%
