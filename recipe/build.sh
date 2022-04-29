@@ -62,6 +62,10 @@ CCTBX_CONDA_BUILD=./modules/cctbx_project/libtbx/auto_build/conda_build
 # copy dxtbx_flumpy.so separately since it does not end it *_ext.so
 cp ./build/lib/dxtbx_flumpy.so ${SP_DIR}/../lib-dynload/
 
+# copy lunus separately
+rm -fr ${SP_DIR}/lunus
+cp -a ./modules/lunus/lunus ${SP_DIR}
+
 # copy version and copyright files
 ${PYTHON} ./modules/cctbx_project/libtbx/version.py --version=${PKG_VERSION}
 cp ./modules/cctbx_project/COPYRIGHT.txt ${EXTRA_CCTBX_DIR}
