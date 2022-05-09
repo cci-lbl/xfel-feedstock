@@ -80,12 +80,12 @@ cd .\modules\dxtbx
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 rmdir /S /Q %SP_DIR%\dials
-cd .\modules\dials
+cd ..\dials
 %PYTHON% -m pip install . -vv --no-deps
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 rmdir /S /Q %SP_DIR%\iota
-cd .\modules\iota
+cd ..\iota
 %PYTHON% -m pip install . -vv --no-deps
 if %errorlevel% neq 0 exit /b %errorlevel%
 
