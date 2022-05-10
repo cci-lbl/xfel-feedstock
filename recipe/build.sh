@@ -59,6 +59,9 @@ mkdir -p ${EXTRA_CCTBX_DIR}
 CCTBX_CONDA_BUILD=./modules/cctbx_project/libtbx/auto_build/conda_build
 ./build/bin/libtbx.python ${CCTBX_CONDA_BUILD}/install_build.py --preserve-egg-dir
 
+# copy gui_resources
+cp -a ./modules/gui_resources ${SP_DIR}
+
 # copy dxtbx_flumpy.so separately since it does not end it *_ext.so
 cp ./build/lib/dxtbx_flumpy.so ${SP_DIR}/../lib-dynload/
 
@@ -98,3 +101,10 @@ for m in dxtbx dials iota xia2; do
   cd ..
 done
 cd ..
+
+# fix dials.image_viewer on macOS
+if [[ ! -z "$MACOSX_DEPLOYMENT_TARGET" ]]; then
+  echo Fixing dials.image_viewer:
+  sed -i '.bak' 's/python/pythonw/g' ${PREFIX}/bin/dials.image_viewer
+  rm ${PREFIX}/bin/dials.image_viewer.bak
+fi
