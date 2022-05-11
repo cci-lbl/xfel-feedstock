@@ -48,7 +48,7 @@ cd ..
 
 # fix rpath on macOS because libraries and extensions will be in different locations
 if [[ ! -z "$MACOSX_DEPLOYMENT_TARGET" ]]; then
-  echo Fixing rpath:
+  echo Fixing rpath
   ${PYTHON} ${RECIPE_DIR}/fix_macos_rpath.py
 fi
 
@@ -103,8 +103,10 @@ done
 cd ..
 
 # fix dials.image_viewer on macOS
+# not clear why
+#   sed -i "s/python/pythonw/g" ${PREFIX}/bin/dials.image_viewer
+# does not work
 if [[ ! -z "$MACOSX_DEPLOYMENT_TARGET" ]]; then
-  echo Fixing dials.image_viewer:
-  sed -i '.bak' 's/python/pythonw/g' ${PREFIX}/bin/dials.image_viewer
-  rm ${PREFIX}/bin/dials.image_viewer.bak
+  echo Fixing dials.image_viewer
+  ${PYTHON} ${RECIPE_DIR}/fix_dials_image_viewer.py ${PREFIX}/bin/dials.image_viewer
 fi
