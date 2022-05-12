@@ -101,12 +101,3 @@ for m in dxtbx dials iota xia2; do
   cd ..
 done
 cd ..
-
-# fix dials.image_viewer on macOS
-# not clear why
-#   sed -i "s/python/pythonw/g" ${PREFIX}/bin/dials.image_viewer
-# does not work
-if [[ ! -z "$MACOSX_DEPLOYMENT_TARGET" ]]; then
-  echo Fixing dials.image_viewer
-  ${PYTHON} ${RECIPE_DIR}/fix_dials_image_viewer.py ${PREFIX}/bin/dials.image_viewer
-fi

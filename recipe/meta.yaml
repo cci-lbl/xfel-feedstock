@@ -16,6 +16,7 @@ source:
 
 build:
   number: 0
+  osx_is_app: True
   skip: True  # [py!=39]
   preserve_egg_dir: true
 
