@@ -101,3 +101,8 @@ for m in dxtbx dials iota xia2; do
   cd ..
 done
 cd ..
+
+# copy amber force field files
+EXTRA_GROMACS_DIR=${PREFIX}/share/gromacs/top
+mkdir -p ${EXTRA_GROMACS_DIR}
+cp -a ${RECIPE_DIR}/extra/amber14sb.ff ${EXTRA_GROMACS_DIR}

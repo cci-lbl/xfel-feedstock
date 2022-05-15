@@ -76,7 +76,7 @@ del /Q %LIBRARY_BIN%\*show_dist_paths.bat
 attrib -H %LIBRARY_BIN%\libtbx.show_build_path.bat
 attrib -H %LIBRARY_BIN%\libtbx.show_dist_paths.bat
 
-@REM install dxtbx and xia2
+REM install dxtbx and xia2
 rmdir /S /Q %SP_DIR%\dxtbx
 cd .\modules\dxtbx
 %PYTHON% -m pip install . -vv --no-deps
@@ -98,3 +98,8 @@ cd ..\xia2
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 cd ..\..
+
+REM copy amber force field files
+SET EXTRA_GROMACS_DIR=%LIBRARY_PREFIX%\share\gromacs\top
+mkdir  %EXTRA_GROMACS_DIR%
+xcopy /E /I %RECIPE_DIR%\extra\amber14sb.ff %EXTRA_GROMACS_DIR%\amber14sb.ff
