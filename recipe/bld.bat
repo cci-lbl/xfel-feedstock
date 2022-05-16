@@ -76,23 +76,32 @@ del /Q %LIBRARY_BIN%\*show_dist_paths.bat
 attrib -H %LIBRARY_BIN%\libtbx.show_build_path.bat
 attrib -H %LIBRARY_BIN%\libtbx.show_dist_paths.bat
 
-REM install dxtbx and xia2
+REM install dxtbx, dials, iota, and xia2
 rmdir /S /Q %SP_DIR%\dxtbx
+del /S /Q %LIBRARY_PREFIX%\bin\cxi.*
+del /S /Q %LIBRARY_PREFIX%\bin\dev.dxtbx.*
+del /S /Q %LIBRARY_PREFIX%\bin\dxtbx.*
 cd .\modules\dxtbx
 %PYTHON% -m pip install . -vv --no-deps
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 rmdir /S /Q %SP_DIR%\dials
+del /S /Q %LIBRARY_PREFIX%\bin\cluster.dials.*
+del /S /Q %LIBRARY_PREFIX%\bin\dev.dials.*
+del /S /Q %LIBRARY_PREFIX%\bin\dials.*
 cd ..\dials
 %PYTHON% -m pip install . -vv --no-deps
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 rmdir /S /Q %SP_DIR%\iota
+del /S /Q %LIBRARY_PREFIX%\bin\iota.*
 cd ..\iota
 %PYTHON% -m pip install . -vv --no-deps
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 rmdir /S /Q %SP_DIR%\xia2
+del /S /Q %LIBRARY_PREFIX%\bin\dev.xia2.*
+del /S /Q %LIBRARY_PREFIX%\bin\xia2.*
 cd ..\xia2
 %PYTHON% -m pip install . -vv --no-deps
 if %errorlevel% neq 0 exit /b %errorlevel%
