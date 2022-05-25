@@ -36,6 +36,7 @@ ${PYTHON} bootstrap.py build --builder=xfel --use-conda ${PREFIX} --nproc ${CPU_
   --config-flags="--skip_phenix_dispatchers"
 cd build
 ./bin/libtbx.configure lunus
+./bin/libtbx.configure sim_erice
 # ./bin/libtbx.configure cma_es crys3d fable rstbx spotinder
 ./bin/libtbx.scons -j ${CPU_COUNT}
 ./bin/libtbx.scons -j ${CPU_COUNT}
