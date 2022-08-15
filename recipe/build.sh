@@ -60,6 +60,12 @@ mkdir -p ${EXTRA_CCTBX_DIR}
 CCTBX_CONDA_BUILD=./modules/cctbx_project/libtbx/auto_build/conda_build
 ./build/bin/libtbx.python ${CCTBX_CONDA_BUILD}/install_build.py --preserve-egg-dir
 
+# SP_DIR is weird in osx-arm64 in this feedstock
+# points to python3.10 instead of python3.9
+if [[ "$CC" == *"arm64"* ]]; then
+  SP_DIR=${PREFIX}/lib/python${PY_VER}/site-packages
+fi
+
 # copy gui_resources
 cp -a ./modules/gui_resources ${SP_DIR}
 
