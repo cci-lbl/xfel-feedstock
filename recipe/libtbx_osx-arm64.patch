@@ -12,10 +12,10 @@ index e892dc3450..e760cea33e 100644
    if (os.path.isfile(libtbx.env.under_build("lib/libswig_class_example.a"))):
      # this example requires these manual steps:
 diff --git a/modules/cctbx_project/libtbx/SConscript b/modules/cctbx_project/libtbx/SConscript
-index c6b5c71bcb..35229a021f 100644
+index 9f06586b74..95048aa525 100644
 --- a/modules/cctbx_project/libtbx/SConscript
 +++ b/modules/cctbx_project/libtbx/SConscript
-@@ -1144,7 +1144,8 @@ if env_etc.cxx11_is_available:
+@@ -1149,7 +1149,8 @@ if env_etc.cxx11_is_available:
    test_code += "{i=7; std::cout << i << std::endl;}\n"
    test_code += " x = func(std::vector<int>(2)); return 0;}\n"
    conf = env_base.Configure()
@@ -26,10 +26,10 @@ index c6b5c71bcb..35229a021f 100644
    if not flag:
      env_etc.cxx11_is_available = False
 diff --git a/modules/cctbx_project/libtbx/auto_build/bootstrap.py b/modules/cctbx_project/libtbx/auto_build/bootstrap.py
-index e2a85f124a..1426a7a934 100644
+index 2eaa3ebeab..81f4cfccff 100644
 --- a/modules/cctbx_project/libtbx/auto_build/bootstrap.py
 +++ b/modules/cctbx_project/libtbx/auto_build/bootstrap.py
-@@ -1861,7 +1861,7 @@ environment exists in or is defined by {conda_env}.
+@@ -1864,7 +1864,7 @@ environment exists in or is defined by {conda_env}.
        # the get_environment function in ShellCommand updates the environment
        if os.environ.get('CCTBX_CONDA_USE_ENVIRONMENT_VARIABLES', None):
          env = {
@@ -38,7 +38,7 @@ index e2a85f124a..1426a7a934 100644
            'LD_LIBRARY_PATH': None,
            'DYLD_LIBRARY_PATH': None,
            'DYLD_FALLBACK_LIBRARY_PATH': None
-@@ -1897,9 +1897,9 @@ environment exists in or is defined by {conda_env}.
+@@ -1900,9 +1900,9 @@ environment exists in or is defined by {conda_env}.
        ))
  
      # write extra setpaths script for conda
@@ -51,26 +51,6 @@ index e2a85f124a..1426a7a934 100644
  
    def add_make(self):
      self.add_command('libtbx.scons', args=['-j',
-@@ -1914,12 +1914,13 @@ environment exists in or is defined by {conda_env}.
- 
-   def add_install(self):
-     """Run after compile, before tests."""
--    self.add_command('mmtbx.rebuild_rotarama_cache',
--                     name="rebuild rotarama",
--    )
--    self.add_command('mmtbx.rebuild_cablam_cache',
--                     name="rebuild cablam",
--    )
-+    # self.add_command('mmtbx.rebuild_rotarama_cache',
-+    #                  name="rebuild rotarama",
-+    # )
-+    # self.add_command('mmtbx.rebuild_cablam_cache',
-+    #                  name="rebuild cablam",
-+    # )
-+    pass
- 
-   def add_tests(self):
-     """Run the unit tests."""
 diff --git a/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py b/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
 index a3b8594c36..09a2b48197 100644
 --- a/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
