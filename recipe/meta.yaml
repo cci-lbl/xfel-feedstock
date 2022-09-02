@@ -1,12 +1,12 @@
-{% set version = "2022.9.1" %}
+{% set version = "2022.9.2" %}
 
 package:
   name: cctbx.xfel
   version: {{ version }}
 
 source:
-  url: https://artprodcus3.artifacts.visualstudio.com/Ae7d56bcd-6398-4fef-808d-577536b26a95/61b2f770-c205-438f-9953-5597b5ea835b/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2NjdGJ4LXJlbGVhc2UvcHJvamVjdElkLzYxYjJmNzcwLWMyMDUtNDM4Zi05OTUzLTU1OTdiNWVhODM1Yi9idWlsZElkLzM5ODkvYXJ0aWZhY3ROYW1lL3hmZWxfbW9kdWxlcw2/content?format=file&subPath=%2Fxfel_source.tar  # [unix]
-  url: https://artprodcus3.artifacts.visualstudio.com/Ae7d56bcd-6398-4fef-808d-577536b26a95/61b2f770-c205-438f-9953-5597b5ea835b/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2NjdGJ4LXJlbGVhc2UvcHJvamVjdElkLzYxYjJmNzcwLWMyMDUtNDM4Zi05OTUzLTU1OTdiNWVhODM1Yi9idWlsZElkLzM5ODkvYXJ0aWZhY3ROYW1lL3hmZWxfbW9kdWxlcw2/content?format=file&subPath=/xfel_source.tar  # [win]
+  url: https://artprodcus3.artifacts.visualstudio.com/Ae7d56bcd-6398-4fef-808d-577536b26a95/61b2f770-c205-438f-9953-5597b5ea835b/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2NjdGJ4LXJlbGVhc2UvcHJvamVjdElkLzYxYjJmNzcwLWMyMDUtNDM4Zi05OTUzLTU1OTdiNWVhODM1Yi9idWlsZElkLzQwMTAvYXJ0aWZhY3ROYW1lL3hmZWxfbW9kdWxlcw2/content?format=file&subPath=%2Fxfel_source.tar  # [unix]
+  url: https://artprodcus3.artifacts.visualstudio.com/Ae7d56bcd-6398-4fef-808d-577536b26a95/61b2f770-c205-438f-9953-5597b5ea835b/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2NjdGJ4LXJlbGVhc2UvcHJvamVjdElkLzYxYjJmNzcwLWMyMDUtNDM4Zi05OTUzLTU1OTdiNWVhODM1Yi9idWlsZElkLzQwMTAvYXJ0aWZhY3ROYW1lL3hmZWxfbW9kdWxlcw2/content?format=file&subPath=/xfel_source.tar  # [win]
   patches:
     # - cbf.patch
     # - dxtbx.patch
