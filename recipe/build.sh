@@ -43,6 +43,14 @@ cd build
 ./bin/libtbx.scons -j ${CPU_COUNT}
 cd ..
 
+source ./mc3/etc/profile.d/conda.sh
+conda activate $PWD/conda_base
+old_svn=$(which svn)
+conda install svn -c conda-forge
+ln -sf $old_svn $(which svn)
+conda install gsas2pkg -c briantoby -c conda-forge
+echo $PWD/conda_base/GSASII > conda_base/lib/python${PY_VER}/site-packages/GSASII.pth
+
 # remove intermediate objects in build directory
 cd build
 find . -name "*.o" -type f -delete
