@@ -242,7 +242,6 @@ outputs:
         - mpi4py
         - mysql
         - mysqlclient
-        - psana
     test:
       imports:
         - scitbx.array_family.flex
