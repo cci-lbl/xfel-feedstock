@@ -9,7 +9,7 @@ c_compiler:
 c_compiler_version:
 - '14'
 channel_sources:
-- briantoby,conda-forge
+- briantoby,conda-forge,defaults
 channel_targets:
 - xfel main
 cxx_compiler:
