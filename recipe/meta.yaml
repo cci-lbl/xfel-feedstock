@@ -238,7 +238,7 @@ outputs:
         - tabulate
         - tqdm
         - wxpython
-        - gsas2pkg # from briantoby channel
+        - gsas2pkg # [not win]
         - mpi4py
         - mysql
         - mysqlclient
