@@ -5,7 +5,7 @@ boost_cpp:
 c_compiler:
 - vs2019
 channel_sources:
-- briantoby,conda-forge,defaults
+- lcls-i,briantoby,conda-forge,defaults
 channel_targets:
 - xfel main
 cxx_compiler:
