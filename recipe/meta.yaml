@@ -203,7 +203,6 @@ requirements:
     - six
     - wxpython
     - xorg-libxfixes  # [linux]
-    - gsas2pkg # from briantoby channel
 
 outputs:
   - name: cctbx.xfel
@@ -239,6 +238,11 @@ outputs:
         - tabulate
         - tqdm
         - wxpython
+        - gsas2pkg # from briantoby channel
+        - mpi4py
+        - mysql
+        - mysqlclient
+        - psana
     test:
       imports:
         - scitbx.array_family.flex
