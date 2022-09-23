@@ -203,6 +203,7 @@ requirements:
     - six
     - wxpython
     - xorg-libxfixes  # [linux]
+    - gsas2pkg # from briantoby channel
 
 outputs:
   - name: cctbx.xfel

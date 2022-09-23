@@ -1,2 +1,4 @@
+channel_sources:
+  - briantoby,conda-forge
 channel_targets:
   - xfel main
