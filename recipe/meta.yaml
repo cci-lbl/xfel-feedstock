@@ -239,8 +239,8 @@ outputs:
         - tqdm
         - wxpython
         - mpi4py
-        - mysql
-        - mysqlclient
+        - mysql # [not win]
+        - mysqlclient # [not win]
     test:
       imports:
         - scitbx.array_family.flex
