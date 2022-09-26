@@ -238,10 +238,6 @@ outputs:
         - tabulate
         - tqdm
         - wxpython
-        - gsas2pkg # [not win]
-        - mpi4py
-        - mysql
-        - mysqlclient
     test:
       imports:
         - scitbx.array_family.flex

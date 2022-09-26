@@ -43,8 +43,6 @@ cd build
 ./bin/libtbx.scons -j ${CPU_COUNT}
 cd ..
 
-echo ${PREFIX}/GSASII > ${PREFIX}/lib/python${PY_VER}/site-packages/GSASII.pth
-
 # remove intermediate objects in build directory
 cd build
 find . -name "*.o" -type f -delete
