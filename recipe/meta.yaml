@@ -238,6 +238,7 @@ outputs:
         - tabulate
         - tqdm
         - wxpython
+        - jinja2
     test:
       imports:
         - scitbx.array_family.flex
