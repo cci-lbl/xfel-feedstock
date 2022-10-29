@@ -184,8 +184,8 @@ requirements:
     - {{ cdt('libxxf86vm') }}  # [linux]
     - {{ cdt('libxext') }}     # [linux]
   host:
-    - boost
-    - boost-cpp
+    - boost =1.74
+    - boost-cpp =1.74
     - eigen
     - future
     - hdf5
