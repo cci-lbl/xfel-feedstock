@@ -18,7 +18,6 @@ REM build
   --builder=xfel ^
   --use-conda %PREFIX% ^
   --nproc %CPU_COUNT% ^
-  --config-flags="--enable_cxx11" ^
   --config-flags="--no_bin_python" ^
   --config-flags="--skip_phenix_dispatchers"
 if %errorlevel% neq 0 exit /b %errorlevel%
