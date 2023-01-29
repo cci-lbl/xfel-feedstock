@@ -202,6 +202,7 @@ requirements:
     - six
     - wxpython
     - xorg-libxfixes  # [linux]
+    - zlib  # [win]
 
 outputs:
   - name: cctbx.xfel
