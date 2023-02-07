@@ -1,5 +1,16 @@
 {% set version = "2024.12.10" %}
 
+# adapted from https://github.com/conda-forge/nvcc-feedstock
+{% if cuda_compiler_version in (None, "None", True, False) %}
+{% set cuda_major = 0 %}
+{% set cuda_minor = 0 %}
+{% set cuda_major_minor = (0, 0) %}
+{% else %}
+{% set cuda_major = environ.get("cuda_compiler_version", "11.2").split(".")[0]|int %}
+{% set cuda_minor = environ.get("cuda_compiler_version", "11.2").split(".")[1]|int %}
+{% set cuda_major_minor = (cuda_major, cuda_minor) %}
+{% endif %}
+
 package:
   name: cctbx.xfel
   version: {{ version }}
@@ -10,13 +21,21 @@ source:
   patches:
     # - cbf.patch
     # - dxtbx.patch
+    - kokkos_SConscript.patch
     - libtbx_osx-arm64.patch  # [build_platform != target_platform]
     - libtbx_SConscript.patch
     - lunus_SConscript.patch
 
 build:
 {% set build_number = 0 %}
+{% if (target_platform == "linux-64" and cuda_major_minor >= (11, 2))
+     or target_platform == "osx-64"
+     or target_platform == "osx-arm64"
+     or (target_platform == "win-64" and cuda_major == 0) %}
+  skip: false
+{% else %}
   skip: true  # [py<39]
+{% endif %}
   string: cuda{{ cuda_compiler_version|string }}py{{ PY_VER }}h{{ PKG_HASH }}_{{ build_number }}  # [cuda_compiler_version != "None"]
   string: cpupy{{ PY_VER }}h{{ PKG_HASH }}_{{ build_number }}  # [cuda_compiler_version == "None"]
   osx_is_app: True
@@ -178,9 +197,13 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
     - gnuconfig  # [unix]
+    - cmake # [linux]
     - make
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+{% if target_platform == "linux-64" %}
+    - {{ compiler('cuda') }}  # [linux]
+{% endif %}
     - {{ cdt('mesa-libgl-devel') }}  # [linux]
     - {{ cdt('mesa-dri-drivers') }}  # [linux]
     - {{ cdt('libselinux') }}  # [linux]
