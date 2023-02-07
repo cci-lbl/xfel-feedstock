@@ -14,7 +14,7 @@ source:
     - libtbx_SConscript.patch
 
 build:
-  number: 0
+  number: 1
   osx_is_app: True
   preserve_egg_dir: true
   entry_points:
@@ -176,6 +176,7 @@ requirements:
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ compiler('cuda') }} # [linux]
     - {{ cdt('mesa-libgl-devel') }}  # [linux]
     - {{ cdt('mesa-dri-drivers') }}  # [linux]
     - {{ cdt('libselinux') }}  # [linux]
