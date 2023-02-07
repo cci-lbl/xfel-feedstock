@@ -38,9 +38,19 @@ rm -fr ./modules/iota/libtbx_refresh.py
 rm -fr ./modules/xia2/libtbx_refresh.py
 
 # build
+if [[ "$CONDA_OVERRIDE_CUDA" != "11"* ]]; then
+  export CUDA_HOME=${PREFIX}
+fi
 export CCTBX_SKIP_CHEMDATA_CACHE_REBUILD=1
+export KOKKOS_DEVICES="OpenMP;Cuda"
+export KOKKOS_ARCH=“Ampere80”
+export NVCC_WRAPPER_DEFAULT_COMPILER=${CXX}
+export LUNUS_KOKKOS_DEVICES="Cuda"
+export LUNUS_KOKKOS_ARCH="Ampere80"
 ${PYTHON} bootstrap.py build --builder=xfel --use-conda ${PREFIX} --nproc ${CPU_COUNT} \
   --config-flags="--compiler=conda" \
+  --config-flags="--enable_kokkos" \
+  --config-flags="--enable_cuda" \
   --config-flags="--use_environment_flags" \
   --config-flags="--enable_openmp_if_possible=True" \
   --config-flags="--no_bin_python" \
