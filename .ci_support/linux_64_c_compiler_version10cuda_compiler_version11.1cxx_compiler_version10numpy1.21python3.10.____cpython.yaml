@@ -3,19 +3,23 @@ boost_cpp:
 c_compiler:
 - gcc
 c_compiler_version:
-- '11'
+- '10'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
 - conda-forge
 channel_targets:
 - xfel main
+cuda_compiler:
+- nvcc
+cuda_compiler_version:
+- '11.1'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '11'
+- '10'
 docker_image:
-- quay.io/condaforge/linux-anvil-cos7-x86_64
+- quay.io/condaforge/linux-anvil-cuda:11.1
 hdf5:
 - 1.12.2
 libsvm:
@@ -23,7 +27,7 @@ libsvm:
 libtiff:
 - '4.4'
 numpy:
-- '1.20'
+- '1.21'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
@@ -33,11 +37,14 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.8.* *_cpython
+- 3.10.* *_cpython
 target_platform:
 - linux-64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+  - cuda_compiler_version
+  - cdt_name
+  - docker_image
 - - python
   - numpy
