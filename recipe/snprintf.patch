@@ -1,0 +1,16 @@
+diff --git a/modules/cctbx_project/libtbx/SConscript b/modules/cctbx_project/libtbx/SConscript
+index ed48719b64..c7e25072ee 100644
+--- a/modules/cctbx_project/libtbx/SConscript
++++ b/modules/cctbx_project/libtbx/SConscript
+@@ -435,7 +435,10 @@ libtbx.scons: Warning: compiling with /MDd:
+     env_etc.shlinkflags = ["/nologo", "/incremental:no", "/dll", "/MANIFEST"]
+     if hasattr(sys, 'gettotalrefcount'): # are we compiling with debug version of Python?
+       env_etc.ccflags_base.extend(["/DBOOST_DEBUG_PYTHON"]) # then BoostPython must be compiled in that mode
+-
++    # handle std::snprintf for Python 3.
++    if sys.version_info.major == 3 and sys.version_info.minor == 8:
++      env_etc.ccflags_base.append('/DHAVE_SNPRINTF')
++      env_etc.cxxflags_base.append('/DHAVE_SNPRINTF')
+     if (libtbx.env.build_options.debug_symbols):
+       env_etc.shlinkflags.append("/DEBUG")
+     env_etc.shlinkflags_bpl = list(env_etc.shlinkflags)
