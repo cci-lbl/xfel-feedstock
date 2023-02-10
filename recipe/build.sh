@@ -28,8 +28,11 @@ rm -fr ./modules/xia2/libtbx_refresh.py
 
 # build
 export CCTBX_SKIP_CHEMDATA_CACHE_REBUILD=1
+export KOKKOS_DEVICES="OpenMP;Cuda"
+export KOKKOS_ARCH=“Turing75”
 ${PYTHON} bootstrap.py build --builder=xfel --use-conda ${PREFIX} --nproc ${CPU_COUNT} \
   --config-flags="--compiler=conda" \
+  --config-flags="--enable_kokkos" \
   --config-flags="--use_environment_flags" \
   --config-flags="--enable_openmp_if_possible=True" \
   --config-flags="--no_bin_python" \
