@@ -20,11 +20,6 @@ rm -fr ./modules/boost
 rm -fr ./modules/eigen
 rm -fr ./modules/scons
 
-# get kokkos
-cd ./modules
-git clone https://github.com/kokkos/kokkos.git
-cd ..
-
 # remove some libtbx_refresh.py files
 rm -fr ./modules/dials/libtbx_refresh.py
 rm -fr ./modules/dxtbx/libtbx_refresh.py
