@@ -39,8 +39,8 @@ ${PYTHON} bootstrap.py build --builder=xfel --use-conda ${PREFIX} --nproc ${CPU_
   --config-flags="--no_bin_python" \
   --config-flags="--skip_phenix_dispatchers"
 cd build
-./bin/libtbx.configure lunus
-./bin/libtbx.configure sim_erice
+# ./bin/libtbx.configure lunus
+# ./bin/libtbx.configure sim_erice
 # ./bin/libtbx.configure cma_es crys3d fable rstbx spotinder
 ./bin/libtbx.scons -j ${CPU_COUNT}
 ./bin/libtbx.scons -j ${CPU_COUNT}
@@ -77,8 +77,8 @@ cp -a ./modules/gui_resources ${SP_DIR}
 cp ./build/lib/dxtbx_flumpy.so ${SP_DIR}/../lib-dynload/
 
 # copy lunus separately
-rm -fr ${SP_DIR}/lunus
-cp -a ./modules/lunus/lunus ${SP_DIR}
+# rm -fr ${SP_DIR}/lunus
+# cp -a ./modules/lunus/lunus ${SP_DIR}
 
 # copy version and copyright files
 ${PYTHON} ./modules/cctbx_project/libtbx/version.py --version=${PKG_VERSION}
