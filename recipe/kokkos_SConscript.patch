@@ -1,0 +1,57 @@
+diff --git a/modules/cctbx_project/simtbx/kokkos/SConscript b/modules/cctbx_project/simtbx/kokkos/SConscript
+index 254e98c361..c710804ef3 100644
+--- a/modules/cctbx_project/simtbx/kokkos/SConscript
++++ b/modules/cctbx_project/simtbx/kokkos/SConscript
+@@ -15,7 +15,7 @@ import libtbx.load_env
+ # set environment variable defaults if necessary
+ if os.getenv('KOKKOS_DEVICES') is None:
+   os.environ['KOKKOS_DEVICES'] = "OpenMP"
+-use_openmp = "OpenMP" in os.getenv('KOKKOS_DEVICES')  
++use_openmp = "OpenMP" in os.getenv('KOKKOS_DEVICES')
+ use_cuda = "Cuda" in os.getenv('KOKKOS_DEVICES')
+ use_hip = "HIP" in os.getenv('KOKKOS_DEVICES')
+ use_sycl = "SYCL" in os.getenv('KOKKOS_DEVICES')
+@@ -122,7 +122,7 @@ print()
+ # - Verify that libraries from cmake version works the same as libkokkos.a
+ 
+ OnOff = {True:'ON', False:'OFF'}
+-supported_architectures = ['Native', 'HSW', 'Zen', 'Zen2', 'Zen3', 'Volta70', 'Ampere80', 'Vega908', 'Vega90A', 'XeHP', 'PVC']
++supported_architectures = ['Native', 'HSW', 'Zen', 'Zen2', 'Zen3', 'Turing75', 'Volta70', 'Ampere80', 'Vega908', 'Vega90A', 'XeHP', 'PVC']
+ architectures = {}
+ for arch in supported_architectures:
+   architectures[arch] = OnOff[ arch in os.getenv('KOKKOS_ARCH') ]
+@@ -137,7 +137,7 @@ if cmake_is_available and os.getenv('KOKKOS_HOME') is None:
+     os.mkdir(kokkos_build_dir)
+   # ..............................................................................
+   # Build kokkos with CMake.
+-  # Turn off all ETI builds for now, until needed, for maximum machine compatibility    
++  # Turn off all ETI builds for now, until needed, for maximum machine compatibility
+   returncode = subprocess.call([
+       'cmake',
+       os.environ['KOKKOS_PATH'],
+@@ -150,6 +150,7 @@ if cmake_is_available and os.getenv('KOKKOS_HOME') is None:
+       '-DKokkos_ARCH_ZEN={}'.format(architectures['Zen']),
+       '-DKokkos_ARCH_ZEN2={}'.format(architectures['Zen2']),
+       '-DKokkos_ARCH_ZEN3={}'.format(architectures['Zen3']),
++      '-DKokkos_ARCH_TURING75={}'.format(architectures['Turing75']),
+       '-DKokkos_ARCH_VOLTA70={}'.format(architectures['Volta70']),
+       '-DKokkos_ARCH_AMPERE80={}'.format(architectures['Ampere80']),
+       '-DKokkos_ARCH_VEGA908={}'.format(architectures['Vega908']),
+@@ -196,7 +197,7 @@ else:
+   print('cmake was not found')
+   print('Skipping builds of kokkos and kokkos-kernels')
+   print('*'*79)
+-  
++
+ # =============================================================================
+ 
+ print('Getting environment variables')
+@@ -232,7 +233,7 @@ if use_sycl:
+   kokkos_env.Append(SHLINKFLAGS=kokkos_cxxflags)
+   kokkos_env.Replace(SHLINKFLAGS=[val.replace('c++11','c++17') for val in kokkos_env['SHLINKFLAGS']])
+   #Prefer c++17 for compiler as well otherwise we pass both c++11 and c++17 to compiler
+-  kokkos_env.Replace(CXXFLAGS=[val.replace('c++11','c++17') for val in kokkos_env['CXXFLAGS']])  
++  kokkos_env.Replace(CXXFLAGS=[val.replace('c++11','c++17') for val in kokkos_env['CXXFLAGS']])
+   kokkos_env.Prepend(SHCXXFLAGS=['-DCUDAREAL=double'] + kokkos_cxxflags)
+   #Remove duplicate flags
+   kokkos_env.Replace(CXXFLAGS=[list(OrderedDict.fromkeys(kokkos_env['CXXFLAGS']))])
