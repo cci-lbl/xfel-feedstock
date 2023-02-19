@@ -195,7 +195,6 @@ requirements:
     - numpy                                  # [build_platform != target_platform]
     - gnuconfig  # [unix]
     - cmake # [linux]
-    - git # [linux]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
 {% if target_platform == "linux-64" %}
