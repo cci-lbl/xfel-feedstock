@@ -1,5 +1,16 @@
 {% set version = "2023.2.6" %}
 
+# adapted from https://github.com/conda-forge/nvcc-feedstock
+{% if cuda_compiler_version in (None, "None", True, False) %}
+{% set cuda_major = 0 %}
+{% set cuda_minor = 0 %}
+{% set cuda_major_minor = (0, 0) %}
+{% else %}
+{% set cuda_major = environ.get("cuda_compiler_version", "11.2").split(".")[0]|int %}
+{% set cuda_minor = environ.get("cuda_compiler_version", "11.2").split(".")[1]|int %}
+{% set cuda_major_minor = (cuda_major, cuda_minor) %}
+{% endif %}
+
 package:
   name: cctbx.xfel
   version: {{ version }}
@@ -16,6 +27,14 @@ source:
 
 build:
   number: 1
+{% if (target_platform == "linux-64" and cuda_major_minor >= (11, 2))
+     or target_platform == "osx-64"
+     or target_platform == "osx-arm64"
+     or (target_platform == "win-64" and cuda_major == 0) %}
+  skip: false
+{% else %}
+  skip: true
+{% endif %}
   osx_is_app: True
   preserve_egg_dir: true
   entry_points:
@@ -179,7 +198,9 @@ requirements:
     - git # [linux]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }} # [linux]
+{% if target_platform == "linux-64" %}
+    - {{ compiler('cuda') }}  # [linux]
+{% endif %}
     - {{ cdt('mesa-libgl-devel') }}  # [linux]
     - {{ cdt('mesa-dri-drivers') }}  # [linux]
     - {{ cdt('libselinux') }}  # [linux]
