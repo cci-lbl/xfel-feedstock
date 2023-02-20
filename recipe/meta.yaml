@@ -35,6 +35,8 @@ build:
 {% else %}
   skip: true
 {% endif %}
+  string: cpuh{{ PKG_HASH }}_{{ build_number }}  # [cuda_compiler_version == "None"]
+  string: cuda{{ cuda_compiler_version|string }}h{{ PKG_HASH }}_{{ build_number }}  # [cuda_compiler_version != "None"]
   osx_is_app: True
   preserve_egg_dir: true
   entry_points:
