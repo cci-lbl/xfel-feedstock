@@ -28,10 +28,7 @@ source:
 
 build:
 {% set build_number = 0 %}
-{% if (target_platform == "linux-64" and cuda_major_minor >= (11, 2))
-     or target_platform == "osx-64"
-     or target_platform == "osx-arm64"
-     or (target_platform == "win-64" and cuda_major == 0) %}
+{% if (target_platform == "linux-64" and cuda_major_minor >= (11, 2)) %}
   skip: false
 {% else %}
   skip: true  # [py<39]
