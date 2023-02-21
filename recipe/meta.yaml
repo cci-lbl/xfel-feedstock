@@ -28,15 +28,11 @@ source:
 build:
   number: 1
 {% set build_number = 1 %}
-{% if (target_platform == "linux-64" and cuda_major_minor >= (11, 2))
-     or target_platform == "osx-64"
-     or target_platform == "osx-arm64"
-     or (target_platform == "win-64" and cuda_major == 0) %}
+{% if (target_platform == "linux-64" and cuda_major_minor >= (11, 2)) %}
   skip: false
 {% else %}
   skip: true
 {% endif %}
-  string: cpuh{{ PKG_HASH }}_{{ build_number }}  # [cuda_compiler_version == "None"]
   string: cuda{{ cuda_compiler_version|string }}h{{ PKG_HASH }}_{{ build_number }}  # [cuda_compiler_version != "None"]
   osx_is_app: True
   preserve_egg_dir: true
