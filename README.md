@@ -1,11 +1,11 @@
-About cctbx.xfel
-================
+About cctbx.xfel-feedstock
+==========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/cci-lbl/xfel-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/cctbx/cctbx_project
 
 Package license: BSD-3-Clause-LBNL AND BSD-3-Clause AND BSL-1.0 AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MIT AND LGPL-2.0-or-later WITH WxWindows-exception-3.1
-
-Feedstock license: [BSD-3-Clause](https://github.com/cci-lbl/xfel-feedstock/blob/main/LICENSE.txt)
 
 Summary: The Computational Crystallography Toolbox
 
