@@ -10,7 +10,7 @@ channels:
 azure:
   user_or_org: cctbx-release
   project_name: feedstock-builds
-  store_build_artifacts: true
+  store_build_artifacts: false
 build_platform:
   osx_arm64: osx_64
 test_on_native_only: true
