@@ -1,7 +1,7 @@
-diff --git a/modules/lunus/kokkos/SConscript b/modules/lunus/kokkos/SConscript
+diff --git a/modules/lunus/lunus/kokkos/SConscript b/modules/lunus/lunus/kokkos/SConscript
 index eba23f2..f0c38d1 100644
---- a/modules/lunus/kokkos/SConscript
-+++ b/modules/lunus/kokkos/SConscript
+--- a/modules/lunus/lunus/kokkos/SConscript
++++ b/modules/lunus/lunus/kokkos/SConscript
 @@ -98,7 +98,7 @@ if (env_etc.enable_kokkos):
    kokkos_src.append("lmodeim_kokkos.cpp")
  
