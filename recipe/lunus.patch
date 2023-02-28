@@ -1,0 +1,13 @@
+diff --git a/modules/lunus/kokkos/SConscript b/modules/lunus/kokkos/SConscript
+index eba23f2..f0c38d1 100644
+--- a/modules/lunus/kokkos/SConscript
++++ b/modules/lunus/kokkos/SConscript
+@@ -98,7 +98,7 @@ if (env_etc.enable_kokkos):
+   kokkos_src.append("lmodeim_kokkos.cpp")
+ 
+   lunus_kokkos_env.Prepend(CPPPATH=[env_etc.boost_adaptbx_include,
+-    env_etc.boost_include])
++    env_etc.boost_include, env_etc.libtbx_include])
+ 
+   lunus_kokkos_env.Append(CPPPATH=[os.path.join(env_etc.lunus_include,"c","include")])
+ 
