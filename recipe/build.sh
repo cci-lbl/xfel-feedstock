@@ -37,7 +37,6 @@ for d in kokkos kokkos-kernels; do
   git checkout 3.6.01
   cd ..
 done
-cd ..
 
 # build
 export CCTBX_SKIP_CHEMDATA_CACHE_REBUILD=1
