@@ -26,6 +26,11 @@ rm -fr ./modules/dxtbx/libtbx_refresh.py
 rm -fr ./modules/iota/libtbx_refresh.py
 rm -fr ./modules/xia2/libtbx_refresh.py
 
+# rename files in lunus so that nvcc is used
+for f in lmodeim_kokkos lsort_kokkos; do
+  mv ./modules/lunus/lunus/kokkos/${f}.cpp ./modules/lunus/lunus/kokkos/${f}.cu
+done
+
 # build
 export CCTBX_SKIP_CHEMDATA_CACHE_REBUILD=1
 export KOKKOS_DEVICES="OpenMP;Cuda"
