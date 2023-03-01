@@ -26,18 +26,6 @@ rm -fr ./modules/dxtbx/libtbx_refresh.py
 rm -fr ./modules/iota/libtbx_refresh.py
 rm -fr ./modules/xia2/libtbx_refresh.py
 
-# test version 3.6.01 for kokkos and kokkos-kernels
-rm -fr ./modules/kokkos
-rm -fr ./modules/kokkos-kernels
-cd modules
-git clone https://github.com/kokkos/kokkos.git
-git clone https://github.com/kokkos/kokkos-kernels.git
-for d in kokkos kokkos-kernels; do
-  cd ${d}
-  git checkout 3.6.01
-  cd ..
-done
-
 # build
 export CCTBX_SKIP_CHEMDATA_CACHE_REBUILD=1
 export KOKKOS_DEVICES="OpenMP;Cuda"
