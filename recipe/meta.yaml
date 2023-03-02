@@ -201,6 +201,7 @@ requirements:
     - {{ compiler('cxx') }}
 {% if target_platform == "linux-64" %}
     - {{ compiler('cuda') }}  # [linux]
+    - cudatoolkit ={{ cuda_compiler_version }}
 {% endif %}
     - {{ cdt('mesa-libgl-devel') }}  # [linux]
     - {{ cdt('mesa-dri-drivers') }}  # [linux]
@@ -211,6 +212,9 @@ requirements:
   host:
     - boost
     - boost-cpp
+{% if target_platform == "linux-64" %}
+    - cudatoolkit ={{ cuda_compiler_version }}
+{% endif %}
     - eigen
     - future
     - hdf5
