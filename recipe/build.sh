@@ -35,6 +35,7 @@ export LUNUS_KOKKOS_DEVICES="Cuda"
 ${PYTHON} bootstrap.py build --builder=xfel --use-conda ${PREFIX} --nproc ${CPU_COUNT} \
   --config-flags="--compiler=conda" \
   --config-flags="--enable_kokkos" \
+  --config-flags="--enable_cuda" \
   --config-flags="--use_environment_flags" \
   --config-flags="--enable_openmp_if_possible=True" \
   --config-flags="--no_bin_python" \
