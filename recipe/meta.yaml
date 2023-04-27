@@ -21,7 +21,6 @@ source:
   patches:
     # - cbf.patch
     # - dxtbx.patch
-    - kokkos_SConscript.patch
     - libtbx_osx-arm64.patch  # [build_platform != target_platform]
     - libtbx_SConscript.patch
 
