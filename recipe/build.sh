@@ -79,6 +79,7 @@ cp -a ./modules/lunus/lunus ${SP_DIR}
 # copy version and copyright files
 ${PYTHON} ./modules/cctbx_project/libtbx/version.py --version=${PKG_VERSION}
 cp ./modules/cctbx_project/COPYRIGHT.txt ${EXTRA_CCTBX_DIR}
+cp ./modules/cctbx_project/LICENSE.txt ${EXTRA_CCTBX_DIR}
 cp ./modules/cctbx_project/cctbx_version.txt ${EXTRA_CCTBX_DIR}
 cp ./modules/cctbx_project/cctbx_version.h ${PREFIX}/include/cctbx
 cd ./modules/cctbx_project
