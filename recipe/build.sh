@@ -29,7 +29,7 @@ rm -fr ./modules/xia2/libtbx_refresh.py
 # build
 export CCTBX_SKIP_CHEMDATA_CACHE_REBUILD=1
 export KOKKOS_DEVICES="OpenMP;Cuda"
-export KOKKOS_ARCH=“Volta70”
+export KOKKOS_ARCH=“Ampere80”
 export NVCC_WRAPPER_DEFAULT_COMPILER=${CXX}
 export LUNUS_KOKKOS_DEVICES="Cuda"
 ${PYTHON} bootstrap.py build --builder=xfel --use-conda ${PREFIX} --nproc ${CPU_COUNT} \
