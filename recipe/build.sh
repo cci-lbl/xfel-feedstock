@@ -41,6 +41,7 @@ export KOKKOS_DEVICES="OpenMP;Cuda"
 export KOKKOS_ARCH=“Ampere80”
 export NVCC_WRAPPER_DEFAULT_COMPILER=${CXX}
 export LUNUS_KOKKOS_DEVICES="Cuda"
+export LUNUS_KOKKOS_ARCH="Ampere80"
 ${PYTHON} bootstrap.py build --builder=xfel --use-conda ${PREFIX} --nproc ${CPU_COUNT} \
   --config-flags="--compiler=conda" \
   --config-flags="--enable_kokkos" \
