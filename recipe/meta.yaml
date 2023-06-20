@@ -195,7 +195,6 @@ requirements:
     - msgpack-cxx
     - numpy
     - pip
-    - procrunner
     - pybind11
     - python
     - python.app  # [osx]
@@ -227,7 +226,6 @@ outputs:
         - pandas
         - pillow
         - pint
-        - procrunner
         - psutil
         - pycbf
         - python
