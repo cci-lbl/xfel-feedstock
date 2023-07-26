@@ -28,9 +28,10 @@ source:
 build:
 {% set build_number = 0 %}
 {% if (target_platform == "linux-64" and cuda_major_minor >= (11, 2)) %}
-  skip: false
+  skip: false  # [py>38]
+  skip: true   # [py<39]
 {% else %}
-  skip: true  # [py<39]
+  skip: true
 {% endif %}
   string: cuda{{ cuda_compiler_version|string }}py{{ PY_VER }}h{{ PKG_HASH }}_{{ build_number }}  # [cuda_compiler_version != "None"]
   string: cpupy{{ PY_VER }}h{{ PKG_HASH }}_{{ build_number }}  # [cuda_compiler_version == "None"]
