@@ -21,7 +21,7 @@ cxx_compiler_version:
 hdf5:
 - 1.12.2
 libsvm:
-- '325'
+- '332'
 libtiff:
 - '4.5'
 macos_machine:
