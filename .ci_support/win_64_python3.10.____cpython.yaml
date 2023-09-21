@@ -18,6 +18,8 @@ libsvm:
 - '332'
 libtiff:
 - '4.5'
+msgpack_cxx:
+- '6'
 numpy:
 - '1.22'
 pin_run_as_build:
