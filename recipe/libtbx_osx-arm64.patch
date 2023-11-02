@@ -1,8 +1,8 @@
 diff --git a/modules/cctbx_project/boost_adaptbx/SConscript b/modules/cctbx_project/boost_adaptbx/SConscript
-index e892dc3450..e760cea33e 100644
+index 02670e92ff..234e76e4d1 100644
 --- a/modules/cctbx_project/boost_adaptbx/SConscript
 +++ b/modules/cctbx_project/boost_adaptbx/SConscript
-@@ -726,7 +726,7 @@ main()
+@@ -735,7 +735,7 @@ main()
              + u.replace(" ", "_").upper(), file=f)
        print(file=f)
        print("#endif // GUARD", file=f)
@@ -12,13 +12,13 @@ index e892dc3450..e760cea33e 100644
    if (os.path.isfile(libtbx.env.under_build("lib/libswig_class_example.a"))):
      # this example requires these manual steps:
 diff --git a/modules/cctbx_project/libtbx/SConscript b/modules/cctbx_project/libtbx/SConscript
-index 9f06586b74..95048aa525 100644
+index 2764d43440..d117599281 100644
 --- a/modules/cctbx_project/libtbx/SConscript
 +++ b/modules/cctbx_project/libtbx/SConscript
-@@ -1149,7 +1149,8 @@ if env_etc.cxx11_is_available:
-   test_code += "{i=7; std::cout << i << std::endl;}\n"
-   test_code += " x = func(std::vector<int>(2)); return 0;}\n"
-   conf = env_base.Configure()
+@@ -1197,7 +1197,8 @@ if env_etc.cxx11_is_available:
+     conf = test_env.Configure()
+   else:
+     conf = env_base.Configure()
 -  flag, output = conf.TryRun(test_code, extension='.cpp')
 +  # flag, output = conf.TryRun(test_code, extension='.cpp')
 +  flag = True
@@ -26,7 +26,7 @@ index 9f06586b74..95048aa525 100644
    if not flag:
      env_etc.cxx11_is_available = False
 diff --git a/modules/cctbx_project/libtbx/auto_build/bootstrap.py b/modules/cctbx_project/libtbx/auto_build/bootstrap.py
-index 2eaa3ebeab..81f4cfccff 100644
+index b8f3c2578d..eed122d45f 100644
 --- a/modules/cctbx_project/libtbx/auto_build/bootstrap.py
 +++ b/modules/cctbx_project/libtbx/auto_build/bootstrap.py
 @@ -1864,7 +1864,7 @@ environment exists in or is defined by {conda_env}.
@@ -52,10 +52,10 @@ index 2eaa3ebeab..81f4cfccff 100644
    def add_make(self):
      self.add_command('libtbx.scons', args=['-j',
 diff --git a/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py b/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
-index a3b8594c36..09a2b48197 100644
+index e3467f9d5d..75b5edc103 100644
 --- a/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
 +++ b/modules/cctbx_project/libtbx/auto_build/conda_build/update_libtbx_env.py
-@@ -124,7 +124,7 @@ def update_libtbx_env(default_dir=None):
+@@ -127,7 +127,7 @@ def update_libtbx_env(default_dir=None):
    for path in sys.path:
      if path.endswith('site-packages'):
        site_packages_path = env.as_relocatable_path(path)
