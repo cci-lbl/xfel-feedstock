@@ -1,12 +1,3 @@
-github:
-  user_or_org: cci-lbl
-  repo_name: xfel-feedstock
-  branch_name: main
-  tooling_branch_name: main
-channels:
-  targets:
-    - [xfel, main]
-
 azure:
   user_or_org: cctbx-release
   project_name: feedstock-builds
@@ -14,5 +5,10 @@ azure:
   free_disk_space: true
 build_platform:
   osx_arm64: osx_64
+github:
+  user_or_org: cci-lbl
+  repo_name: xfel-feedstock
+  branch_name: main
+  tooling_branch_name: main
 test_on_native_only: true
 test: native
