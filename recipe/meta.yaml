@@ -186,11 +186,11 @@ requirements:
     - {{ cdt('libxxf86vm') }}  # [linux]
     - {{ cdt('libxext') }}     # [linux]
   host:
-    - boost
-    - boost-cpp
     - eigen
     - future
     - hdf5
+    - libboost-python-devel
+    - libboost-devel
     - libglu  # [linux]
     - libtiff
     - msgpack-cxx
@@ -211,8 +211,6 @@ outputs:
     requirements:
       run:
         - biopython
-        - {{ pin_compatible('boost') }}
-        - boost-cpp
         - future
         - h5py
         - {{ pin_compatible('hdf5') }}
