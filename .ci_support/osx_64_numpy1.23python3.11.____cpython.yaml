@@ -23,7 +23,7 @@ libboost_python_devel:
 libsvm:
 - '332'
 libtiff:
-- '4.5'
+- '4.6'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 msgpack_cxx:
