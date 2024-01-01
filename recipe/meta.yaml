@@ -223,7 +223,7 @@ outputs:
         - {{ pin_compatible('numpy') }}
         - orderedset
         - pandas
-        - pillow
+        - pillow =10
         - pint
         - psutil
         - pycbf
