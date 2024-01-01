@@ -192,7 +192,7 @@ requirements:
     - libboost-python-devel
     - libboost-devel
     - libglu  # [linux]
-    - libtiff
+    - libtiff =4.5
     - msgpack-cxx
     - numpy
     - pip
@@ -223,7 +223,7 @@ outputs:
         - {{ pin_compatible('numpy') }}
         - orderedset
         - pandas
-        - pillow =10
+        - pillow
         - pint
         - psutil
         - pycbf
