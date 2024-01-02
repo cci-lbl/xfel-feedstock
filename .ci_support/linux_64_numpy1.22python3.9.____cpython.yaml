@@ -24,8 +24,6 @@ libboost_python_devel:
 - '1.82'
 libsvm:
 - '332'
-libtiff:
-- '4.6'
 msgpack_cxx:
 - '6'
 numpy:

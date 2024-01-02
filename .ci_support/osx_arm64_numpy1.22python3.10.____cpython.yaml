@@ -22,8 +22,6 @@ libboost_python_devel:
 - '1.82'
 libsvm:
 - '332'
-libtiff:
-- '4.6'
 macos_machine:
 - arm64-apple-darwin20.0.0
 msgpack_cxx:
