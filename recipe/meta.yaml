@@ -220,6 +220,7 @@ outputs:
         - matplotlib-base
         - mrcfile
         - msgpack-python
+        - natsort
         - {{ pin_compatible('numpy') }}
         - orderedset
         - pandas
