@@ -192,7 +192,6 @@ requirements:
     - libboost-python-devel
     - libboost-devel
     - libglu  # [linux]
-    - libtiff =4.5
     - msgpack-cxx
     - numpy
     - pip
