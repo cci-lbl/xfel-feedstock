@@ -19,9 +19,9 @@ cxx_compiler_version:
 hdf5:
 - 1.14.3
 libboost_devel:
-- '1.82'
+- '1.84'
 libboost_python_devel:
-- '1.82'
+- '1.84'
 libsvm:
 - '332'
 macos_machine:
