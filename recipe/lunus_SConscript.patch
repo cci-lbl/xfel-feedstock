@@ -1,0 +1,25 @@
+diff --git a/modules/lunus/SConscript b/modules/lunus/SConscript
+index ce3a605..df8d1a4 100644
+--- a/modules/lunus/SConscript
++++ b/modules/lunus/SConscript
+@@ -75,7 +75,7 @@ else:
+   else:
+     lunus_program_libs = ['lunus','m']
+ 
+-if 'Cuda' in os.getenv('LUNUS_KOKKOS_DEVICES'):
++if 'Cuda' in os.getenv('LUNUS_KOKKOS_DEVICES', []):
+   lunus_program_libs.extend(["dl","cudart"])
+   env_lunus.Append(LIBPATH=[os.path.join(os.environ['CUDA_HOME'], 'lib64')])
+   env_lunus.Append(LIBPATH=[os.path.join(os.environ['CUDA_HOME'], 'compat')])
+@@ -102,10 +102,9 @@ if (not env_etc.no_boost_python):
+   env_lunus.SConscript("lunus/SConscript",exports={ 'env' : env_lunus })
+ 
+ #  lunus_program_libs += env_lunus['LIBS']
+-  
++
+ glob_str = os.path.join(env_etc.lunus_dist,"c","src","*.c")
+ srcfile_list = glob.glob(glob_str)
+ env_lunus.Append(CFLAGS=["-std=c99"])
+ for f in [os.path.join(correct_prefix,"c","src",os.path.basename(srcfile)) for srcfile in srcfile_list]:
+     env_lunus.Program('#bin/{}'.format("lunus."+os.path.basename(f).split('.')[0]),f,LIBS=lunus_program_libs,RPATH=env_lunus['LIBPATH'],CPPPATH=[CPPP])
+-
