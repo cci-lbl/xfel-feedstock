@@ -36,6 +36,9 @@ rm -fr ./modules/iota/libtbx_refresh.py
 rm -fr ./modules/xia2/libtbx_refresh.py
 
 # build
+if [[ "$CUDA_VERSION" != "11"* ]]; then
+  export CUDA_HOME=${PREFIX}
+fi
 export CCTBX_SKIP_CHEMDATA_CACHE_REBUILD=1
 export KOKKOS_DEVICES="OpenMP;Cuda"
 export KOKKOS_ARCH=“Ampere80”
