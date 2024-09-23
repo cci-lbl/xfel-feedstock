@@ -23,7 +23,7 @@ libboost_devel:
 libboost_python_devel:
 - '1.84'
 libsvm:
-- '332'
+- '335'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 msgpack_cxx:
@@ -31,8 +31,6 @@ msgpack_cxx:
 numpy:
 - '1.22'
 pin_run_as_build:
-  libsvm:
-    max_pin: x
   python:
     min_pin: x.x
     max_pin: x.x
