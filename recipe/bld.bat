@@ -1,3 +1,7 @@
+REM clean up sources
+call futurize -f libfuturize.fixes.fix_print_with_import -wn .\modules\cbflib
+call futurize -f lib2to3.fixes.fix_except -wn .\modules\cbflib
+
 REM copy bootstrap.py
 copy modules\cctbx_project\libtbx\auto_build\bootstrap.py .
 if %errorlevel% neq 0 exit /b %errorlevel%
