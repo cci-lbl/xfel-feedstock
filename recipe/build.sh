@@ -7,6 +7,9 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/cbflib/libtool
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/cbflib
 
 # clean up sources
+rm -fr ./modules/cbflib/pycbf2
+rm -f ./modules/cbflib/pycbf/pycbf_test1.py
+rm -f ./modules/cbflib/pycbf/pycbf_test4.py
 if [[ "$CC" != *"arm64"* ]]; then
   futurize -f libfuturize.fixes.fix_print_with_import -wn ./modules/cbflib
   futurize -f lib2to3.fixes.fix_except -wn ./modules/cbflib

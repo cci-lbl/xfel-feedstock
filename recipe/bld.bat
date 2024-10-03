@@ -1,4 +1,7 @@
 REM clean up sources
+rmdir /S /Q .\modules\cbflib\pycbf2
+del /S /Q .\modules\cbflib\pycbf\pycbf_test1.py
+del /S /Q .\modules\cbflib\pycbf\pycbf_test4.py
 call futurize -f libfuturize.fixes.fix_print_with_import -wn .\modules\cbflib
 call futurize -f lib2to3.fixes.fix_except -wn .\modules\cbflib
 
