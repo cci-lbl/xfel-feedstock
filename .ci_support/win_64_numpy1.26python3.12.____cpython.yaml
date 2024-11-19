@@ -17,7 +17,7 @@ libboost_python_devel:
 libsvm:
 - '335'
 msgpack_cxx:
-- '6'
+- '7'
 numpy:
 - '1.26'
 pin_run_as_build:
