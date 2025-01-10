@@ -174,7 +174,7 @@ build:
 
 requirements:
   build:
-    - python >=3.10                          # [build_platform != target_platform]
+    - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
     - gnuconfig  # [unix]
@@ -198,7 +198,7 @@ requirements:
     - numpy
     - pip
     - pybind11
-    - python >=3.10
+    - python
     - python.app  # [osx]
     - scons
     - setuptools
