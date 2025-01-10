@@ -16,7 +16,7 @@ source:
 
 build:
 {% set build_number = 0 %}
-  skip: true  # [py<39]
+  skip: true  # [py<310]
   string: cuda{{ cuda_compiler_version|string }}py{{ PY_VER }}h{{ PKG_HASH }}_{{ build_number }}  # [cuda_compiler_version != "None"]
   string: cpupy{{ PY_VER }}h{{ PKG_HASH }}_{{ build_number }}  # [cuda_compiler_version == "None"]
   osx_is_app: True
