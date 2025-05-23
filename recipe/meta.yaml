@@ -190,6 +190,7 @@ requirements:
   host:
     - eigen
     - future
+    - hatchling
     - hdf5
     - libboost-python-devel
     - libboost-devel
