@@ -1,21 +1,23 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '13'
+- '11'
 cdt_name:
 - conda
 channel_sources:
 - conda-forge
 channel_targets:
 - xfel main
+cuda_compiler:
+- nvcc
 cuda_compiler_version:
-- None
+- '11.8'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '13'
+- '11'
 docker_image:
-- quay.io/condaforge/linux-anvil-x86_64:alma9
+- quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
 hdf5:
 - 1.14.3
 libboost_devel:
@@ -39,3 +41,6 @@ target_platform:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+  - cuda_compiler
+  - cuda_compiler_version
+  - docker_image

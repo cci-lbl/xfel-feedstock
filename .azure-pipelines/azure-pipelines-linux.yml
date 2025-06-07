@@ -8,16 +8,26 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_python3.11.____cpython:
-        CONFIG: linux_64_python3.11.____cpython
+      linux_64_c_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11python3.11.____cpython:
+        CONFIG: linux_64_c_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
+        SHORT_CONFIG: linux_64_c_compiler_version11cuda_c_h92f0a476d9
+      linux_64_c_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11python3.12.____cpython:
+        CONFIG: linux_64_c_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
+        SHORT_CONFIG: linux_64_c_compiler_version11cuda_c_h58c8c5aa26
+      linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13python3.11.____cpython:
+        CONFIG: linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-        SHORT_CONFIG: linux_64_python3.11.____cpython
-      linux_64_python3.12.____cpython:
-        CONFIG: linux_64_python3.12.____cpython
+        SHORT_CONFIG: linux_64_c_compiler_version13cuda_c_h4845835b7d
+      linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13python3.12.____cpython:
+        CONFIG: linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-        SHORT_CONFIG: linux_64_python3.12.____cpython
+        SHORT_CONFIG: linux_64_c_compiler_version13cuda_c_h2546c6389c
   timeoutInMinutes: 360
   variables: {}
 
