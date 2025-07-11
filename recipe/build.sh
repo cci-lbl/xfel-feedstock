@@ -1,6 +1,8 @@
 #!/bin/bash
 set -xe
 
+CFLAGS="${CFLAGS} -Wno-implicit-function-declaration -Wno-incompatible-pointer-types"
+
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/ccp4io/libccp4/build-aux
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./modules/cbflib/libtool
