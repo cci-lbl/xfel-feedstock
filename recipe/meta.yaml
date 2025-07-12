@@ -229,7 +229,7 @@ outputs:
         - msgpack-python
         - natsort
         - {{ pin_compatible('numpy') }}
-        - orderedset
+        - ordered-set
         - pandas
         - pillow
         - pint
