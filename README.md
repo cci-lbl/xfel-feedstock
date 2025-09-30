@@ -200,7 +200,7 @@ merged, the recipe will be re-built and uploaded automatically to the
 everybody to install and use from the `xfel` channel.
 Note that all branches in the cci-lbl/cctbx.xfel-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
-on branches in forks and branches in the main repository should only be used to
+on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
 
 In order to produce a uniquely identifiable distribution:
